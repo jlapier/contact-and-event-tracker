@@ -1,0 +1,22 @@
+Contact Tracker
+
+Used for tracking people's contact information and which events, trainings, whatever they have attended or participated in.
+
+
+User
+- login, etc
+
+
+Contact
+- phone, address, etc
+
+
+Event
+- event_type (conference, meeting, training, etc)
+- where, date, etc
+
+
+Attendance
+- contact
+- event
+- role (attendee, participant, presenter, volunteer, etc)
