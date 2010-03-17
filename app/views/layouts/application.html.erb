@@ -28,7 +28,17 @@
     <%= yield :javascript %>
   </head>
   <body>
-    <%= yeild %>
+    <div id="user_box">
+      <% if logged_in? -%>
+        <strong>Welcome, <%= current_user.name %>!</strong> <br/>
+        [<%= link_to 'log out', user_session_path, :method => :delete %>]
+      <% else %>
+        login
+      <% end %>
+    </div>
+    <div class="base_content">
+      <%= yield %>
+    </div>
   </body>
 </html>
 
