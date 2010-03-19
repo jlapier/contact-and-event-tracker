@@ -1,0 +1,13 @@
+<% if logged_in? -%>
+  <% if current_user.contact.first_name.blank? %>
+    <strong>Welcome, stranger!</strong> &nbsp;
+    [<%= link_to "enter your contact information", edit_contact_path(current_user.contact) %>]
+  <% else %>
+    <strong>Welcome, <%= current_user.contact.first_name %>!</strong>  &nbsp;
+    [<%= link_to "your contact information", current_user.contact %>]
+  <% end %>
+    &nbsp;
+  [<%= link_to 'log out', user_session_path, :method => :delete %>]
+<% else %>
+  login
+<% end %>

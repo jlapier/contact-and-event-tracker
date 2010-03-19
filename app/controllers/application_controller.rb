@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   filter_parameter_logging :password, :password_confirmation
-  helper_method :current_user_session, :current_user, :logged_in?
+  helper_method :current_user_session, :current_user, :logged_in?, :is_admin?
 
   private
     def current_user_session
@@ -23,10 +23,23 @@ class ApplicationController < ActionController::Base
       !!current_user
     end
 
+    def is_admin?
+      logged_in? and current_user.is_admin?
+    end
+
     def require_user
       unless current_user
         store_location
         flash[:notice] = "You must be logged in to access this page."
+        redirect_to new_user_session_path
+        return false
+      end
+    end
+
+    def require_admin_user
+      unless is_admin?
+        store_location
+        flash[:notice] = "You must be an admin to access this page."
         redirect_to new_user_session_path
         return false
       end

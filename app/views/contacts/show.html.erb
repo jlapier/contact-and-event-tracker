@@ -1,0 +1,49 @@
+<h1><%= link_to "Contacts", contacts_path  %></h1>
+
+<h2><%= @contact.name %></h2>
+
+<ul class="contact_attributes">
+  <% Contact.string_attributes.each do |att| -%>
+    <% unless @contact[att].blank? -%>
+      <li>
+        <strong><%= att.to_s.humanize %>:</strong>
+        <%= @contact[att] %>
+      </li>
+    <% end -%>
+  <% end -%>
+
+  <% Contact.link_attributes.each do |att| -%>
+    <% unless @contact[att].blank? -%>
+      <li>
+        <strong><%= att.to_s.humanize %>:</strong>
+        <% if @contact[att] =~ /@/ -%>
+          <%= mail_to @contact[att], @contact[att], :encode => "javascript" %>
+        <% else -%>
+          <%= link_to @contact[att].urlify, @contact[att].urlify, :target => "_blank" %>
+        <% end -%>
+      </li>
+    <% end -%>
+  <% end -%>
+
+  <% Contact.text_attributes.each do |att| -%>
+    <% unless @contact[att].blank? -%>
+      <li style="clear:both;">
+        <strong style="float:left"><%= att.to_s.humanize %>:</strong>
+        <div style="float:left"><%= textilize_without_paragraph @contact[att] %></div>
+      </li>
+    <% end -%>
+  <% end -%>
+
+  <% Contact.datetime_attributes.each do |att| -%>
+    <% unless @contact[att].blank? -%>
+      <li>
+        <strong><%= att.to_s.gsub(/(_at|_on)/, "").humanize %>:</strong>
+        <%= @contact[att].strftime("%m/%d/%Y") %>
+      </li>
+    <% end -%>
+  <% end -%>
+</ul>
+
+<% if is_admin? or (current_user and @contact.user and current_user == @contact.user) %>
+<p>[<%= link_to "edit this contact", edit_contact_path(@contact) %>]</p>
+<% end %>

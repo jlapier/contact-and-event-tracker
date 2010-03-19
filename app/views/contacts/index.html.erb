@@ -1,0 +1,42 @@
+<h1>Contacts</h1>
+
+<table class="nice_table tablesorter">
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Agency; Division</th>
+      <th>State</th>
+      <th>Email</th>
+      <th>Grps</th>
+      <th colspan="3" style="border: 1px #CCF dashed; text-align:center">Manage</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% for contact in @contacts %>
+    <tr>
+      <td><%= link_to contact.name, contact %></td>
+      <td><%= contact.agency_and_division %></td>
+      <td><%= contact.state %></td>
+      <td><%= contact.email %></td>
+      <td></td>
+      <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+      <td><%= link_to 'Delete', contact_path(contact), :confirm => 'Are you sure you want to permanently delete this contact?',
+                  :method => "delete" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate %>
+
+<% if is_admin? %>
+<p>[<%= link_to "create new contact", new_contact_path %>]</p>
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function()
+  {
+    $(".nice_table").tablesorter( { widgets: ['zebra'], headers: { 3:{sorter: false}, 4:{sorter: false}} });
+  }
+);
+</script>

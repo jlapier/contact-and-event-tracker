@@ -18,6 +18,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :current_login_ip                                   # optional, see Authlogic::Session::MagicColumns
       t.string    :last_login_ip                                      # optional, see Authlogic::Session::MagicColumns
 
+      t.boolean   :is_admin
+
       t.timestamps
     end
   end

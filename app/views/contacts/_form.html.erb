@@ -1,0 +1,48 @@
+
+<div style="width: 850px;">
+<% semantic_form_for @contact do |form| %>
+  <% form.inputs do %>
+    <%= form.input :first_name, :required => false, :label => 'First name' %>
+    <%= form.input :last_name, :required => false, :label => 'Last name' %>
+    <%= form.input :title, :required => false, :label => 'Title' %>
+    <%= form.input :division, :required => false, :label => 'Division' %>
+    <%= form.input :agency, :required => false, :label => 'Agency' %>
+    <%= form.input :city, :required => false, :label => 'City' %>
+    <%= form.input :state, :required => false, :label => 'State' %>
+    <%= form.input :zip, :required => false, :label => 'Zip' %>
+    <%= form.input :agency_phone, :required => false, :label => 'Agency phone' %>
+    <%= form.input :direct_phone, :required => false, :label => 'Direct phone' %>
+    <%= form.input :alternate_phone, :required => false, :label => 'Alternate phone' %>
+    <%= form.input :fax_phone, :required => false, :label => 'Fax phone' %>
+    <%= form.input :email, :required => false, :label => 'E-mail' %>
+    <%= form.input :website, :required => false, :label => 'Website' %>
+    <%= form.input :street_address, :required => false, :label => 'Street address' %>
+    <%= form.input :comments, :required => false, :label => 'Comments' %>
+    <%= form.input :descriptors, :required => false, :label => 'Descriptors' %>
+    <%= form.input :home_address, :required => false, :label => 'Home address' %>
+  <% end %>
+  
+  <%= form.buttons %>
+<% end %>
+
+</div>
+
+<div style="display:none" id="existing_states">
+  <ul>
+    <%= Contact.existing_states.map { |st| "<li>#{st}</li>" } %>
+  </ul>
+</div>
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#contact_state').attach(SelectPopper, <%= Contact.existing_states.to_json %>);
+    $('#contact_agency').attach(SelectPopper, <%= Contact.existing_agencies.to_json %>);
+    $('#contact_division').attach(SelectPopper, <%= Contact.existing_divisions.to_json %>);
+
+    $('form.formtastic fieldset ol li.text textarea').attach(TextareaExpander, 40, 300);
+  });
+</script>
+
+<% end %>

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  belongs_to :contact
+  after_create :create_contact
+
   acts_as_authentic do |c|
     c.validate_email_field = false
     c.openid_optional_fields = [:fullname, :email, "http://axschema.org/contant/email"]
@@ -14,5 +17,10 @@ class User < ActiveRecord::Base
   def map_openid_registration(sreg)
     self.email = sreg["email"] if email.blank?
     self.name  = sreg["fullname"] if name.blank?
+  end
+
+  private
+  def create_contact
+    Contact.create! :user => self
   end
 end

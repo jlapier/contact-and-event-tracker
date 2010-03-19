@@ -1,4 +1,10 @@
-h1 { text-shadow: 1px 1px 4px #999; }
+body { font-size: 13px; }
+
+h1 { font-size: 2.0em; text-shadow: 1px 1px 4px #999; }
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.6em; }
+h4 { font-size: 1.4em; }
+h5 { font-size: 1.2em; }
 
 h1 img, h2 img { vertical-align:middle; }
 
@@ -27,3 +33,11 @@ input#user_openid_identifier, input#user_session_openid_identifier {
     color: #000;
     padding-left: 18px;
 }
+
+ul.contact_attributes { list-style-type: none; }
+ul.contact_attributes li { clear:both; }
+ul.contact_attributes li strong { padding-right: 5px; }
+ul.contact_attributes div { padding: 0 5px }
+
+
+div.select_popper_box ul li:hover { background: #EEE; }
