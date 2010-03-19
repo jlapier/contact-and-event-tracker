@@ -33,5 +33,6 @@ class CreateContacts < ActiveRecord::Migration
 
   def self.down
     drop_table :contacts
+    remove_column :users, :contact_id
   end
 end

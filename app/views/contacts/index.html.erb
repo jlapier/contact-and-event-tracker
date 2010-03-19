@@ -8,7 +8,9 @@
       <th>State</th>
       <th>Email</th>
       <th>Grps</th>
-      <th colspan="3" style="border: 1px #CCF dashed; text-align:center">Manage</th>
+      <% if is_admin? %>
+        <th colspan="2" style="border: 1px #CCF dashed; text-align:center">Manage</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -19,9 +21,12 @@
       <td><%= contact.state %></td>
       <td><%= contact.email %></td>
       <td></td>
-      <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-      <td><%= link_to 'Delete', contact_path(contact), :confirm => 'Are you sure you want to permanently delete this contact?',
-                  :method => "delete" %></td>
+      <% if is_admin? %>
+        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+        <td><%= link_to 'Delete', contact_path(contact),
+                    :confirm => 'Are you sure you want to permanently delete this contact?',
+                    :method => "delete" %></td>
+      <% end %>
     </tr>
   <% end %>
   </tbody>
@@ -36,7 +41,7 @@
 <script type="text/javascript">
 $(document).ready(function()
   {
-    $(".nice_table").tablesorter( { widgets: ['zebra'], headers: { 3:{sorter: false}, 4:{sorter: false}} });
+    $(".nice_table").tablesorter( { widgets: ['zebra'], headers: { 3:{sorter: false}, 4:{sorter: false}, 5:{sorter: false}} });
   }
 );
 </script>

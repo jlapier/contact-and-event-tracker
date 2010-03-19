@@ -1,0 +1,35 @@
+<h1>Contact Group: <%= @contact_group.name %></h1>
+
+<% if @contact_group.contacts.empty? %>
+  <p><em>No contacts are in this group</em></p>
+<% else %>
+  <% form_tag drop_contact_contact_group_path(@contact_group) do %>
+    <table class="nice_table">
+      <tr>
+        <th>Login (Full Name)</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+      </tr>
+
+    <% @contact_group.contacts.each do |contact|  %>
+      <tr>
+        <td><%= link_to contact.name, edit_contact_path(contact) %> (<%= contact.fullname %>)</td>
+        <td><%= contact.email %></td>
+        <td><%= link_to "drop from group", drop_contact_contact_group_path(@contact_group, :contact_id => 1), :method => :post %></td>
+        <td><%= check_box_tag "contact_ids[]", contact.id %></td>
+      </tr>
+    <% end %>
+    </table>
+    <p style="text-align:right">
+      <%= submit_tag "drop selected contacts from this group" %>
+    </p>
+  <% end %>
+<% end %>
+  
+<p><%= link_to 'add contacts to this group', add_members_contact_group_path(@contact_group) %></p>
+
+<p class="admin_links">
+  <%= link_to 'edit group name/access', edit_contact_group_path(@contact_group) %> |
+  <%= link_to 'list of contact groups', contact_groups_path %>
+</p>

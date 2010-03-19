@@ -5,3 +5,9 @@
 #   
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
+
+
+CSV.open('pac-emails.csv', 'r') do |row|
+  Contact.create :first_name => row[1], :last_name => row[2], :email => row[3]
+end
+

@@ -1,0 +1,30 @@
+<h1>Contact groups</h1>
+
+<% if @contact_groups.empty? %>
+  <p><em>No contact groups created yet</em></p>
+<% else %>
+  <table class="nice_table">
+    <tr>
+      <th>Group name</th>
+      <th></th>
+    </tr>
+
+  <% @contact_groups.each do |contact_group| %>
+    <tr>
+      <td><%= contact_group.name %></td>
+      <td style="text-align:right">
+        <%= link_to 'list members', contact_group %> &nbsp;
+        <%= link_to 'edit group name', edit_contact_group_path(contact_group) %> &nbsp;
+        <%= link_to 'delete', contact_group, :confirm => "Are you sure you want to delete the group called #{contact_group.name}?", :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
+
+<br />
+
+<p class="admin_links">
+  <%= link_to 'create a new contact group', new_contact_group_path %> |
+  <%= link_to 'full list of contacts', contacts_path %>
+</p>

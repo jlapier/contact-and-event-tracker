@@ -1,5 +1,6 @@
 class Contact < ActiveRecord::Base
   has_one :user
+  has_and_belongs_to_many :contact_groups
 
   class << self
     def existing_states
@@ -35,6 +36,10 @@ class Contact < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def fullname
+    name
   end
 
   def agency_and_division(separator = "; ")
