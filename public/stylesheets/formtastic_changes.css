@@ -19,3 +19,4 @@ form.formtastic fieldset ol li label { width: 30%; }
 form.formtastic fieldset ol li.string input { width: 69%; }
 form.formtastic fieldset ol li.string input { width: 69%; }
 form.formtastic fieldset ol li.text textarea { width: 69%; height: 70px; }
+form.formtastic fieldset ol li.check_boxes fieldset ol li label { font-weight: normal; padding-left: 40px; }

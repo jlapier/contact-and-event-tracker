@@ -14,9 +14,13 @@
 
     <% @contact_group.contacts.each do |contact|  %>
       <tr>
-        <td><%= link_to contact.name, edit_contact_path(contact) %> (<%= contact.fullname %>)</td>
+        <td><%= link_to contact.name, contact %></td>
         <td><%= contact.email %></td>
-        <td><%= link_to "drop from group", drop_contact_contact_group_path(@contact_group, :contact_id => 1), :method => :post %></td>
+        <td>
+          <%= link_to "drop from group",
+                drop_contact_contact_group_path(@contact_group, :contact_id => contact.id),
+                :method => :post %>
+        </td>
         <td><%= check_box_tag "contact_ids[]", contact.id %></td>
       </tr>
     <% end %>

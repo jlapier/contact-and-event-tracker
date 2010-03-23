@@ -42,6 +42,10 @@
       </li>
     <% end -%>
   <% end -%>
+
+  <% unless @contact.contact_groups.empty? %>
+      <li><strong>Groups:</strong> <%= @contact.contact_groups.map(&:name).join(', ') %></li>
+  <% end %>
 </ul>
 
 <% if is_admin? or (current_user and @contact.user and current_user == @contact.user) %>

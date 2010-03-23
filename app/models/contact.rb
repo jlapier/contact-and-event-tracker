@@ -1,6 +1,6 @@
 class Contact < ActiveRecord::Base
   has_one :user
-  has_and_belongs_to_many :contact_groups
+  has_and_belongs_to_many :contact_groups, :order => 'name'
 
   class << self
     def existing_states

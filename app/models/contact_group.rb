@@ -1,5 +1,5 @@
 class ContactGroup < ActiveRecord::Base
-  has_and_belongs_to_many :contacts
+  has_and_belongs_to_many :contacts, :order => ["last_name, first_name"]
 
   def drop_contacts(drop_contact_ids)
     drop_contact_ids = [*drop_contact_ids].compact.map(&:to_i)
