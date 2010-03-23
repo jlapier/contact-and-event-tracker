@@ -11,13 +11,8 @@
     <!--[if lt IE 8]>
       <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
     <![endif]-->
-    <%= stylesheet_link_tag 'error_messages' %>
-    <%= stylesheet_link_tag 'text_and_colors' %>
-    <%= stylesheet_link_tag 'application' %>
     <link rel="stylesheet" href="/tablesorter/blue/style.css" type="text/css" media="screen"/>
     <link type="text/css" href="/stylesheets/smoothness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
-    <%= stylesheet_link_tag "formtastic" %>
-    <%= stylesheet_link_tag "formtastic_changes" %>
     
     <% if RAILS_ENV == "production" %>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
@@ -27,12 +22,20 @@
     <%= javascript_include_tag 'jquery.tablesorter.min', 'jquery-ui-1.7.2.custom.min', 'jquery.string.1.0-min', 'jquery.clonePosition',
           'lowpro.jquery', 'behaviors', 'application' %>
 
+    <%= stylesheet_link_tag "formtastic" %>
+    <%= stylesheet_link_tag "formtastic_changes" %>
+
+    <%= stylesheet_link_tag 'error_messages' %>
+    <%= stylesheet_link_tag 'text_and_colors' %>
+    <%= stylesheet_link_tag 'application' %>
+
     <%= yield :javascript %>
   </head>
   <body>
     <div id="main_menu">
       <ul>
         <li><%= link_to "Contacts", contacts_path %></li>
+        <li><%= link_to "Groups", contact_groups_path %></li>
       </ul>
     </div>
     

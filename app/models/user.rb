@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :contact
+  before_create :make_admin_if_first_user
   after_create :create_contact
 
   acts_as_authentic do |c|
@@ -22,5 +23,9 @@ class User < ActiveRecord::Base
   private
   def create_contact
     Contact.create! :user => self
+  end
+  
+  def make_admin_if_first_user
+    self.is_admin = true if User.count == 0
   end
 end

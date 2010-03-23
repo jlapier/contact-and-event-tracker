@@ -46,7 +46,7 @@ class ContactGroupsController < ApplicationController
 
     respond_to do |format|
       if @contact_group.save
-        flash[:notice] = "User group <em>#{@contact_group.name}</em> created."
+        flash[:notice] = "Contact group <em>#{@contact_group.name}</em> created."
         format.html { redirect_to(@contact_group) }
         format.xml  { render :xml => @contact_group, :status => :created, :location => @contact_group }
       else
@@ -63,7 +63,7 @@ class ContactGroupsController < ApplicationController
 
     respond_to do |format|
       if @contact_group.update_attributes(params[:contact_group])
-        flash[:notice] = "User group <em>#{@contact_group.name}</em> updated."
+        flash[:notice] = "Contact group <em>#{@contact_group.name}</em> updated."
         format.html { redirect_to(@contact_group) }
         format.xml  { head :ok }
       else
@@ -88,7 +88,7 @@ class ContactGroupsController < ApplicationController
   def drop_contact
     @contact_group = ContactGroup.find(params[:id])
     if @contact_group.drop_contacts(params[:contact_ids] || params[:contact_id])
-      flash[:notice] = "User(s) dropped from #{@contact_group.name}."
+      flash[:notice] = "Contact(s) dropped from #{@contact_group.name}."
     else
       flash[:warning] = "Failed to drop contact(s) from #{@contact_group.name}. (#{@contact_group.errors.full_messages.join('; ')}"
     end
@@ -97,14 +97,14 @@ class ContactGroupsController < ApplicationController
 
   def add_members
     @contact_group = ContactGroup.find(params[:id])
-    @contacts_not_in_group = User.find(:all) - @contact_group.contacts
+    @contacts_not_in_group = Contact.find(:all) - @contact_group.contacts
   end
 
   def add_contacts
     @contact_group = ContactGroup.find(params[:id])
-    @contact_group.contacts += User.find(params[:contact_ids])
+    @contact_group.contacts += Contact.find(params[:contact_ids])
     if @contact_group.save
-      flash[:notice] = "User(s) added to #{@contact_group.name}."
+      flash[:notice] = "Contacts(s) added to #{@contact_group.name}."
     else
       flash[:warning] = "Failed to add contact(s) to #{@contact_group.name}. (#{@contact_group.errors.full_messages.join('; ')}"
     end

@@ -6,7 +6,7 @@
   <% form_tag drop_contact_contact_group_path(@contact_group) do %>
     <table class="nice_table">
       <tr>
-        <th>Login (Full Name)</th>
+        <th>Full Name</th>
         <th>Email</th>
         <th></th>
         <th></th>
@@ -20,16 +20,18 @@
         <td><%= check_box_tag "contact_ids[]", contact.id %></td>
       </tr>
     <% end %>
+      <tr>
+        <td colspan="4" style="text-align:right">
+          <%= submit_tag "drop selected contacts from this group" %>
+        </td>
+      </tr>
     </table>
-    <p style="text-align:right">
-      <%= submit_tag "drop selected contacts from this group" %>
-    </p>
   <% end %>
 <% end %>
   
 <p><%= link_to 'add contacts to this group', add_members_contact_group_path(@contact_group) %></p>
 
 <p class="admin_links">
-  <%= link_to 'edit group name/access', edit_contact_group_path(@contact_group) %> |
+  <%= link_to 'edit group name', edit_contact_group_path(@contact_group) %> |
   <%= link_to 'list of contact groups', contact_groups_path %>
 </p>

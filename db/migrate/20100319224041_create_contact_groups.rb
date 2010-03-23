@@ -5,6 +5,11 @@ class CreateContactGroups < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    create_table :contact_groups_contacts, :id => false do |t|
+      t.integer :contact_id
+      t.integer :contact_group_id
+    end
   end
 
   def self.down
