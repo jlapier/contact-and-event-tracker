@@ -20,8 +20,9 @@
     <%= form.input :comments, :required => false, :label => 'Comments' %>
     <%= form.input :descriptors, :required => false, :label => 'Descriptors' %>
     <%= form.input :home_address, :required => false, :label => 'Home address' %>
-
-    <%= form.input :contact_groups, :as => :check_boxes, :required => false %>
+    <% if is_admin? %>
+      <%= form.input :contact_groups, :as => :check_boxes, :required => false %>
+    <% end %>
   <% end %>
 
   <%= form.buttons %>

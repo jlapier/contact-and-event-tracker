@@ -25,6 +25,19 @@ p + p { margin-top: -0.8em; text-indent: 0; }
 }
 
 
+#main_menu { 
+  background: #333; color: #EEE; font-size: 16px;
+  padding: 6px 12px; margin-bottom: 8px;
+}
+#main_menu ul { list-style: none; }
+#main_menu ul li { float: left; margin-left: 0px;
+	margin-right: 35px; }
+
+#main_menu a:link, #main_menu a:visited { color: #DDF; }
+#main_menu a:hover { color: #EEF; }
+
+#user_box { float: right; }
+
 /* embeds the openid image in the text field */
 input#user_openid_identifier, input#user_session_openid_identifier {
     background: url(http://openid.net/images/login-bg.gif) no-repeat;
