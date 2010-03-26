@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
 
   def index
     @contacts = Contact.paginate :all, :page => params[:page], :per_page => params[:per_page] || 30,
-      :conditions => "email IS NOT NULL"
+      :conditions => "last_name IS NOT NULL and last_name !=''", :order => 'last_name, first_name'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,9 +13,9 @@ class ContactsController < ApplicationController
   end
 
   def search
-    @contacts = Contact.search(params[:q], 
+    @contacts = Contact.search(params[:q], :order => 'last_name, first_name',
       :narrow_fields => params[:fields] ? params[:fields].keys : nil).paginate :page => params[:page]
-    
+          
     respond_to do |format|
       format.html { render :action => :index }
       format.xml  { render :xml => @contacts }

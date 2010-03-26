@@ -1,0 +1,82 @@
+<h1>Event</h1>
+
+<p>
+  <strong><%= @event.name %></strong><br/>
+  <em><%= @event.event_type %></em>
+</p>
+
+<p>
+  <strong>When:</strong>
+  <%= @event.start_on %>
+  <% if @event.end_on %>
+    - <%=  @event.end_on %>
+  <% end %>
+</p>
+
+<% unless @event.location.blank? %>
+<p>
+  <strong>Where:</strong><br/>
+  <%= textilize_without_paragraph @event.location %>
+</p>
+<% end %>
+
+<% unless @event.description.blank? %>
+<p>
+  <strong>Description/Other Details:</strong>
+  <%= textilize_without_paragraph @event.description %>
+</p>
+<% end %>
+
+
+
+<h3>Attendees/Participants</h3>
+
+<% if @event.contacts.empty? %>
+  <p><em>No contacts attended this event</em></p>
+<% else %>
+  <% form_tag drop_contact_event_path(@event) do %>
+    <table class="nice_table">
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <% if is_admin? %>
+        <th></th>
+        <th></th>
+        <% end %>
+      </tr>
+
+    <% @event.contacts.each do |contact|  %>
+      <tr>
+        <td><%= link_to contact.name, contact %></td>
+        <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
+        <% if is_admin? %>
+        <td>
+          <%= link_to "drop from event",
+                drop_contact_event_path(@event, :contact_id => contact.id),
+                :method => :post %>
+        </td>
+        <td><%= check_box_tag "contact_ids[]", contact.id %></td>
+        <% end %>
+      </tr>
+    <% end %>
+      <% if is_admin? %>
+      <tr>
+        <td colspan="4" style="text-align:right">
+          <%= submit_tag "drop selected contacts from this event" %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>
+
+
+
+<% if is_admin? %>
+<br/>
+<p>
+[<%= link_to 'Add attendees to this event', add_attendees_event_path(@event) %> &nbsp; | &nbsp;
+<%= link_to 'Edit this event', edit_event_path(@event) %> &nbsp; | &nbsp;
+<%= link_to 'List of Events', events_path %>]
+</p>
+<% end %>

@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
   has_one :user
   has_and_belongs_to_many :contact_groups, :order => 'name'
+  has_and_belongs_to_many :events, :order => ["start_on"]
 
   searchable_by :first_name, :last_name, :agency, :division, :state, :email
 
@@ -37,7 +38,7 @@ class Contact < ActiveRecord::Base
   end
 
   def name
-    "#{first_name} #{last_name}"
+    "#{last_name}, #{first_name}"
   end
 
   def fullname

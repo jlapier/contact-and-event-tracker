@@ -1,0 +1,28 @@
+class Event < ActiveRecord::Base
+  has_and_belongs_to_many :contacts, :order => ["last_name, first_name"]
+
+  validates_presence_of :name, :event_type, :start_on
+  
+  def validate
+    if start_on and end_on and start_on > end_on
+      errors.add :end_on, "cannot be before the start date"
+    end
+  end
+
+  class << self
+    def existing_event_types
+      find(:all, :select => 'DISTINCT event_type').map(&:event_type).reject { |ev| ev.blank? }.sort
+    end
+  end
+
+  def drop_contacts(drop_contact_ids)
+    drop_contact_ids = [*drop_contact_ids].compact.map(&:to_i)
+    self.contact_ids = contact_ids - drop_contact_ids
+    self.save
+  end
+
+
+  def to_s
+    "#{name} (#{start_on} #{end_on ? ' - ' + end_on.to_s : ''})"
+  end
+end

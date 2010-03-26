@@ -1,10 +1,10 @@
 body { font-size: 13px; }
 
-h1 { font-size: 2.0em; text-shadow: 1px 1px 4px #999; }
-h2 { font-size: 1.8em; }
-h3 { font-size: 1.6em; }
-h4 { font-size: 1.4em; }
-h5 { font-size: 1.2em; }
+h1 { font-size: 1.8em; text-shadow: 1px 1px 4px #999; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.4em; }
+h4 { font-size: 1.2em; }
+h5 { font-size: 1.1em; }
 
 h1 img, h2 img { vertical-align:middle; }
 
@@ -16,6 +16,8 @@ a:hover { text-decoration:underline; }
 textarea { vertical-align: top; font-size: 13px; font-family:"Helvetica Neue", Arial, Helvetica, sans-serif; }
 
 p + p { margin-top: -0.8em; text-indent: 0; }
+
+legend { font-size: 1.0em }
 
 .base_content {
   clear:both;
@@ -55,7 +57,7 @@ ul.contact_attributes div { padding: 0 5px }
 
 div.select_popper_box ul li:hover { background: #EEE; }
 
-
+input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 0 }
 
 
 /* pagination */

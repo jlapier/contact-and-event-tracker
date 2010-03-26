@@ -108,7 +108,8 @@ class ContactGroupsController < ApplicationController
 
   def add_members
     @contact_group = ContactGroup.find(params[:id])
-    @contacts_not_in_group = Contact.find(:all) - @contact_group.contacts
+    @contacts_not_in_group = Contact.find(:all, :order => 'last_name, first_name',
+      :conditions => 'last_name IS NOT NULL AND last_name != ""') - @contact_group.contacts
   end
 
   def add_contacts

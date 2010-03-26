@@ -1,6 +1,6 @@
-<h1>Adding Contacts to Group: <%= @contact_group.name %></h1>
+<h1>Adding Attendees/Participants to Event: <%= @event.name %></h1>
 
-<% form_tag add_contacts_contact_group_path(@contact_group) do %>
+<% form_tag add_contacts_event_path(@event) do %>
   <table class="nice_table">
     <tr>
       <th>Full Name</th>
@@ -17,7 +17,7 @@
   <% end %>
     <tr>
       <td colspan="3" style="text-align:right">
-        <%= submit_tag "add selected contacts to this group" %>
+        <%= submit_tag "add selected contacts to this event" %>
       </td>
     </tr>
   </table>
@@ -25,7 +25,7 @@
 
 
 <p class="admin_links">
-  <%= link_to 'edit group name', edit_contact_group_path(@contact_group) %> |
-  <%= link_to 'list contacts in this group', @contact_group %> |
-  <%= link_to 'list of contact groups', contact_groups_path %>
+  <%= link_to 'details of this event', @event %> &nbsp; | &nbsp;
+  <%= link_to 'edit this event', edit_event_path(@event) %> &nbsp; | &nbsp;
+  <%= link_to 'list of events', events_path %>
 </p>

@@ -22,18 +22,13 @@
     <%= form.input :home_address, :required => false, :label => 'Home address' %>
     <% if is_admin? %>
       <%= form.input :contact_groups, :as => :check_boxes, :required => false %>
+      <%= form.input :events, :as => :check_boxes, :required => false %>
     <% end %>
   <% end %>
 
   <%= form.buttons %>
 <% end %>
 
-</div>
-
-<div style="display:none" id="existing_states">
-  <ul>
-    <%= Contact.existing_states.map { |st| "<li>#{st}</li>" } %>
-  </ul>
 </div>
 
 
