@@ -4,15 +4,16 @@
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <link rel="icon" type="image/png" href="/images/favorite.png"/>
     <title><%= [site_title, page_title].reject(&:blank?).join(' - ') %></title>
-    <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />
-    <link rel="stylesheet" href="/stylesheets/blueprint/plugins/fancy-type/screen.css" type="text/css" />
-    <link rel="stylesheet" href="/stylesheets/blueprint/plugins/silksprite/sprite.css" type="text/css" />
+    <%= stylesheet_link_tag "blueprint/screen", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "blueprint/print", :media => "print" %>
+    <%= stylesheet_link_tag "blueprint/plugins/fancy-type/screen" %>
+    <%= stylesheet_link_tag "blueprint/plugins/silksprite/sprite", :media => "screen, projection" %>
+    
     <!--[if lt IE 8]>
-      <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen, projection">
+      <%= stylesheet_link_tag "blueprint/ie", :media => "screen, projection" %>
     <![endif]-->
-    <link rel="stylesheet" href="/tablesorter/blue/style.css" type="text/css" media="screen"/>
-    <link type="text/css" href="/stylesheets/smoothness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+    <%= stylesheet_link_tag "/tablesorter/blue/style", :media => "screen" %>
+    <%= stylesheet_link_tag "smoothness/jquery-ui-1.7.2.custom" %>
     
     <% if RAILS_ENV == "production" %>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
