@@ -46,7 +46,7 @@
         btnMkr.innerHTML = "<button type=\"button\"></button>";
         
         var arrow = document.createElement('img');
-        arrow.src = "/images/idselector/arrow.gif";
+        arrow.src = "../images/idselector/arrow.gif";
         arrow.style.display = 'inline';
         
         var btn = btnMkr.firstChild;
@@ -87,11 +87,11 @@
  
         var back = pdoc.createElement('img');
         back.style.verticalAlign = "middle"; back.style.cursor = "pointer";
-        back.src = "/images/idselector/arrow_white_back.png";
+        back.src = "../images/idselector/arrow_white_back.png";
 
         var forward = pdoc.createElement('img');
         forward.style.verticalAlign = "middle"; forward.style.cursor = "pointer";
-        forward.src = "/images/idselector/arrow_white_forward.png";
+        forward.src = "../images/idselector/arrow_white_forward.png";
 
         var headRight = pdoc.createElement('div');
         headRight.style[document.all ? 'styleFloat' : 'cssFloat'] = 'right';
@@ -148,8 +148,8 @@
 
             var provider = providers[idx];
             var icon = pdoc.createElement("img");
-            icon.src = provider ? ('/images/idselector/' + provider.icon) :
-                '/images/idselector/openid.ico';
+            icon.src = provider ? ('../images/idselector/' + provider.icon) :
+                '../images/idselector/openid.ico';
             icon.style.width = "16px";
             icon.style.height = "16px";
             icon.style.verticalAlign = "middle";
@@ -284,16 +284,16 @@
                     var s = pdoc.createTextNode(provider.longname + " " +
                                                 provider.usercalled + ":");
                     nameLabel.appendChild(s);
-                    nameTb.style.backgroundImage = 'url(/images/idselector/' + provider.icon + ')';
+                    nameTb.style.backgroundImage = 'url(../images/idselector/' + provider.icon + ')';
                     oidTb.value = provider.url_prefix + "username" +
                         provider.url_suffix;
                     nameTb.value = "username";
                 }
-                btnIcn.src = '/images/idselector/' + provider.icon;
+                btnIcn.src = '../images/idselector/' + provider.icon;
             } else {
                 nameLabel.style.visibility = 'hidden';
                 nameTb.style.visibility = 'hidden';
-                btnIcn.src = '/images/idselector/openid.ico';
+                btnIcn.src = '../images/idselector/openid.ico';
             }
         }
 
