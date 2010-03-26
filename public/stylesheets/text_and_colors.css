@@ -27,9 +27,9 @@
 div.smalltext ul { font-size: 11px; }
 
 table.nice_table { background: #660; width: auto; }
-table.nice_table th { background: #CC9; padding: 2px 6px; font-size: 12px;}
+table.nice_table th { background: #CC9; padding: 2px 6px; font-size: 13px;}
 table.nice_table tr { background: #FFF; }
-table.nice_table td { padding: 4px 8px; font-size: 11px; }
+table.nice_table td { padding: 4px 12px; font-size: 12px; }
 
 table.nice_data_table { background: #660;  }
 table.nice_data_table th { background: #CC9; padding: 4px 8px; font-size: 13px;}
@@ -42,4 +42,6 @@ table.small_table_narrow td { padding: 2px; margin: 0px; font-size: 11px;  }
 table.tiny_table td { padding: 0px 2px; margin: 0px 2px; font-size: 9px;  }
 
 table.tablesorter { width: auto; }
+table.tablesorter tbody td { padding: 4px 12px; }
 table.tablesorter th.header { padding-right: 24px; }
+table.tablesorter thead tr th { font-size: 13px; }

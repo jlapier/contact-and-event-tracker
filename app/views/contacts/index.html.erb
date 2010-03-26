@@ -1,5 +1,19 @@
 <h1>Contacts</h1>
 
+<% if params[:q] %>
+  <h2><em>search terms:</em> <%= params[:q] %></h2>
+<% end %>
+
+<% form_tag search_contacts_path, :method => :get do %>
+  <%= text_field_tag 'q', params[:q] %>
+  <%= submit_tag 'search contacts' %><br/>
+  <em>narrow to:</em>
+  <% [:first_name, :last_name, :agency, :division, :state, :email].each do |att| %>
+    <%= check_box_tag "fields[#{att.to_s}]", 1,
+            (params[:fields] and (params[:fields][att] == "1")) %> <%= att.to_s.humanize %> &nbsp;
+  <% end %>
+<% end %>
+
 <table class="nice_table tablesorter">
   <thead>
     <tr>
@@ -19,7 +33,7 @@
       <td><%= link_to contact.name, contact %></td>
       <td><%= contact.agency_and_division %></td>
       <td><%= contact.state %></td>
-      <td><%= contact.email %></td>
+      <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
       <td></td>
       <% if is_admin? %>
         <td><%= link_to 'Edit', edit_contact_path(contact) %></td>

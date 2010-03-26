@@ -7,7 +7,7 @@ describe ContactGroupsController do
   end
 
   def mock_contact(stubs={})
-    @mock_user ||= mock_model(Contact, stubs.merge({:name => "bob"}))
+    @mock_user ||= mock_model(Contact, stubs.merge({:name => "bob", :email => 'bob@bob.com'}))
   end
 
   def mock_contact_group(stubs={})
@@ -23,6 +23,22 @@ describe ContactGroupsController do
       ContactGroup.stub!(:find).with(:all).and_return([mock_contact_group])
       get :index
       assigns[:contact_groups].should == [mock_contact_group]
+    end
+  end
+
+  describe "GET emails" do
+    it "redirects if html request" do
+      get :emails, :contact_group_ids => ["1"]
+      response.should redirect_to(contact_groups_url)
+    end
+
+    it "returns emails if json request" do
+      mock_contact.should_receive(:email).and_return 'bob@bob.com'
+      mock_contact_group.stub!(:contacts).and_return([mock_contact])
+      ContactGroup.stub!(:find).and_return([mock_contact_group])
+      get :emails, :format => :js, :contact_group_ids => ["1"]
+      response.should be_success
+      response.body.should == "['bob@bob.com']"
     end
   end
 

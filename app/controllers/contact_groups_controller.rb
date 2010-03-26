@@ -1,5 +1,5 @@
 class ContactGroupsController < ApplicationController
-  before_filter :require_admin_user
+  before_filter :require_admin_user, :except => [:index, :show]
 
   # GET /contact_groups
   # GET /contact_groups.xml
@@ -9,6 +9,17 @@ class ContactGroupsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @contact_groups }
+    end
+  end
+
+  def emails
+    
+    respond_to do |format|
+      format.html { redirect_to contact_groups_url }
+      format.js do
+        contact_groups = [ContactGroup.find(params[:contact_group_ids])].flatten
+        render :json => contact_groups.map(&:contacts).flatten.map(&:email).to_json
+      end
     end
   end
 

@@ -8,34 +8,41 @@
       <tr>
         <th>Full Name</th>
         <th>Email</th>
+        <% if is_admin? %>
         <th></th>
         <th></th>
+        <% end %>
       </tr>
 
     <% @contact_group.contacts.each do |contact|  %>
       <tr>
         <td><%= link_to contact.name, contact %></td>
-        <td><%= contact.email %></td>
+        <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
+        <% if is_admin? %>
         <td>
           <%= link_to "drop from group",
                 drop_contact_contact_group_path(@contact_group, :contact_id => contact.id),
                 :method => :post %>
         </td>
         <td><%= check_box_tag "contact_ids[]", contact.id %></td>
+        <% end %>
       </tr>
     <% end %>
+      <% if is_admin? %>
       <tr>
         <td colspan="4" style="text-align:right">
           <%= submit_tag "drop selected contacts from this group" %>
         </td>
       </tr>
+      <% end %>
     </table>
   <% end %>
 <% end %>
   
-<p><%= link_to 'add contacts to this group', add_members_contact_group_path(@contact_group) %></p>
-
-<p class="admin_links">
+<p>
+  <% if is_admin? %>
+  <%= link_to 'add contacts to this group', add_members_contact_group_path(@contact_group) %> |
   <%= link_to 'edit group name', edit_contact_group_path(@contact_group) %> |
+  <% end %>
   <%= link_to 'list of contact groups', contact_groups_path %>
 </p>

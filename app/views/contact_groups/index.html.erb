@@ -3,28 +3,70 @@
 <% if @contact_groups.empty? %>
   <p><em>No contact groups created yet</em></p>
 <% else %>
-  <table class="nice_table">
-    <tr>
-      <th>Group name</th>
-      <th></th>
-    </tr>
-
-  <% @contact_groups.each do |contact_group| %>
-    <tr>
-      <td><%= contact_group.name %></td>
-      <td style="text-align:right">
-        <%= link_to 'list members', contact_group %> &nbsp;
-        <%= link_to 'edit group name', edit_contact_group_path(contact_group) %> &nbsp;
-        <%= link_to 'delete', contact_group, :confirm => "Are you sure you want to delete the group called #{contact_group.name}?", :method => :delete %>
-      </td>
-    </tr>
+  <% form_tag emails_contact_groups_path, :id => "get_emails_form", :method => :get do %>
+    <table class="nice_table">
+      <thead>
+        <tr>
+          <th>Group name</th>
+          <th></th>
+          <% if is_admin? %><th></th><% end %>
+        </tr>
+      </thead>
+      <tbody>
+      <% @contact_groups.each do |contact_group| %>
+        <tr>
+          <td><%= contact_group.name %></td>
+          <td style="text-align:right">
+            <%= link_to 'list members', contact_group %> &nbsp; &nbsp;
+            <% if is_admin? %>
+              <%= link_to 'edit group name', edit_contact_group_path(contact_group) %> &nbsp; &nbsp;
+              <%= link_to 'delete', contact_group, :method => :delete,
+                    :confirm => "Are you sure you want to delete the group called #{contact_group.name}?" %>
+            <% end %>
+          </td>
+          <% if is_admin? %>
+          <td>
+            <%= check_box_tag "contact_group_ids[]", contact_group.id %>
+          </td>
+          <% end %>
+        </tr>
+      <% end %>
+        <% if is_admin? %>
+        <tr>
+          <td></td>
+          <td colspan="2" style="text-align:right;">
+            <%= submit_tag "retrieve emails for these groups" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
-  </table>
 <% end %>
 
 <br />
 
-<p class="admin_links">
+<div id="email_list" style="display:none">
+  <a href="">Use this email link</a> or copy from the box below and paste into your email program:
+  <textarea cols="3" rows="60" style="width: 100%; height: 200px;"></textarea>
+</div>
+
+<p>
+  <% if is_admin? %>
   <%= link_to 'create a new contact group', new_contact_group_path %> |
+  <% end %>
   <%= link_to 'full list of contacts', contacts_path %>
 </p>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#get_emails_form').attach(Remote, {
+      dataType: 'json',
+      success : function(data) {
+        $('#email_list textarea').text(data.join('; '));
+        $('#email_list a').attr('href', 'mailto:' + data.join(';'));
+        $('#email_list').show();
+      }
+    });
+  });
+</script>

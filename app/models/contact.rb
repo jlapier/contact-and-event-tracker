@@ -2,6 +2,8 @@ class Contact < ActiveRecord::Base
   has_one :user
   has_and_belongs_to_many :contact_groups, :order => 'name'
 
+  searchable_by :first_name, :last_name, :agency, :division, :state, :email
+
   class << self
     def existing_states
       find(:all, :select => 'DISTINCT state').map(&:state).reject { |st| st.blank? }.sort
