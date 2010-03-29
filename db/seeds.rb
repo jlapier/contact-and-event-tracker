@@ -16,7 +16,7 @@ CSV.open('/home/jason/rails/pac_rti/contact-and-event-tracker/db/pac-emails-new.
   contact = Contact.find( :first, :conditions => { :first_name => row[0], :last_name => row[1] }  )
   contact.update_attributes :title => row[2], :division => row[3], :agency => row[4], :city => row[5],
     :state => row[6], :zip => row[7], :agency_phone => row[8], :direct_phone => row[9],
-    :home_phone => row[10], :fax_phone => row[11], :website => row[12], :street_address => row[13],
+    :alternate_phone => row[10], :fax_phone => row[11], :website => row[12], :street_address => row[13],
     :comments => row[14], :descriptors => row[15], :home_address => row[16]
 end
 

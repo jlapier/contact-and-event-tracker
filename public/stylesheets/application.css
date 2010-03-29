@@ -58,7 +58,7 @@ ul.contact_attributes div { padding: 0 5px }
 div.select_popper_box ul li:hover { background: #EEE; }
 
 input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 0 }
-
+.small_text input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 0.25em }
 
 /* pagination */
 

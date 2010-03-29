@@ -1,11 +1,28 @@
 <h1>Adding Contacts to Group: <%= @contact_group.name %></h1>
 
+<% if params[:q] %>
+  <h2><em>search terms:</em> <%= params[:q] %></h2>
+<% end %>
+
+<div class="small_text">
+  <% form_tag add_members_contact_group_path(@contact_group), :method => :get do %>
+    <%= text_field_tag 'q', params[:q] %>
+    <%= submit_tag 'search contacts' %> &nbsp;
+    <em>optional - narrow search to:</em>
+    <% [:first_name, :last_name, :agency, :division, :state, :email].each do |att| %>
+      <%= check_box_tag "fields[#{att.to_s}]", 1,
+              (params[:fields] and (params[:fields][att] == "1")) %> <%= att.to_s.humanize %> &nbsp;
+    <% end %>
+  <% end %>
+</div>
+<br/>
+
 <% form_tag add_contacts_contact_group_path(@contact_group) do %>
-  <table class="nice_table">
+  <table class="nice_table contact_list">
     <tr>
       <th>Full Name</th>
       <th>Email</th>
-      <th></th>
+      <th style="text-align:center;"><%= check_box_tag "check_all" %></th>
     </tr>
 
   <% @contacts_not_in_group.each do |contact|  %>
@@ -29,3 +46,10 @@
   <%= link_to 'list contacts in this group', @contact_group %> |
   <%= link_to 'list of contact groups', contact_groups_path %>
 </p>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#check_all').attach(CheckBoxToggle, '.contact_list');
+});
+</script>
