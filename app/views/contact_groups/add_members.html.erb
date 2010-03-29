@@ -27,7 +27,7 @@
 
   <% @contacts_not_in_group.each do |contact|  %>
     <tr>
-      <td><%= link_to contact.name, :action => 'edit', :id => contact %></td>
+      <td><%= link_to contact.name, contact %></td>
       <td><%= contact.email %></td>
       <td><%= check_box_tag "contact_ids[]", contact.id %></td>
     </tr>
