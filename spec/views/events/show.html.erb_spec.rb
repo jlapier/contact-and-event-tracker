@@ -9,7 +9,7 @@ describe "/events/show.html.erb" do
       :event_type => "value for event_type",
       :location => "value for location",
       :description => "value for description",
-      :contacts => [ stub_model(Contact)]
+      :contacts => [ stub_model(Contact, :name => "bob", :email => "bob@ms.com") ]
     )
   end
 
