@@ -19,7 +19,7 @@
       <td><%= event.start_on %> <%= " - #{event.end_on}" if event.end_on %></td>
       <% if is_admin? %>
       <td><%= link_to 'Edit', edit_event_path(event) %></td>
-      <td><%= link_to 'Delete', event, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to 'Delete', event, :confirm => "Are you sure you want to permenantly delete the event: #{event.to_s}?", :method => :delete %></td>
       <% end %>
     </tr>
   <% end %>

@@ -25,4 +25,9 @@ class Event < ActiveRecord::Base
   def to_s
     "#{name} (#{start_on} #{end_on ? ' - ' + end_on.to_s : ''})"
   end
+
+  # list all groups that had least one member in attendance at this event
+  def contact_groups_represented
+    @contact_groups_represented ||= contacts.map(&:contact_groups).flatten.uniq
+  end
 end

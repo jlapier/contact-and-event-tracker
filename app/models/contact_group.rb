@@ -6,4 +6,9 @@ class ContactGroup < ActiveRecord::Base
     self.contact_ids = contact_ids - drop_contact_ids
     self.save
   end
+
+  # list all events that at least one member from this group has attended
+  def events_attended_by_members
+    @events_attended_by_members ||= contacts.map(&:events).flatten.uniq
+  end
 end

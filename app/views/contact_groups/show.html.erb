@@ -3,6 +3,18 @@
 <% if @contact_group.contacts.empty? %>
   <p><em>No contacts are in this group</em></p>
 <% else %>
+
+  <% if @contact_group.events_attended_by_members.empty? %>
+    <p>No one in this group has attended any events.</p>
+  <% else %>
+    Members of this group have attended the following events:
+    <ul>
+      <% @contact_group.events_attended_by_members.each do |event| %>
+        <li><%= link_to event.to_s, event %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <% form_tag drop_contact_contact_group_path(@contact_group) do %>
     <table class="nice_table">
       <tr>

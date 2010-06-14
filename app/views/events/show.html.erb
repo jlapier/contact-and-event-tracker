@@ -27,13 +27,22 @@
 </p>
 <% end %>
 
-
-
 <h3>Attendees/Participants</h3>
 
 <% if @event.contacts.empty? %>
   <p><em>No contacts attended this event</em></p>
 <% else %>
+  <% if @event.contact_groups_represented.empty? %>
+    <p>None of the participants are part of any groups.</p>
+  <% else %>
+    The following groups were represented at this event:
+    <ul>
+      <% @event.contact_groups_represented.each do |contact_group| %>
+        <li><%= link_to contact_group.name, contact_group %></li>
+      <% end %>
+    </ul>
+  <% end %>
+    
   <% form_tag drop_contact_event_path(@event) do %>
     <table class="nice_table">
       <tr>

@@ -37,14 +37,15 @@ describe ContactGroupsController do
     end
 
     it "returns emails if json request" do
-      pending do
-        mock_contact.should_receive(:email).and_return 'bob@bob.com'
-        mock_contact_group.stub!(:contacts).and_return([mock_contact])
-        ContactGroup.stub!(:find).and_return([mock_contact_group])
-        get :emails, :format => :js, :contact_group_ids => ["1"]
-        response.should be_success
-        response.body.should == "['bob@bob.com']"
-      end
+      mock_contact.should_receive(:email).and_return 'bob@bob.com'
+      mock_contact_group.stub!(:contacts).and_return([mock_contact, mock_other_contact])
+      mock_group_two = mock_model(ContactGroup, :name => "group two")
+      mock_group_two.stub!(:contacts).and_return([mock_other_contact])
+      ContactGroup.stub!(:find).and_return([mock_contact_group, mock_group_two])
+      get :emails, :format => 'js', :contact_group_ids => ["1"]
+      response.should be_success
+      response.body.should == '["bob@bob.com","joe@joe.com"]'
+
     end
   end
 

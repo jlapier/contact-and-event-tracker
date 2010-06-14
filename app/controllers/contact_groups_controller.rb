@@ -12,13 +12,12 @@ class ContactGroupsController < ApplicationController
     end
   end
 
-  def emails
-    
+  def emails    
     respond_to do |format|
       format.html { redirect_to contact_groups_url }
       format.js do
         contact_groups = [ContactGroup.find(params[:contact_group_ids])].flatten
-        render :json => contact_groups.map(&:contacts).flatten.map(&:email).to_json
+        render :json => contact_groups.map(&:contacts).flatten.uniq.map(&:email).to_json
       end
     end
   end
