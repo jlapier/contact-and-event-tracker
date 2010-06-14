@@ -2,8 +2,16 @@ require 'spec_helper'
 
 describe EventsController do
 
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+  end
+
   def mock_event(stubs={})
     @mock_event ||= mock_model(Event, stubs)
+  end
+
+  before do
+    controller.stub!(:current_user).and_return(mock_user)
   end
 
   describe "GET index" do

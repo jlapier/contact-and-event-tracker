@@ -3,11 +3,13 @@ require 'spec_helper'
 describe "/events/show.html.erb" do
   include EventsHelper
   before(:each) do
+    template.stub(:is_admin?).and_return true
     assigns[:event] = @event = stub_model(Event,
       :name => "value for name",
       :event_type => "value for event_type",
       :location => "value for location",
-      :description => "value for description"
+      :description => "value for description",
+      :contacts => [ stub_model(Contact)]
     )
   end
 

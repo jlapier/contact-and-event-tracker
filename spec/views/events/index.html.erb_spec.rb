@@ -4,6 +4,7 @@ describe "/events/index.html.erb" do
   include EventsHelper
 
   before(:each) do
+    template.stub(:is_admin?).and_return true
     assigns[:events] = [
       stub_model(Event,
         :name => "value for name",
@@ -24,7 +25,5 @@ describe "/events/index.html.erb" do
     render
     response.should have_tag("tr>td", "value for name".to_s, 2)
     response.should have_tag("tr>td", "value for event_type".to_s, 2)
-    response.should have_tag("tr>td", "value for location".to_s, 2)
-    response.should have_tag("tr>td", "value for description".to_s, 2)
   end
 end
