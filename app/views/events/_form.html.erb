@@ -9,6 +9,9 @@
           :input_html => { :value => @event.end_on.to_s } %>
     <%= form.input :location, :required => false, :label => 'Location' %>
     <%= form.input :description, :required => false, :label => 'Description' %>
+    <% unless @event.new_record? %>
+      <%= form.input :notes, :required => false, :label => 'Notes' %>
+    <% end %>
   <% end %>
 
   <%= form.buttons %>
