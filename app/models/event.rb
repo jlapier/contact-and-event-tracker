@@ -27,7 +27,9 @@ class Event < ActiveRecord::Base
   end
   
   def to_hash_for_calendar
-    { :id => id, :title => name, :start => start_on, :end => end_on, :url => "/events/#{id}" }
+    { :id => id, :title => name, :start => start_on, :end => end_on, :url => "/events/#{id}", 
+      :description => description.gsub("\n", "<br/>"),
+      :location => location.gsub("\n", "<br/>") }
   end
 
   # list all groups that had least one member in attendance at this event

@@ -39,15 +39,48 @@
 <div id="calendar_one_month" class="calendars"></div>
 <div id="calendar_two_months" class="calendars"></div>
 
+<div id="event_description" style="display:none"></div>
+
 <script type="text/javascript">
 $(document).ready(function()
   {
     $(".nice_table").tablesorter( { widgets: ['zebra'], headers: { 3:{sorter: false}, 4:{sorter: false}, 5:{sorter: false}} });
     
-    $('.calendars').fullCalendar({ editable: false, events: "/events", height: 300, aspectRatio: 1.2 });
-    $('#calendar_one_month').fullCalendar('next');
-    $('#calendar_two_months').fullCalendar('next').fullCalendar('next');
+    $('#calendar_now').fullCalendar({ 
+      editable: false, events: "/events", height: 300, aspectRatio: 1.2,
+      buttonText: { today:null, prev:null, next: null }, eventMouseover: updateEventDescription
+    });
     
+    $('#calendar_one_month').fullCalendar({ 
+      editable: false, events: "/events", height: 300, aspectRatio: 1.2,
+      buttonText: { today:null, prev:null, next: null }, eventMouseover: updateEventDescription
+    });
+    
+    $('#calendar_two_months').fullCalendar({ 
+      editable: false, events: "/events", height: 300, aspectRatio: 1.2,
+      buttonText: { today:null }, eventMouseover: updateEventDescription,
+      loading: function() {
+        $('#calendar_one_month').fullCalendar('next'); 
+      }
+    });
+    
+    
+    $('#calendar_two_months').ajaxSuccess(function(e, xhr, settings) {
+       console.log(settings);
+       // $('#calendar_one_month').fullCalendar( 'gotoDate', $('#calendar_two_months').fullCalendar('getDate') );
+       // $('#calendar_one_month').fullCalendar('prev');
+       // $('#calendar_now').fullCalendar('prev').fullCalendar('prev');
+      
+    })
   }
 );
+
+var updateEventDescription = function(event, jsEvent) {
+  $("#event_description")[0].innerHTML = "";  
+  $("#event_description").append($("<h3/>", { text : event.title }));
+  $("#event_description")[0].innerHTML += "Location: " + event.location + "<br/>";
+  $("#event_description")[0].innerHTML += event.description;
+  
+  $("#event_description").show();
+}
 </script>
