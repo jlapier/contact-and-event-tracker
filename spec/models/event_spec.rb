@@ -21,4 +21,9 @@ describe Event do
     Event.create!(@valid_attributes.merge :event_type => 'Conference')
     Event.existing_event_types.should == ['Conference', 'Meeting']
   end
+  
+  it "should call to_hash_for_calendar" do
+    event = Event.create! :name => "test", :start_on => "2010-01-01", :end_on => "2010-01-07", :event_type => "meeting"
+    event.to_hash_for_calendar.should == { :id => event.id, :title => "test", :start => Date.new(2010,1,1), :end => Date.new(2010,1,7), :url => "/events/#{event.id}" }
+  end
 end

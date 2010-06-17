@@ -35,10 +35,19 @@
 </p>
 <% end %>
 
+<div id="calendar_now" class="calendars"></div>
+<div id="calendar_one_month" class="calendars"></div>
+<div id="calendar_two_months" class="calendars"></div>
+
 <script type="text/javascript">
 $(document).ready(function()
   {
     $(".nice_table").tablesorter( { widgets: ['zebra'], headers: { 3:{sorter: false}, 4:{sorter: false}, 5:{sorter: false}} });
+    
+    $('.calendars').fullCalendar({ editable: false, events: "/events", height: 300, aspectRatio: 1.2 });
+    $('#calendar_one_month').fullCalendar('next');
+    $('#calendar_two_months').fullCalendar('next').fullCalendar('next');
+    
   }
 );
 </script>

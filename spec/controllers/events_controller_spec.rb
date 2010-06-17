@@ -26,6 +26,15 @@ describe EventsController do
         assigns[:events].should == [mock_event]
       end
     end
+    
+    describe "GET index as json" do
+      it "renders @events as json" do
+        mock_event.stub(:to_hash_for_calendar).and_return( { :id => 1, :name => "whatever" } )
+        Event.stub(:find).with(:all).and_return([mock_event])
+        get :index, :format => 'js'
+        response.should be_success
+      end
+    end
 
     describe "GET show" do
       it "assigns the requested event as @event" do

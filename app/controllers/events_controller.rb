@@ -4,11 +4,12 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    @events = Event.all
+    @events = Event.find :all
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @events }
+      format.js   { render :json => @events.map(&:to_hash_for_calendar).to_json } 
     end
   end
 

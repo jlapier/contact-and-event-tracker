@@ -25,6 +25,10 @@ class Event < ActiveRecord::Base
   def to_s
     "#{name} (#{start_on} #{end_on ? ' - ' + end_on.to_s : ''})"
   end
+  
+  def to_hash_for_calendar
+    { :id => id, :title => name, :start => start_on, :end => end_on, :url => "/events/#{id}" }
+  end
 
   # list all groups that had least one member in attendance at this event
   def contact_groups_represented
