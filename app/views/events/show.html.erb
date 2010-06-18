@@ -79,13 +79,35 @@
   <% end %>
 <% end %>
 
+<% unless @event.file_attachments.empty? %>
+  <h3>Files</h3>
 
+  <ul>
+  <% for file_attachment in @event.file_attachments do %>
+    <li><%= link_to file_attachment.name, file_attachment.filepath %></li>
+  <% end %>
+  </ul>
+<% end %>
 
 <% if is_admin? %>
-<br/>
-<p>
-[<%= link_to 'Add attendees to this event', add_attendees_event_path(@event) %> &nbsp; | &nbsp;
-<%= link_to 'Edit this event', edit_event_path(@event) %> &nbsp; | &nbsp;
-<%= link_to 'List of Events', events_path %>]
-</p>
+  <br/>
+  <p>
+  [<%= link_to 'Add attendees to this event', add_attendees_event_path(@event) %> &nbsp; | &nbsp;
+  <%= link_to 'Edit this event', edit_event_path(@event) %> &nbsp; | &nbsp;
+  <%= link_to 'List of Events', events_path %>]
+  </p>
+  <br/>
+  <h3>Upload Files to this event</h3>
+
+  <% semantic_form_for FileAttachment.new(:event => @event), :html => { :multipart => true } do |f| %>
+
+    <% f.inputs do %>
+      <%= f.input :event_id, :as => :hidden %>
+      <%= f.input :name, :label => 'Name' %>
+      <%= f.input :description, :label => 'Description' %>
+      <%= f.input :uploaded_file, :as => :file, :label => 'Filepath' %>
+    <% end %>
+
+    <%= f.buttons %>
+  <% end %>
 <% end %>
