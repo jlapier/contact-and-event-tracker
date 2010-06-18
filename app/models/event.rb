@@ -2,6 +2,8 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :contacts, :order => ["last_name, first_name"]
 
   validates_presence_of :name, :event_type, :start_on
+
+  acts_as_stripped :name
   
   def validate
     if start_on and end_on and start_on > end_on
