@@ -53,14 +53,17 @@ $(document).ready(function()
     
     $('#calendar_one_month').fullCalendar({ 
       editable: false, events: "/events", height: 300, aspectRatio: 1.2,
-      buttonText: { today:null, prev:null, next: null }, eventMouseover: updateEventDescription
+      buttonText: { today:null, prev:null, next: null }, eventMouseover: updateEventDescription,
+      month: $('#calendar_now').fullCalendar('getDate').getMonth() + 1,
     });
     
     $('#calendar_two_months').fullCalendar({ 
       editable: false, events: "/events", height: 300, aspectRatio: 1.2,
       buttonText: { today:null }, eventMouseover: updateEventDescription,
-      loading: function() {
-        $('#calendar_one_month').fullCalendar('next'); 
+      month: $('#calendar_one_month').fullCalendar('getDate').getMonth() + 2,
+      viewDisplay: function(view) {
+        //$('#calendar_now').fullCalendar('prev').fullCalendar('prev');
+        //$('#calendar_one_month').fullCalendar('prev');
       }
     });
     
