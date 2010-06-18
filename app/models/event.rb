@@ -5,6 +5,8 @@ class Event < ActiveRecord::Base
 
   acts_as_stripped :name
   
+  has_many :file_attachments
+
   def validate
     if start_on and end_on and start_on > end_on
       errors.add :end_on, "cannot be before the start date"
