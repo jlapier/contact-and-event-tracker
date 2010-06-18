@@ -54,16 +54,16 @@ $(document).ready(function()
     $('#calendar_one_month').fullCalendar({ 
       editable: false, events: "/events", height: 300, aspectRatio: 1.2,
       buttonText: { today:null, prev:null, next: null }, eventMouseover: updateEventDescription,
-      month: $('#calendar_now').fullCalendar('getDate').getMonth() + 1,
+      month: $('#calendar_now').fullCalendar('getDate').getMonth(),
     });
     
     $('#calendar_two_months').fullCalendar({ 
       editable: false, events: "/events", height: 300, aspectRatio: 1.2,
       buttonText: { today:null }, eventMouseover: updateEventDescription,
-      month: $('#calendar_one_month').fullCalendar('getDate').getMonth() + 2,
+      month: $('#calendar_one_month').fullCalendar('getDate').getMonth() + 1,
       viewDisplay: function(view) {
-        //$('#calendar_now').fullCalendar('prev').fullCalendar('prev');
-        //$('#calendar_one_month').fullCalendar('prev');
+        $('#calendar_now').fullCalendar('gotoDate', $('#calendar_two_months').fullCalendar('getDate').getFullYear(), $('#calendar_two_months').fullCalendar('getDate').getMonth() - 2);
+        $('#calendar_one_month').fullCalendar('gotoDate', $('#calendar_two_months').fullCalendar('getDate').getFullYear(), $('#calendar_two_months').fullCalendar('getDate').getMonth() - 1);
       }
     });
     
