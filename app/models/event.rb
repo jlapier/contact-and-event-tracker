@@ -1,4 +1,16 @@
+# t.string   "name"
+# t.string   "event_type"
+# t.date     "start_on"
+# t.date     "end_on"
+# t.text     "location"
+# t.text     "description"
+# t.datetime "created_at"
+# t.datetime "updated_at"
+# t.text     "notes"
+
 class Event < ActiveRecord::Base
+  #has_many :attendees
+  #has_many :contacts, :through => :attendees, :order => ["last_name, first_name"]
   has_and_belongs_to_many :contacts, :order => ["last_name, first_name"]
 
   validates_presence_of :name, :event_type, :start_on
@@ -6,6 +18,10 @@ class Event < ActiveRecord::Base
   acts_as_stripped :name
   
   has_many :file_attachments
+  
+  acts_as_revisable do
+    revision_class_name 'EventRevision'
+  end
 
   def validate
     if start_on and end_on and start_on > end_on
