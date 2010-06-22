@@ -9,7 +9,7 @@
 # t.text     "notes"
 
 class Event < ActiveRecord::Base
-  has_many :attendees, :before_add => :revise!, :after_remove => :revise!, :conditions => {:revisable_is_current => true}
+  has_many :attendees, :after_add => :update_roster, :after_remove => :update_roster
   has_many :contacts, :through => :attendees, :order => ["last_name, first_name"],
    :conditions => {:revisable_is_current => true}
   
@@ -21,18 +21,16 @@ class Event < ActiveRecord::Base
   
   acts_as_revisable :revision_class_name => 'EventRevision', :on_destroy => :revise
   
-  after_revise :revise_attendees!
-  
   private
-  
-    def revise_attendees!
-      self.attendees.each(&:revise!)
-    end
 
     def validate
       if start_on and end_on and start_on > end_on
         errors.add :end_on, "cannot be before the start date"
       end
+    end
+    
+    def update_roster(attendee)
+      self.attendee_roster = contact_ids.join(',')
     end
     
   protected
