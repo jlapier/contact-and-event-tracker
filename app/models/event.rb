@@ -44,9 +44,7 @@ class Event < ActiveRecord::Base
 
     def drop_contacts(drop_contact_ids)
       drop_contact_ids = [*drop_contact_ids].compact.map(&:to_i)
-      #self.contact_ids = contact_ids - drop_contact_ids
-      #self.contacts.delete(self.contacts.find(drop_contact_ids))
-      attendees.each{|a| a.destroy if drop_contact_ids.include?(a.contact_id)}
+      self.contact_ids = contact_ids - drop_contact_ids
       self.save
     end
 
