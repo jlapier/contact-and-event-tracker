@@ -2,7 +2,7 @@ class AttendeeRevision < ActiveRecord::Base
   
   acts_as_revision
   
-  belongs_to :event, :class_name => 'EventRevision', :autosave => true
+  belongs_to :event, :class_name => 'EventRevision'
   belongs_to :contact, :class_name => 'ContactRevision'
   
   before_create :update_associations, :if => :event_or_contact_in_revision?
@@ -14,7 +14,6 @@ class AttendeeRevision < ActiveRecord::Base
       event_in_revision? || contact_in_revision?
     end
     def update_associations
-      logger.debug("Updating AttendeeRevision Associations")
       update_event_association if event_in_revision?
       update_contact_association if contact_in_revision?
     end
