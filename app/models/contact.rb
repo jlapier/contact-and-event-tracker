@@ -6,7 +6,7 @@ class Contact < ActiveRecord::Base
 
   searchable_by :first_name, :last_name, :agency, :division, :state, :email
   
-  acts_as_revisable :revision_class_name => 'ContactRevision'
+  acts_as_revisable :revision_class_name => 'ContactRevision', :on_destroy => :revise
 
   class << self
     def existing_states
