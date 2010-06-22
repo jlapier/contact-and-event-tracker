@@ -21,5 +21,5 @@ class MakeAttendeesRevisable < ActiveRecord::Migration
         remove_column :attendees, :revisable_revised_at
         remove_column :attendees, :revisable_deleted_at
         remove_column :attendees, :revisable_is_current
-  end
+      end
 end

@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
   acts_as_stripped :name
   
   acts_as_revisable :revision_class_name => 'EventRevision', :on_destroy => :revise
-  
+
   private
 
     def validate
