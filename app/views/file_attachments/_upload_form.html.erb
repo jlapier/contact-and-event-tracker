@@ -1,0 +1,16 @@
+<% if defined?(event) && event %>
+  <% new_file_attachment = FileAttachment.new(:event => event) %>
+<% else %>
+  <% new_file_attachment = FileAttachment.new %>
+<% end %>
+<% semantic_form_for new_file_attachment, :html => { :multipart => true } do |f| %>
+
+  <% f.inputs do %>
+    <%= f.input :event_id, :as => :hidden %>
+    <%= f.input :name, :label => 'Name' %>
+    <%= f.input :description, :label => 'Description' %>
+    <%= f.input :uploaded_file, :as => :file, :label => 'Filepath' %>
+  <% end %>
+
+  <%= f.buttons %>
+<% end %>

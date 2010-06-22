@@ -1,6 +1,17 @@
 class FileAttachmentsController < ApplicationController
+  
   before_filter :require_admin_user, :except => [:index, :show]
 
+  def index
+    redirect_to root_path
+  end
+  
+  def download
+    file_attachment = FileAttachment.find(params[:id])
+    file_itself = File.open(File.join(RAILS_ROOT, 'public') + file_attachment.filepath, 'r')
+    send_data(file_itself.read, :filename => File.basename(file_itself.path), :stream => true, :buffer_size => 1.megabyte)
+  end
+  
   def create
     @file_attachment = FileAttachment.new params[:file_attachment]
 
