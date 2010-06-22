@@ -1,13 +1,14 @@
 class Contact < ActiveRecord::Base
+  
   has_one :user
   has_and_belongs_to_many :contact_groups, :order => 'name'
-  has_many :registrations, :class_name => 'Attendee'
-  has_many :events, :through => :registrations, :order => ["start_on"]
+  has_many :registrations, :class_name => 'Attendee', :conditions => {:revisable_is_current => true}
+  has_many :events, :through => :registrations, :order => ["start_on"], :conditions => {:revisable_is_current => true}
 
   searchable_by :first_name, :last_name, :agency, :division, :state, :email
   
   acts_as_revisable :revision_class_name => 'ContactRevision', :on_destroy => :revise
-
+  
   class << self
     def existing_states
       find(:all, :select => 'DISTINCT state').map(&:state).reject { |st| st.blank? }.sort
