@@ -1,0 +1,4 @@
+<% div_for(file_attachment) do %>
+  <p><%= link_to(file_attachment.name, download_file_attachment_path(file_attachment.id)) %></p>
+  <p><%=h file_attachment.description %></p>
+<% end %>

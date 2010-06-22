@@ -1,0 +1,8 @@
+<div>
+  <% file_attachments.group_by(&:event).sort{|e,fas| e && e.name || fas.first && fas.first.name}.each do |event, attachments| %>
+    <div>
+      <h4><%=h event && "Files for #{event.name}" || "General Files" %></h4>
+      <%= render :partial => 'file_attachments/file_attachment', :collection => attachments %>
+    </div>
+  <% end %>
+</div>

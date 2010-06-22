@@ -99,15 +99,5 @@
   <br/>
   <h3>Upload Files to this event</h3>
 
-  <% semantic_form_for FileAttachment.new(:event => @event), :html => { :multipart => true } do |f| %>
-
-    <% f.inputs do %>
-      <%= f.input :event_id, :as => :hidden %>
-      <%= f.input :name, :label => 'Name' %>
-      <%= f.input :description, :label => 'Description' %>
-      <%= f.input :uploaded_file, :as => :file, :label => 'Filepath' %>
-    <% end %>
-
-    <%= f.buttons %>
-  <% end %>
+  <%= render :partial => 'file_attachments/upload_form', :locals => {:event => @event} %>
 <% end %>

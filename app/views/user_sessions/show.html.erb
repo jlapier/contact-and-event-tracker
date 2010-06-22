@@ -4,3 +4,9 @@
 <p><%= link_to "List of Contact Groups", contact_groups_path %></p>
 
 <p><%= link_to "List of Events", events_path %></p>
+
+<h4>Upload a New File</h4>
+<div style="width: 33%;">
+<%= render :partial => 'file_attachments/upload_form' %>
+</div>
+<%= render :partial => 'file_attachments/file_attachments', :object => @file_attachments %>
