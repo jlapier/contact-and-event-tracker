@@ -9,7 +9,7 @@
 # t.text     "notes"
 
 class Event < ActiveRecord::Base
-  has_many :attendees, :before_add => :revise!, :after_remove => :revise!, :conditions => {:revisable_is_current => true, :deleted => false}
+  has_many :attendees, :before_add => :revise!, :after_remove => :revise!, :conditions => {:revisable_is_current => true}
   has_many :contacts, :through => :attendees, :order => ["last_name, first_name"],
    :before_add => :revise!, :after_remove => :revise!, :conditions => {:revisable_is_current => true}
   
