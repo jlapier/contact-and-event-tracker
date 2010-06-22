@@ -38,6 +38,14 @@ describe Event do
     event.revision_number.should == 1
   end
   
+  it "should not create a new version when no attributes have changed" do
+    event = Event.create!(@valid_attributes)
+    event.revision_number.should == 0
+    event.name = @valid_attributes[:name]
+    event.save
+    event.revision_number.should == 0
+  end
+  
   context "with attendees" do
     
     before(:each) do
