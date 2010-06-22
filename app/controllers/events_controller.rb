@@ -106,11 +106,14 @@ class EventsController < ApplicationController
 
   def add_contacts
     @event = Event.find(params[:id])
-    @event.contacts += Contact.find(params[:contact_ids])
-    if @event.save
-      flash[:notice] = "Contacts(s) added to #{@event.name}."
-    else
-      flash[:warning] = "Failed to add contact(s) to #{@event.name}. (#{@event.errors.full_messages.join('; ')}"
+    #@event.contacts += Contact.find(params[:contact_ids])
+    @event.changeset! do
+      @event.attendees += Contact.find(params[:contact_ids]).collect{|c| Attendee.new(:contact => c)}
+      if @event.save
+        flash[:notice] = "Contacts(s) added to #{@event.name}."
+      else
+        flash[:warning] = "Failed to add contact(s) to #{@event.name}. (#{@event.errors.full_messages.join('; ')}"
+      end
     end
     redirect_to @event
   end
