@@ -32,4 +32,12 @@ describe Contact do
       Contact.existing_divisions.should == ["HR", "Spec Ed"]
     end
   end
+  
+  it "should create a new version when an attribute is updated" do
+    contact = Contact.create!(@valid_attributes)
+    contact.first_name = 'Sally'
+    contact.revision_number.should == 0
+    contact.save
+    contact.revision_number.should == 1
+  end
 end
