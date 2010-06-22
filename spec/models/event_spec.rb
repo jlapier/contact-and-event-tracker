@@ -78,8 +78,19 @@ describe Event do
       end
       
       it "should have previous set of attendees available through the previous revision" do
-        pending "we may have to get at previous sets of attendees through the AttendeeRevision class"
-        @event.find_revision(:previous).attendees(:conditions => {:revisable_is_current => false}).first.should == @attendee
+        #pending "we may have to get at previous sets of attendees through the AttendeeRevision class"
+        #@event.find_revision(:previous).attendees.first.should == @attendee
+        AttendeeRevision.find_by_event_id_and_contact_id(@event.id, @attendee.contact_id).should == @attendee.find_revision(:previous)
+      end
+      
+      it "should mark removed attendees as deleted" do
+        pending
+        @attendee.reload
+        puts @attendee.revision_number
+        #puts @attendee.event.name
+        #puts @attendee.find_revision(:previous).event.name
+        #@attendee.revisable_deleted_at.should_not be_nil
+        AttendeeRevision.find_by_event_id_and_contact_id(@event.id, @attendee.contact_id).revisable_deleted_at.should_not be_nil
       end
 
     end
