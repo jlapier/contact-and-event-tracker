@@ -5,6 +5,8 @@
 <% end %>
 <% semantic_form_for new_file_attachment, :html => { :multipart => true } do |f| %>
 
+  <%= f.error_messages %>
+
   <% f.inputs do %>
     <%= f.input :event_id, :as => :hidden %>
     <%= f.input :name, :label => 'Name' %>

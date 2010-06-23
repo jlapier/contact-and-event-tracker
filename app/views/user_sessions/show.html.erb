@@ -1,12 +1,70 @@
+<% content_for(:javascript) do %>
+  <style  type="text/css">@import url(http://www.plupload.com/css/plupload.queue.css);</style>
+  <script type="text/javascript"  src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+      google.load("jquery", "1.3");
+  </script>
+  <%= javascript_include_tag 'plupload/gears_init.js' %>
+  <%= javascript_include_tag 'plupload/plupload.full.min.js' %>
+  <%= javascript_include_tag 'plupload/jquery.plupload.queue.min.js' %>
 
-<p><%= link_to "List of Contacts", contacts_path %></p>
+  <script type="text/javascript">
+  // Convert divs to queue widgets when the DOM is ready
+  $(function() {
+  	// Setup html5 version
+  	var plupload = $("#multiple_uploads").pluploadQueue({
+  		// General settings
+  		runtimes : 'html5,gears,flash',
+  		url : '<%= file_attachments_path %>',
+  		dragdrop: false,
+  		multipart: true,
+  		multipart_params: {
+  		  authenticity_token: '<%= form_authenticity_token %>'
+  		},
+  		required_features: 'multipart',
+  		max_file_size : '50mb',
+  		unique_names : true,
 
-<p><%= link_to "List of Contact Groups", contact_groups_path %></p>
+  		// Resize images on clientside if we can
+  		resize : {width : 320, height : 240, quality : 90},
 
-<p><%= link_to "List of Events", events_path %></p>
+  		// Specify what files to browse for
+  		filters : [
+  			{title : "Image files", extensions : "jpg,gif,png,svg"},
+  			{title : "Zip files", extensions : "zip"},
+  			{title : "PDF documents", extensions : "pdf"},
+  			{title : "Word documents", extensions : "doc"},
+  			{title : "Power Point presentations", extensions : "ppt"},
+  			{title : "Excel spreadsheets", extensions : "xls"},
+  			{title : "Plain text files", extensions : "txt"}
+  		],
+
+  		// Flash settings
+  		flash_swf_url : '/plupload/js/plupload.flash.swf'
+  	});
+  	
+  	plupload.bind('FileUploaded', function(up, file, response) {
+  	  alert(response);
+  	});
+  });
+  </script>
+  
+  
+<% end %>
+
+<%= render :partial => 'file_attachments/file_attachments', :object => @file_attachments %>
 
 <h4>Upload a New File</h4>
-<div style="width: 33%;">
+<p>
+[<%= link_to_unless params[:std], "One at a time", root_path(:std => 1) %> | <%= link_to_if params[:std], "Several at once", root_path %>]
+</p>
+
+<% if params[:std] %>
+<div id="single_upload" style="width: 33%;">
 <%= render :partial => 'file_attachments/upload_form' %>
 </div>
-<%= render :partial => 'file_attachments/file_attachments', :object => @file_attachments %>
+<% else %>
+
+<h4>Upload Files</h4>
+<div id="multiple_uploads">You browser doesn't support native upload. Try Firefox 3 or Safari 4.</div>
+<% end %>
