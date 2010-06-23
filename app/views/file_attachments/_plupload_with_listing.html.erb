@@ -1,0 +1,78 @@
+<% content_for(:javascript) do %>
+  <style  type="text/css">@import url(http://www.plupload.com/css/plupload.queue.css);</style>
+  <script type="text/javascript"  src="http://www.google.com/jsapi"></script>
+  <%= javascript_include_tag 'plupload/gears_init.js' %>
+  <%= javascript_include_tag 'plupload/plupload.full.min.js' %>
+  <%= javascript_include_tag 'plupload/jquery.plupload.queue.min.js' %>
+
+  <script type="text/javascript">
+  jQuery.ajaxSetup({
+    'beforeSend': function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    }
+  });
+  function bindCallbacks(plupload) {
+    plupload.bind('FileUploaded', function(up, file, response) {
+  	  $("#file_attachments").append(response.response);
+  	});
+  }
+  // Convert divs to queue widgets when the DOM is ready
+  $(function() {
+  	// Setup html5 version
+  	$("#multiple_uploads").pluploadQueue({
+  		// General settings
+  		runtimes : 'html5', // use only html5
+  		url : '<%= file_attachments_path %>',
+  		dragdrop: false,
+  		setup: bindCallbacks,
+  		multipart: true,
+  		multipart_params: {
+  		  <%= "event_id: '#{event.id}'," if defined?(event) %>
+  		  authenticity_token: '<%= form_authenticity_token %>'
+  		},
+  		required_features: 'multipart', // disable uploader if html5+multipart not available - webkit doesn't support html5+multipart
+  		max_file_size : '50mb',
+  		unique_names : true,
+
+  		// Resize images on clientside if we can
+  		resize : {width : 320, height : 240, quality : 90},
+
+  		// Specify what files to browse for
+  		filters : [
+  			{title : "Image files", extensions : "jpg,gif,png,svg"},
+  			{title : "Zip files", extensions : "zip"},
+  			{title : "PDF documents", extensions : "pdf"},
+  			{title : "Word documents", extensions : "doc"},
+  			{title : "Power Point presentations", extensions : "ppt"},
+  			{title : "Excel spreadsheets", extensions : "xls"},
+  			{title : "Plain text files", extensions : "txt"}
+  		],
+
+  		// Flash settings
+  		// flash_swf_url : '/plupload/js/plupload.flash.swf'
+  	});
+  });
+  </script>
+  
+  
+<% end %>
+
+<h3>Files</h3>
+
+<%= render :partial => 'file_attachments/file_attachments', :object => defined?(file_attachments) ? file_attachments : [] %>
+
+<h4>Upload</h4>
+
+<p>
+[<%= link_to_unless params[:std], "One at a time", root_path(:std => 1) %> | <%= link_to_if params[:std], "Several at once", root_path %>]
+</p>
+
+<% if params[:std] %>
+<div id="single_upload" style="width: 33%;">
+  <%= render :partial => 'file_attachments/upload_form' %>
+</div>
+<% else %>
+<div id="multiple_uploads">
+  You browser doesn't support native upload. Try Firefox 3 or Safari 4.
+</div>
+<% end %>

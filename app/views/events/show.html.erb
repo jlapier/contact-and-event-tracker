@@ -79,16 +79,6 @@
   <% end %>
 <% end %>
 
-<% unless @event.file_attachments.empty? %>
-  <h3>Files</h3>
-
-  <ul>
-  <% for file_attachment in @event.file_attachments do %>
-    <li><%= link_to file_attachment.name, file_attachment.filepath %></li>
-  <% end %>
-  </ul>
-<% end %>
-
 <% if is_admin? %>
   <br/>
   <p>
@@ -97,7 +87,5 @@
   <%= link_to 'List of Events', events_path %>]
   </p>
   <br/>
-  <h3>Upload Files to this event</h3>
-
-  <%= render :partial => 'file_attachments/upload_form', :locals => {:event => @event} %>
+  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @event.file_attachments, :event => @event} %>
 <% end %>
