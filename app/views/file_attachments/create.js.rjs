@@ -1,1 +1,0 @@
-page.insert_html(:bottom, 'file_attachments', :partial => 'file_attachments/file_attachment', :object => @file_attachment)

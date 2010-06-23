@@ -31,12 +31,10 @@ class FileAttachmentsController < ApplicationController
       else
         flash[:warning] = "Unable to save file attachment: #{@file_attachment.errors.full_messages.join('; ')}"
       end
-      respond_to do |format|
-        unless params[:file]
-          format.html{ redirect_to @file_attachment.event || file_attachments_path }
-        else
-          format.js
-        end
+      unless params[:file] # request.xhr? # html5 based multiple uploads are not xhr ?
+        redirect_to @file_attachment.event || file_attachments_path
+      else
+        render :partial => 'file_attachments/file_attachment', :object => @file_attachment
       end
     end
 end

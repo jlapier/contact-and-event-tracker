@@ -6,19 +6,30 @@
   <%= javascript_include_tag 'plupload/jquery.plupload.queue.min.js' %>
 
   <script type="text/javascript">
+  jQuery.ajaxSetup({
+    'beforeSend': function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    }
+  });
+  function bindCallbacks(plupload) {
+    plupload.bind('FileUploaded', function(up, file, response) {
+  	  $("#file_attachments").append(response.response);
+  	});
+  }
   // Convert divs to queue widgets when the DOM is ready
   $(function() {
   	// Setup html5 version
-  	var plupload = $("#multiple_uploads").pluploadQueue({
+  	$("#multiple_uploads").pluploadQueue({
   		// General settings
-  		runtimes : 'html5,gears,flash',
+  		runtimes : 'html5', // use only html5
   		url : '<%= file_attachments_path %>',
   		dragdrop: false,
+  		setup: bindCallbacks,
   		multipart: true,
   		multipart_params: {
   		  authenticity_token: '<%= form_authenticity_token %>'
   		},
-  		required_features: 'multipart',
+  		required_features: 'multipart', // disable uploader if html5+multipart not available - webkit doesn't support html5+multipart
   		max_file_size : '50mb',
   		unique_names : true,
 
@@ -37,11 +48,7 @@
   		],
 
   		// Flash settings
-  		flash_swf_url : '/plupload/js/plupload.flash.swf'
-  	});
-  	
-  	plupload.bind('FileUploaded', function(up, file, response) {
-  	  alert(response);
+  		// flash_swf_url : '/plupload/js/plupload.flash.swf'
   	});
   });
   </script>
