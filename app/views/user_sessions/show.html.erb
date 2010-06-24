@@ -1,1 +1,2 @@
-<%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @file_attachments} %>
+<%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @file_attachments} if current_user.is_admin? %>
+<%= render :partial => 'file_attachments/file_attachments', :object => @file_attachments unless current_user.is_admin? %>
