@@ -38,7 +38,7 @@ describe EventsController do
 
     describe "GET show" do
       it "assigns the requested event as @event" do
-        Event.stub(:find).with("37").and_return(mock_event)
+        Event.stub(:find).with("37", :include => :file_attachments).and_return(mock_event)
         get :show, :id => "37"
         assigns[:event].should equal(mock_event)
       end

@@ -65,7 +65,7 @@ describe FileAttachmentsController do
         
         assigns[:file_attachment].should == mock_file_attachment
         
-        response.should render_template('file_attachments/create.js.rjs')
+        response.should render_template('file_attachments/_file_attachment')
       end
       
       it "should upload a new file attachment without an event" do
