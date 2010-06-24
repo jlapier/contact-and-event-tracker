@@ -9,6 +9,9 @@
 # t.text     "notes"
 
 class Event < ActiveRecord::Base
+  
+  include ActionView::Helpers::TextHelper
+  
   has_many :attendees, :after_add => :update_roster, :after_remove => :update_roster
   has_many :contacts, :through => :attendees, :order => ["last_name, first_name"],
    :conditions => {:revisable_is_current => true}
@@ -54,7 +57,7 @@ class Event < ActiveRecord::Base
     end
   
     def to_hash_for_calendar
-      { :id => id, :title => name, :start => start_on, :end => end_on, :url => "/events/#{id}", 
+      { :id => id, :title => name_and_file_count, :start => start_on, :end => end_on, :url => "/events/#{id}", 
         :description => description && description.gsub("\n", "<br/>") || '',
         :location => location && location.gsub("\n", "<br/>") || '' }
     end
@@ -62,5 +65,9 @@ class Event < ActiveRecord::Base
     # list all groups that had least one member in attendance at this event
     def contact_groups_represented
       @contact_groups_represented ||= contacts.map(&:contact_groups).flatten.uniq
+    end
+    
+    def name_and_file_count
+      "#{name} (#{pluralize(file_attachments.count, 'file')})"
     end
 end
