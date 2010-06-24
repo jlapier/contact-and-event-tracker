@@ -6,6 +6,6 @@ class RenameContactsEventsToAttendees < ActiveRecord::Migration
 
   def self.down
     rename_table :attendees, :contacts_events
-    drop_column :contacts_events, :id
+    remove_column :contacts_events, :id
   end
 end

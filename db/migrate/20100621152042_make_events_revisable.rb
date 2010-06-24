@@ -19,7 +19,7 @@ class MakeEventsRevisable < ActiveRecord::Migration
         add_column :events, :revisable_current_at, :datetime
         add_column :events, :revisable_revised_at, :datetime
         add_column :events, :revisable_deleted_at, :datetime
-        add_column :events, :revisable_is_current, :boolean, :default => 1
+        add_column :events, :revisable_is_current, :boolean, :default => true
       end
 
   def self.down

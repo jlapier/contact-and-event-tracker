@@ -8,7 +8,7 @@ class MakeContactsRevisable < ActiveRecord::Migration
         add_column :contacts, :revisable_current_at, :datetime
         add_column :contacts, :revisable_revised_at, :datetime
         add_column :contacts, :revisable_deleted_at, :datetime
-        add_column :contacts, :revisable_is_current, :boolean, :default => 1
+        add_column :contacts, :revisable_is_current, :boolean, :default => true
       end
 
   def self.down

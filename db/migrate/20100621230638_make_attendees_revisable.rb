@@ -8,7 +8,7 @@ class MakeAttendeesRevisable < ActiveRecord::Migration
         add_column :attendees, :revisable_current_at, :datetime
         add_column :attendees, :revisable_revised_at, :datetime
         add_column :attendees, :revisable_deleted_at, :datetime
-        add_column :attendees, :revisable_is_current, :boolean, :default => 1
+        add_column :attendees, :revisable_is_current, :boolean, :default => true
       end
 
   def self.down
