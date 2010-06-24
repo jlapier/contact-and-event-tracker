@@ -69,7 +69,8 @@
 
 <% if params[:std] %>
 <div id="single_upload" style="width: 33%;">
-  <%= render :partial => 'file_attachments/upload_form' %>
+  <%= render :partial => 'file_attachments/upload_form', :locals => {:event => event} if defined?(event) %>
+  <%= render :partial => 'file_attachments/upload_form' unless defined?(event) %>
 </div>
 <% else %>
 <div id="multiple_uploads">
