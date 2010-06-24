@@ -64,7 +64,7 @@
 <h4>Upload</h4>
 
 <p>
-[<%= link_to_unless params[:std], "One at a time", root_path(:std => 1) %> | <%= link_to_if params[:std], "Several at once", root_path %>]
+[<%= link_to_unless params[:std], "One at a time", url_for(:std => 1) %> | <%= link_to_if params[:std], "Several at once", url_for %>]
 </p>
 
 <% if params[:std] %>
