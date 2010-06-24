@@ -87,6 +87,10 @@
   <%= link_to 'List of Events', events_path %>]
   </p>
   <br/>
-  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @event.file_attachments, :event => @event} if current_user.is_admin? %>
-  <%= render :partial => 'file_attachments/file_attachments', :object => @file_attachments unless current_user.is_admin? %>
+  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @event.file_attachments, :event => @event} %>
+<% else %>
+<div>
+  <h4>Files</h4>
+  <%= render :partial => 'file_attachments/file_attachments', :object => @event.file_attachments %>
+</div>
 <% end %>
