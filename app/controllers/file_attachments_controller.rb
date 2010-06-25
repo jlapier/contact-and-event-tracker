@@ -33,7 +33,8 @@ class FileAttachmentsController < ApplicationController
         flash[:warning] = "Unable to save file attachment: #{@file_attachment.errors.full_messages.join('; ')}"
       end
       unless params[:file] # request.xhr? # html5 based multiple uploads are not xhr ?
-        redirect_to @file_attachment.event || file_attachments_path
+        # {:std => 1} - make sure the std html form displays
+        redirect_to event_path(@file_attachment.event, :std => 1) || file_attachments_path(:std => 1)
       else
         render :partial => 'file_attachments/file_attachment', :object => @file_attachment
       end
