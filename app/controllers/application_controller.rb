@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user, :logged_in?, :is_admin?
 
+  before_filter :get_layout
+
   private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -61,5 +63,10 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+
+    def get_layout
+      @css_override = SiteSetting.read_or_write_default_setting 'css override', nil
+      @css_override_timestamp = SiteSetting.read_or_write_default_setting 'css override timestamp', nil
     end
 end

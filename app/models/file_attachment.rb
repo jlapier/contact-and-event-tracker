@@ -24,6 +24,7 @@ class FileAttachment < ActiveRecord::Base
   
   private
     def save_to_folder_path
+      ensure_folder_path_exists
       build_filepath
       File.open(full_path, "wb") { |f| f.write(uploaded_file.read) }
       return true if file_saved?
