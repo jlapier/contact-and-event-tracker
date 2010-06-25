@@ -1,0 +1,28 @@
+<h1>Theme Settings</h1>
+
+<div class="edit_content_box">
+  <% form_tag( { :action => :update_css } ) do  %>
+    <p>
+      <strong>CSS:</strong><br/>
+      <%= text_area_tag :css, @css %>
+    </p>
+    <p>
+      <%= submit_tag "save changes" %>
+    </p>
+<% end %>
+</div>
+
+<script type="text/javascript" src="/codemirror/js/codemirror.js"></script>
+<script type="text/javascript" src="/codemirror/js/mirrorframe.js"></script>
+
+<script type="text/javascript">
+  var textarea = $('#css')[0];
+  var editor = CodeMirror.fromTextArea("css", {
+    parserfile: "parsecss.js",
+    path: "/codemirror/js/",
+    stylesheet: "/codemirror/css/jscolors.css",
+    autoMatchParens: true,
+    height: "350px"
+  });
+
+</script>
