@@ -4,7 +4,7 @@
 
 <ul class="contact_attributes">
   <% Contact.string_attributes.each do |att| -%>
-    <% unless @contact[att].blank? -%>
+    <% unless @contact[att].blank? || (!current_user and att.to_s =~ /(city|zip)/i) -%>
       <li>
         <strong><%= att.to_s.humanize %>:</strong>
         <%= @contact[att] %>
