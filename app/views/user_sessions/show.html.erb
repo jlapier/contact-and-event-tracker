@@ -1,4 +1,4 @@
-<% if current_user.is_admin? %>
+<% if is_admin? %>
   <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @file_attachments} %>
 <% else %>
 <div>
