@@ -9,6 +9,10 @@ class Contact < ActiveRecord::Base
   
   acts_as_revisable :revision_class_name => 'ContactRevision', :on_destroy => :revise
   
+  acts_as_stripped :first_name, :last_name, :title, :division, :agency, :city, :state, :zip,
+    :agency_phone, :direct_phone, :alternate_phone, :fax_phone, :email, :street_address,
+    :comments, :descriptors, :home_address, :created_at, :updated_at
+  
   class << self
     def existing_states
       find(:all, :select => 'DISTINCT state').map(&:state).reject { |st| st.blank? }.sort
