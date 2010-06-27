@@ -1,0 +1,13 @@
+<% unless @submitted %>
+  <h1>Forgot Password?</h1>
+  <p>Please provide your email address and we'll see about resetting your password.</p>
+
+  <div>
+    <% semantic_form_for @password_reset do |f| %>
+      <% f.inputs do %>
+        <%= f.input :sent_to, :required => true, :label => 'Email' %>
+      <% end %>
+      <%= submit_tag "Send Confirmation Email" %>
+    <% end %>
+  </div>
+<% end %>

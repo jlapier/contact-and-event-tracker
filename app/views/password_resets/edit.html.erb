@@ -1,0 +1,10 @@
+<h1>Reset Your Password</h1>
+<div>
+  <% semantic_form_for @user, :url => password_reset_path(:id => @user.perishable_token) do |f| %>
+  <% f.inputs do %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+  <% end %>
+  <%= f.submit "Update" %>
+  <% end %>  
+</div>

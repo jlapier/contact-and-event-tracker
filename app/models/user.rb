@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :password_resets, :order => 'created_at DESC', :dependent => :destroy
   belongs_to :contact
   before_create :make_admin_if_first_user
   after_create :create_contact
@@ -19,13 +20,24 @@ class User < ActiveRecord::Base
     self.email = sreg["email"] if email.blank?
     self.name  = sreg["fullname"] if name.blank?
   end
-
-  private
-  def create_contact
-    Contact.create! :user => self
+  
+  def confirm_password_reset
+    reset_perishable_token!
+    Notification.deliver_password_reset_confirmation(self)
   end
   
-  def make_admin_if_first_user
-    self.is_admin = true if User.count == 0
+  def password_reset_confirmed(confirming_ip)
+    return false if password_resets.empty?
+    # ok to just confirm first in collection due to :order set in has_many
+    password_resets.first.confirm(confirming_ip)
   end
+
+  private
+    def create_contact
+      Contact.create! :user => self
+    end
+  
+    def make_admin_if_first_user
+      self.is_admin = true if User.count == 0
+    end
 end
