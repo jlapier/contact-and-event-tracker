@@ -35,7 +35,7 @@ describe FileAttachmentsController do
       it "should upload a new file attachment with an event" do
         FileAttachment.should_receive(:new).and_return(mock_file_attachment)
         post :create, :file_attachment => @params
-        response.should redirect_to(event_url(mock_event))
+        response.should redirect_to(event_url(mock_event, :std => 1))
       end
       it "should upload a new file attachment without an event" do
         @params.delete(:event_id)

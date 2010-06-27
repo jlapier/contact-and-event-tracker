@@ -25,7 +25,7 @@ describe Event do
   it "should call to_hash_for_calendar" do
     event = Event.create! :name => "test", :start_on => "2010-01-01", :end_on => "2010-01-07", 
       :event_type => "meeting", :description => "some kind of meeting", :location => 'skype.address'
-    event.to_hash_for_calendar.should == { :id => event.id, :title => "test", 
+    event.to_hash_for_calendar.should == { :id => event.id, :title => "test (0 files)", 
       :start => Date.new(2010,1,1), :end => Date.new(2010,1,7), :url => "/events/#{event.id}",
       :description => "some kind of meeting", :location => 'skype.address' }
   end
