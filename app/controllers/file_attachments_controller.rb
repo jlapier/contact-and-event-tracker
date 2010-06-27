@@ -34,7 +34,11 @@ class FileAttachmentsController < ApplicationController
       end
       unless params[:file] # request.xhr? # html5 based multiple uploads are not xhr ?
         # {:std => 1} - make sure the std html form displays
-        redirect_to event_path(@file_attachment.event, :std => 1) || file_attachments_path(:std => 1)
+        if @file_attachment.event
+          redirect_to event_path(@file_attachment.event.id, :std => 1)
+        else
+          redirect_to file_attachments_path(:std => 1)
+        end
       else
         render :partial => 'file_attachments/file_attachment', :object => @file_attachment
       end
