@@ -39,11 +39,20 @@
     <%= yield :javascript %>
   </head>
   <body>
-    <div id="main_menu">
-      <div id="user_box">
-        <%= render :partial => "/users/user_box" %>
+    <div class="container">
+
+      <div class="base_content span-18 last">
+        <%= render :partial => 'shared/flash', :object => flash %>
+        <div class="inner_content">
+          <%= yield %>
+        </div>
       </div>
-      
+
+      <div id="main_menu" class="span-6">
+        <div id="user_box">
+          <%= render :partial => "/users/user_box" %>
+        </div>
+
       <ul>
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Contacts", contacts_path %></li>

@@ -1,33 +1,23 @@
 /* use these elements to override the default css */
 
-#top_banner {
-}
-
 .base_content {
 }
 
-.top_menu {
+#main_menu { 
+  background: #333; color: #EEE; font-size: 16px;
+  padding: 6px 12px; margin-bottom: 8px;
 }
+#main_menu ul { list-style: none; }
+#main_menu ul li { float: left; margin-left: 0px;
+	margin-right: 35px; }
+
+#main_menu a:link, #main_menu a:visited { color: #DDF; }
+#main_menu a:hover { color: #EEF; }
 
 .footer {
 }
 
-.side_menu {
-}
-
 #user_box {
-}
-
-.logo_box {
-}
-
-.category_links {
-}
-
-table.forums {
-}
-
-table.messages {
 }
 
 .pagination {
