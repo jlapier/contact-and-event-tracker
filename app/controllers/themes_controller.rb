@@ -1,6 +1,8 @@
 class ThemesController < ApplicationController
   before_filter :require_admin_user, :except => [ :css ]
   
+  skip_after_filter :store_location
+
   caches_page :css
   
   def index
