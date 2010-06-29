@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :logged_in?, :is_admin?
 
   before_filter :get_layout
+  after_filter :store_location
 
   private
     def current_user_session
