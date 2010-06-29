@@ -1,8 +1,15 @@
 class FileAttachmentsController < ApplicationController
   
   before_filter :require_admin_user, :except => [:index, :show]
+  
+  rescue_from Errno::ENOENT, :with => :file_not_found
 
   private
+    def file_not_found(e)
+      logger.error("FileAttachmentsController[#{action_name}] was rescued with :file_not_found. #{e.message}")
+      flash[:warning] = "The physical file could not be located so your request could not be completed."
+      redirect_back_or_default(root_path)
+    end
   protected
   public
 
@@ -42,5 +49,12 @@ class FileAttachmentsController < ApplicationController
       else
         render :partial => 'file_attachments/file_attachment', :object => @file_attachment
       end
+    end
+    
+    def destroy
+      @file_attachment = FileAttachment.find(params[:id])
+      @file_attachment.destroy
+      flash[:notice] = "Deleted File: #{@file_attachment.name}"
+      redirect_back_or_default(root_path)
     end
 end
