@@ -92,7 +92,7 @@ input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 
 
 
 /* event calendars */
-.calendars { width: 300px; float: left; padding-right: 20px; }
+.calendars { width: 260px; float: left; padding-right: 20px; }
 /* #event_description { position: absolute; width: 150px; background: #EEE; border: 1px solid #999; z-index: 99; } */
 #event_quick_description { clear: both; border: 1px solid #999; background: #FFC; padding: 12px; margin-top: 15px; }
 .fc-grid table { margin-bottom: 0 }

@@ -6,6 +6,7 @@
     <title><%= [site_title, page_title].reject(&:blank?).join(' - ') %></title>
     <%= stylesheet_link_tag "blueprint/screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "blueprint/print", :media => "print" %>
+    <%= stylesheet_link_tag "blueprint/grid", :media => "screen, projection" %>
     <%= stylesheet_link_tag "blueprint/plugins/fancy-type/screen" %>
     <%= stylesheet_link_tag "blueprint/plugins/silksprite/sprite", :media => "screen, projection" %>
     <%= stylesheet_link_tag "fullcalendar.css", :media => "screen, projection" %>
@@ -40,15 +41,15 @@
   </head>
   <body>
     <div class="container">
-
-      <div class="base_content span-18 last">
+<div class="span-24">
+      <div class="base_content span-20">
         <%= render :partial => 'shared/flash', :object => flash %>
         <div class="inner_content">
           <%= yield %>
         </div>
       </div>
 
-      <div id="main_menu" class="span-6">
+      <div id="main_menu" class="span-4 last">
         <div id="user_box">
           <%= render :partial => "/users/user_box" %>
         </div>
@@ -66,7 +67,7 @@
           <%= yield :sidebar %>
         </div>
       </div>
-    
+    </div>
     </div>
   </body>
 </html>
