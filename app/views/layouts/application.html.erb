@@ -59,6 +59,12 @@
           <li><%= link_to "Groups", contact_groups_path %></li>
           <li><%= link_to "Events", events_path %></li>
         </ul>
+
+        <br/><br/>
+
+        <div class="sidebar">
+          <%= yield :sidebar %>
+        </div>
       </div>
     
     </div>

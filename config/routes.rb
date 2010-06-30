@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
     :collection => { :emails => :get }
   map.resources :events, :member => { :drop_contact => :post, :add_attendees => :get, :add_contacts => :post }
   map.resources :file_attachments, :member => { :download => :get }
+  map.resources :event_revisions
 
   map.connect 'themes/:action', :controller => 'themes'
   map.connect 'themes/:action/:name.:format', :controller => 'themes'

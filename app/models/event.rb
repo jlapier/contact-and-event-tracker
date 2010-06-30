@@ -18,6 +18,8 @@ class Event < ActiveRecord::Base
   
   has_many :file_attachments
 
+  belongs_to :modified_by_user, :class_name => 'User'
+
   validates_presence_of :name, :event_type, :start_on
 
   acts_as_stripped :name
