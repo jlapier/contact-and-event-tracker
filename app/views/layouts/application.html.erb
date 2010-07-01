@@ -41,7 +41,18 @@
   </head>
   <body>
     <div class="container">
-<div class="span-24">
+      <div class="top-banner span-24 last">
+        <div class="header span-16">
+          <h1><%= site_title %></h1>
+        </div>
+
+        <div class="span-8 last">
+          <div id="user_box">
+            <%= render :partial => "/users/user_box" %>
+          </div>
+        </div>
+      </div>
+
       <div class="base_content span-20">
         <%= render :partial => 'shared/flash', :object => flash %>
         <div class="inner_content">
@@ -49,25 +60,25 @@
         </div>
       </div>
 
-      <div id="main_menu" class="span-4 last">
-        <div id="user_box">
-          <%= render :partial => "/users/user_box" %>
+      <div class="span-4 last">
+        <div id="main_menu" class="span-3">
+          <ul>
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Contacts", contacts_path %></li>
+            <li><%= link_to "Groups", contact_groups_path %></li>
+            <li><%= link_to "Events", events_path %></li>
+            <% if is_admin? %>
+              <li><em><%= link_to "Admin", admin_site_settings_path %></em></li>
+            <% end %>
+          </ul>
         </div>
-      
-        <ul>
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Contacts", contacts_path %></li>
-          <li><%= link_to "Groups", contact_groups_path %></li>
-          <li><%= link_to "Events", events_path %></li>
-        </ul>
 
-        <br/><br/>
+        <div class="span-1 last"></div>
 
-        <div class="sidebar">
+        <div class="sidebar span-4">
           <%= yield :sidebar %>
         </div>
       </div>
-    </div>
     </div>
   </body>
 </html>
