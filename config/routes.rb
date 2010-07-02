@@ -14,5 +14,5 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :site_settings, :collection => { :update_site_settings => :post, :admin => :get }
 
   map.resource :user_session
-  map.root :controller => "user_sessions", :action => "show"
+  map.root :controller => "site_settings", :action => "homepage"
 end

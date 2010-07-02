@@ -57,11 +57,11 @@
   
 <% end %>
 
-<h3>Files</h3>
+<h3>Downloadable Resources</h3>
 
 <%= render :partial => 'file_attachments/file_attachments', :object => defined?(file_attachments) ? file_attachments : [] %>
 
-<h4>Upload</h4>
+<h4>Upload Files</h4>
 
 <p>
 [<%= link_to_unless params[:std], "One at a time", url_for(:controller => controller_name, :action => action_name, :std => 1) %> | <%= link_to_if params[:std], "Several at once", url_for(:controller => controller_name, :action => action_name) %>]

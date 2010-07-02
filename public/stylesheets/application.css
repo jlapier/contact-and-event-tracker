@@ -22,6 +22,7 @@ legend { font-size: 1.0em }
 input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 0 }
 .small_text input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 0.25em }
 
+.error, .notice, .success { margin: 10px; }
 
 /* elements and classes likely to be customized/overridden */
 .base_content {
@@ -35,11 +36,8 @@ input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 
 .top-banner { 
   background: #336;
   margin: 10px;
-  -webkit-border-bottom-right-radius: 8px;
   -webkit-border-bottom-left-radius: 8px;
-  -moz-border-radius-bottomright: 8px;
   -moz-border-radius-bottomleft: 8px;
-  border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 
@@ -53,7 +51,10 @@ input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 
   -moz-border-radius-bottomleft: 8px;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
+  border: 3px #336 solid;
+  border-top: none;
 }
+
 #main_menu ul { list-style: none; padding-top: 8px; margin-left: 18px; margin-bottom: 12px; line-height: 175%; }
 #main_menu a:link, #main_menu a:visited { color: #339; }
 #main_menu a:hover { color: #66C; }

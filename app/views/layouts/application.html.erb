@@ -42,11 +42,11 @@
   <body>
     <div class="container">
       <div class="top-banner span-24 last">
-        <div class="header span-16">
+        <div class="header span-14">
           <h1><%= site_title %></h1>
         </div>
 
-        <div class="span-8 last">
+        <div class="span-10 last">
           <div id="user_box">
             <%= render :partial => "/users/user_box" %>
           </div>
@@ -61,7 +61,7 @@
       </div>
 
       <div class="span-4 last">
-        <div id="main_menu" class="span-3">
+        <div id="main_menu">
           <ul>
             <li><%= link_to "Home", root_path %></li>
             <li><%= link_to "Contacts", contacts_path %></li>
@@ -73,9 +73,7 @@
           </ul>
         </div>
 
-        <div class="span-1 last"></div>
-
-        <div class="sidebar span-4">
+        <div class="sidebar">
           <%= yield :sidebar %>
         </div>
       </div>

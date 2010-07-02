@@ -1,7 +1,10 @@
 <h1>Site Administration</h1>
 
 <ul>
-  <li><%= link_to 'Site-wide Settings', site_settings_path %></li>
+  <li>
+    <%= link_to 'Site-wide Settings', site_settings_path %>
+    (site title, home page text, footer text, etc)
+  </li>
   <li><%= link_to 'User Management', users_path %></li>
   <li><%= link_to 'Custom CSS', :controller => :themes, :action => :css_editor %></li>
 </ul>
