@@ -3,7 +3,6 @@ class UserSessionsController < ApplicationController
   before_filter :require_user, :only => [:destroy, :show]
 
   def show
-    @file_attachments = FileAttachment.all(:conditions => {:event_id => nil})
   end
 
   def new

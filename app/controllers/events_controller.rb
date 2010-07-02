@@ -17,7 +17,7 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     @event = Event.find(params[:id], :include => :file_attachments)
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event }
@@ -44,6 +44,7 @@ class EventsController < ApplicationController
   # POST /events.xml
   def create
     @event = Event.new(params[:event])
+    @event.modified_by_user = current_user
 
     respond_to do |format|
       if @event.save
@@ -63,7 +64,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     respond_to do |format|
-      if @event.update_attributes(params[:event])
+      if @event.update_attributes(params[:event].merge(:modified_by_user => current_user))
         flash[:notice] = 'Event was successfully updated.'
         format.html { redirect_to(@event) }
         format.xml  { head :ok }

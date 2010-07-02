@@ -1,0 +1,14 @@
+<h1>Event - Version: <%= @event_revision.revision_number %></h1>
+<h3>
+  Modified by <%= @event_revision.modified_by_user ? @event_revision.modified_by_user.id : '<em>unknown</em>' %>
+  on <%= @event_revision.revisable_current_at.strftime "%m/%d/%Y" %>
+</h3>
+<%= render :partial => '/events/event_details', :locals => { :event => @event_revision } %>
+
+<p>
+  Attendee List: <%= @event_revision.attendees.map(&:contact).map(&:name).join('; ') %>
+</p>
+
+<p>
+  [<%= link_to "back to current version", @event_revision.current_revision %>]
+</p>

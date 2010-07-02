@@ -1,52 +1,59 @@
-<h1>Login with a Regular Account</h1>
+<div class="span-9">
 
-<% form_for @user_session, :url => user_session_path do |f| %>
-  <%= f.error_messages %>
-  <%= f.label :email, "E-mail Address" %><br />
-  <%= f.text_field :email %><br />
-  <br />
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
-  <br />
-  <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
-  <br />
-  <%= f.submit "Login" %>
-<% end %>
-<br/>
-<br/>
-<p>
-  <%= link_to 'register a new account', new_user_path %>
-</p>
-<p>
-  <%= link_to 'forgot password?', new_password_reset_path %>
-</p>
-<br/>
+  <h1>Login with a Regular Account</h1>
 
-<h1>Login with an OpenID Account</h1>
+  <% form_for @user_session, :url => user_session_path do |f| %>
+    <%= f.error_messages %>
+    <%= f.label :email, "E-mail Address" %><br />
+    <%= f.text_field :email %><br />
+    <br />
+    <%= f.label :password %><br />
+    <%= f.password_field :password %><br />
+    <br />
+    <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
+    <br />
+    <%= f.submit "Login" %>
+  <% end %>
+  <br/>
+  <br/>
+  <p>
+    <%= link_to 'register a new account', new_user_path %>
+  </p>
+  <p>
+    <%= link_to 'forgot password?', new_password_reset_path %>
+  </p>
+  <br/>
 
-<div>
-<% form_for @user_session, :url => user_session_path do |f| %>
-  <%= f.error_messages %>
-  <%= f.label :openid_identifier, "OpenID" %><br />
-  <%= f.text_field :openid_identifier %>
-  <span id="openid_login_target"></span>
-  <br />
-  <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
-  <!-- BEGIN ID SELECTOR -->
-  <script type="text/javascript">
-    <!--
-        // Tell ID Selector which controls to affect
-        var idselector_input_id = "user_session_openid_identifier";
-        var idselector_target_id = "openid_login_target";
-      -->
-  </script>
-  <%= javascript_include_tag 'idselector.js' %>
-  
-  <!-- END ID SELECTOR -->
+</div>
 
-  <br />
-  <%= f.submit "Log In" %>
-<% end %>
+
+<div class="span-10 last">
+
+<h1>Login or create an account with OpenID</h1>
+  <div>
+  <% form_for @user_session, :url => user_session_path do |f| %>
+    <%= f.error_messages %>
+    <%= f.label :openid_identifier, "OpenID" %><br />
+    <%= f.text_field :openid_identifier %>
+    <span id="openid_login_target"></span>
+    <br />
+    <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
+    <!-- BEGIN ID SELECTOR -->
+    <script type="text/javascript">
+      <!--
+          // Tell ID Selector which controls to affect
+          var idselector_input_id = "user_session_openid_identifier";
+          var idselector_target_id = "openid_login_target";
+        -->
+    </script>
+    <%= javascript_include_tag 'idselector.js' %>
+    
+    <!-- END ID SELECTOR -->
+
+    <br />
+    <%= f.submit "Log In" %>
+  <% end %>
+  </div>
 </div>
 
 
