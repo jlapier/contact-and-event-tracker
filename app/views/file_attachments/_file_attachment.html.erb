@@ -1,4 +1,4 @@
 <% div_for(file_attachment) do %>
-  <p><%= link_to(file_attachment.name, download_file_attachment_path(file_attachment.id)) %> [ <span style="font-size: 10px; color: gray;"><%= link_to_if is_admin?, 'delete', file_attachment_path(file_attachment.id), :method => :delete, :confirm => "Did you mean to Delete #{file_attachment.name}" %></span> ]</p>
+  <p><%= link_to(file_attachment.name, download_file_attachment_path(file_attachment.id)) %> <% if is_admin? %>[ <span style="font-size: 10px; color: gray;"><%= link_to 'delete', file_attachment_path(file_attachment.id), :method => :delete, :confirm => "Did you mean to Delete #{file_attachment.name}" %></span> ]<% end %></p>
   <p><%=h file_attachment.description %></p>
 <% end %>
