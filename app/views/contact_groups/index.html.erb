@@ -51,12 +51,12 @@
   <textarea cols="3" rows="60" style="width: 100%; height: 200px;"></textarea>
 </div>
 
-<p>
-  <% if is_admin? %>
-  <%= link_to 'create a new contact group', new_contact_group_path %> |
+<% if is_admin? %>
+  <% content_for :sidebar do %>
+    <h4>Contact Group Management</h4>
+    <p><%= link_to 'enter a new contact group', new_contact_group_path %></p>
   <% end %>
-  <%= link_to 'full list of contacts', contacts_path %>
-</p>
+<% end %>
 
 <script type="text/javascript">
   $(document).ready(function() {

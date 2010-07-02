@@ -51,10 +51,11 @@
   <% end %>
 <% end %>
   
-<p>
-  <% if is_admin? %>
-  <%= link_to 'add contacts to this group', add_members_contact_group_path(@contact_group) %> |
-  <%= link_to 'edit group name', edit_contact_group_path(@contact_group) %> |
+<% if is_admin? %>
+  <% content_for :sidebar do %>
+    <h4>Contact Group Management</h4>
+    <p><%= link_to 'add contacts to this group', add_members_contact_group_path(@contact_group) %></p>
+    <p><%= link_to 'edit group name', edit_contact_group_path(@contact_group) %></p>
+    <p><%= link_to 'list of contact groups', contact_groups_path %></p>
   <% end %>
-  <%= link_to 'list of contact groups', contact_groups_path %>
-</p>
+<% end %>

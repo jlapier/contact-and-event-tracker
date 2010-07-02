@@ -7,7 +7,7 @@
 <div class="small_text">
   <% form_tag add_members_contact_group_path(@contact_group), :method => :get do %>
     <%= text_field_tag 'q', params[:q] %>
-    <%= submit_tag 'search contacts' %> &nbsp;
+    <%= submit_tag 'search contacts' %><br/>
     <em>optional - narrow search to:</em>
     <% [:first_name, :last_name, :agency, :division, :state, :email].each do |att| %>
       <%= check_box_tag "fields[#{att.to_s}]", 1,
@@ -41,11 +41,12 @@
 <% end %>
 
 
-<p class="admin_links">
-  <%= link_to 'edit group name', edit_contact_group_path(@contact_group) %> |
-  <%= link_to 'list contacts in this group', @contact_group %> |
-  <%= link_to 'list of contact groups', contact_groups_path %>
-</p>
+<% content_for :sidebar do %>
+  <h4>Contact Group Management</h4>
+  <p><%= link_to 'edit group name', edit_contact_group_path(@contact_group) %></p>
+  <p><%= link_to 'list contacts in this group', @contact_group %></p>
+  <p><%= link_to 'list of contact groups', contact_groups_path %></p>
+<% end %>
 
 
 <script type="text/javascript">

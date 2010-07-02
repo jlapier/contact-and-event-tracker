@@ -1,5 +1,7 @@
 <h1>Events</h1>
 
+<p><em>mouse over an event to preview; click on an event for full details</em></p>
+
 <div id="calendar_now" class="calendars"></div>
 <div id="calendar_one_month" class="calendars"></div>
 <div id="calendar_two_months" class="calendars"></div>
@@ -9,9 +11,12 @@
 
 
 <% if is_admin? %>
-<p style="clear:both; margin-top: 15px;">
-<%= link_to 'New event', new_event_path %>
-</p>
+  <% content_for :sidebar do %>
+    <h4>Event Management</h4>
+    <p>
+      <%= link_to 'enter a new event', new_event_path %>
+    </p>
+  <% end %>
 <% end %>
 
 
@@ -47,17 +52,5 @@ $(document).ready(function()
   }
 );
 
-var updateEventDescription = function(event, jsEvent) {
-  $("#event_quick_description")[0].innerHTML = "";
-  $("#event_quick_description").append(
-    $("<h3/>").append(
-      $('<a/>', { text : event.title, href : event.url })
-    )
-  );
-  $("#event_quick_description")[0].innerHTML += "Location: " + event.location + "<br/>";
-  $("#event_quick_description")[0].innerHTML += event.description;
-  
-  $("#event_quick_description").show();
-}
 </script>
 <% end %>

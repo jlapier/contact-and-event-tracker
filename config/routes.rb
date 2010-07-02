@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'themes/:action', :controller => 'themes'
   map.connect 'themes/:action/:name.:format', :controller => 'themes'
   map.resources :site_settings, :collection => { :update_site_settings => :post, :admin => :get }
-
   map.resource :user_session
+
   map.root :controller => "site_settings", :action => "homepage"
 end

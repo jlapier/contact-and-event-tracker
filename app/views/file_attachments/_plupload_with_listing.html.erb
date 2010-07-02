@@ -61,19 +61,25 @@
 
 <%= render :partial => 'file_attachments/file_attachments', :object => defined?(file_attachments) ? file_attachments : [] %>
 
-<h4>Upload Files</h4>
-
-<p>
-[<%= link_to_unless params[:std], "One at a time", url_for(:controller => controller_name, :action => action_name, :std => 1) %> | <%= link_to_if params[:std], "Several at once", url_for(:controller => controller_name, :action => action_name) %>]
+<p class="upload_block_linker" style="<%= params[:std] ? 'display:none;' : '' %>">
+  <a href="?show=upload_files_block&hide=upload_block_linker" class="show_hide_link">upload files</a>
 </p>
 
-<% if params[:std] %>
-<div id="single_upload" style="width: 33%;">
-  <%= render :partial => 'file_attachments/upload_form', :locals => {:event => event} if defined?(event) %>
-  <%= render :partial => 'file_attachments/upload_form' unless defined?(event) %>
+<div class="upload_files_block" style="<%= params[:std] ? '' : 'display:none;' %>">
+  <h4>Upload Files</h4>
+
+  <p>
+  [<%= link_to_unless params[:std], "One at a time", url_for(:controller => controller_name, :action => action_name, :std => 1) %> | <%= link_to_if params[:std], "Several at once", url_for(:controller => controller_name, :action => action_name) %>]
+  </p>
+
+  <% if params[:std] %>
+  <div id="single_upload" style="width: 33%;">
+    <%= render :partial => 'file_attachments/upload_form', :locals => {:event => event} if defined?(event) %>
+    <%= render :partial => 'file_attachments/upload_form' unless defined?(event) %>
+  </div>
+  <% else %>
+  <div id="multiple_uploads">
+    You browser doesn't support native upload. Try Firefox 3 or Safari 4.
+  </div>
+  <% end %>
 </div>
-<% else %>
-<div id="multiple_uploads">
-  You browser doesn't support native upload. Try Firefox 3 or Safari 4.
-</div>
-<% end %>

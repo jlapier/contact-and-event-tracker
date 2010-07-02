@@ -49,7 +49,10 @@
 <%= will_paginate %>
 
 <% if is_admin? %>
-<p>[<%= link_to "create new contact", new_contact_path %>]</p>
+  <% content_for :sidebar do %>
+    <h4>Contact Management</h4>
+    <p><%= link_to "enter a new contact", new_contact_path %></p>
+  <% end %>
 <% end %>
 
 <script type="text/javascript">

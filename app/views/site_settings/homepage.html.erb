@@ -1,10 +1,37 @@
-<%= textilize @homepage_text %>
+<div class="span-10">
+  <%= textilize @homepage_text %>
 
-<% if is_admin? %>
-  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @file_attachments} %>
-<% elsif @file_attachments.size > 0 %>
-<div>
-  <h4>Downloadable Resources</h4>
-  <%= render :partial => 'file_attachments/file_attachments', :object => @file_attachments %>
+  <% if is_admin? %>
+    <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @file_attachments} %>
+  <% elsif @file_attachments.size > 0 %>
+    <div>
+      <h4>Downloadable Resources</h4>
+      <%= render :partial => 'file_attachments/file_attachments', :object => @file_attachments %>
+    </div>
+  <% end %>
 </div>
+
+
+<div class="span-8 last" style="padding-left: 30px;">
+  <h2>Events Calendar</h2>
+  <div id="calendar_front_page"></div>
+
+  <p class="small_text"><em>mouse over an event to preview; click on an event for full details</em></p>
+
+  <div id="event_quick_description" style="display:none"></div>
+</div>
+
+
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function()
+  {
+    $('#calendar_front_page').fullCalendar({ 
+      editable: false, events: "/events", height: 300, aspectRatio: 1.2,
+      eventMouseover: updateEventDescription
+    });
+  }
+)
+</script>
 <% end %>
