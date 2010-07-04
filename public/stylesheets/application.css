@@ -131,3 +131,11 @@ div.select_popper_box ul li:hover { background: #EEE; }
 .fc table { margin-bottom: 0; }
 #calendar_front_page { font-size: 12px; }
 #calendar_front_page h2 { font-size: 1.3em }
+
+/* look like a button */
+.fake_button {
+  font-size: 11px;
+  font-weight: bold;
+  border: 1px solid #2f4f4f;
+  padding: 0 3px 0 3px;
+}
