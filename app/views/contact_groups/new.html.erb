@@ -1,3 +1,6 @@
+<p class="admin_links">
+  <%= link_to 'Contact Groups', contact_groups_path, :class => 'fake_button' %>
+</p>
 <h1>New contact group</h1>
 
 <% form_for(@contact_group) do |f| %>
@@ -5,7 +8,3 @@
   <%= render :partial => "form", :object => f %>
   <%= f.submit 'Create' %>
 <% end %>
-
-<p class="admin_links">
-  <%= link_to 'Back to Contact Groups', contact_groups_path %>
-</p>

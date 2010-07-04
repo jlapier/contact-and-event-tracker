@@ -1,3 +1,7 @@
+<p class="admin_links">
+  <%= link_to 'Groups', contact_groups_path, :class => 'fake_button' %>
+  <%= link_to 'Group Contacts', @contact_group, :class => 'fake_button' %>
+</p>
 <h1>Editing contact group</h1>
 
 <% form_for(@contact_group) do |f| %>
@@ -5,8 +9,3 @@
   <%= render :partial => "form", :object => f %>
   <%= f.submit 'Save Changes' %>
 <% end %>
-
-<p class="admin_links">
-  <%= link_to 'List Contacts in this Group', @contact_group %> |
-  <%= link_to 'List of Groups', contact_groups_path %>
-</p>

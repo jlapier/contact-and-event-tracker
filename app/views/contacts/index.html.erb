@@ -1,3 +1,6 @@
+<% if is_admin? %>
+<p><%= link_to "New Contact", new_contact_path, :class => 'fake_button' %></p>
+<% end %>
 <h1>Contacts</h1>
 
 <% if params[:q] %>
@@ -36,10 +39,11 @@
       <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
       <td></td>
       <% if is_admin? %>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Delete', contact_path(contact),
+        <td><%= link_to 'edit', edit_contact_path(contact), :class => 'fake_button' %></td>
+        <td><%= link_to 'delete', contact_path(contact),
                     :confirm => 'Are you sure you want to permanently delete this contact?',
-                    :method => "delete" %></td>
+                    :method => "delete",
+                    :class => 'fake_button' %></td>
       <% end %>
     </tr>
   <% end %>
@@ -47,10 +51,6 @@
 </table>
 
 <%= will_paginate %>
-
-<% if is_admin? %>
-<p>[<%= link_to "create new contact", new_contact_path %>]</p>
-<% end %>
 
 <script type="text/javascript">
 $(document).ready(function()

@@ -1,13 +1,13 @@
 <% if logged_in? -%>
   <% if current_user.contact.first_name.blank? %>
     <strong>Welcome, stranger!</strong> &nbsp;
-    [<%= link_to "enter your contact information", edit_contact_path(current_user.contact) %>]
+    <%= link_to "missing your contact info", edit_contact_path(current_user.contact), :class => 'fake_button' %>
   <% else %>
     <strong>Welcome, <%= current_user.contact.first_name %>!</strong>  &nbsp;
-    [<%= link_to "your contact information", current_user.contact %>]
+    <%= link_to "your contact info", current_user.contact, :class => 'fake_button' %>
   <% end %>
     &nbsp;
-  [<%= link_to 'log out', user_session_path, :method => :delete %>]
+  <%= link_to 'Logout', user_session_path, :method => :delete, :class => 'fake_button' %>
 <% else %>
-  [<%= link_to 'log in', new_user_session_path %>]
+  <%= link_to 'Login', new_user_session_path, :class => 'fake_button' %>
 <% end %>

@@ -1,3 +1,9 @@
+<% if is_admin? %>
+<p>
+<%= link_to 'New Event', new_event_path, :class => 'fake_button' %>
+</p>
+<% end %>
+
 <h1>Events</h1>
 
 <div id="calendar_now" class="calendars"></div>
@@ -6,18 +12,6 @@
 
 <div style="clear:both"></div>
 <div id="event_quick_description" style="display:none"></div>
-
-
-<% if is_admin? %>
-<p style="clear:both; margin-top: 15px;">
-<%= link_to 'New event', new_event_path %>
-</p>
-<% end %>
-
-
-
-
-
 
 <% content_for :javascript do %>
 <script type="text/javascript">

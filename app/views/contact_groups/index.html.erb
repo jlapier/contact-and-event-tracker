@@ -1,3 +1,8 @@
+<% if is_admin? %>
+<p>
+  <%= link_to 'New Contact Group', new_contact_group_path, :class => 'fake_button' %>
+</p>
+<% end %>
 <h1>Contact groups</h1>
 
 <% if @contact_groups.empty? %>
@@ -8,23 +13,23 @@
       <thead>
         <tr>
           <th>Group name</th>
+          <% if is_admin? %>
           <th></th>
-          <% if is_admin? %><th></th><% end %>
+          <th></th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
       <% @contact_groups.each do |contact_group| %>
         <tr>
-          <td><%= contact_group.name %></td>
-          <td style="text-align:right">
-            <%= link_to 'list members', contact_group %> &nbsp; &nbsp;
-            <% if is_admin? %>
-              <%= link_to 'edit group name', edit_contact_group_path(contact_group) %> &nbsp; &nbsp;
-              <%= link_to 'delete', contact_group, :method => :delete,
-                    :confirm => "Are you sure you want to delete the group called #{contact_group.name}?" %>
-            <% end %>
-          </td>
+          <td><%= link_to contact_group.name, contact_group %></td>          
           <% if is_admin? %>
+          <td style="text-align: left;">
+            <%= link_to 'edit', edit_contact_group_path(contact_group), :class => 'fake_button' %>
+              <%= link_to 'delete', contact_group, :method => :delete,
+                    :confirm => "Are you sure you want to delete the group called #{contact_group.name}?",
+                    :class => 'fake_button' %>
+          </td>
           <td>
             <%= check_box_tag "contact_group_ids[]", contact_group.id %>
           </td>
@@ -33,8 +38,7 @@
       <% end %>
         <% if is_admin? %>
         <tr>
-          <td></td>
-          <td colspan="2" style="text-align:right;">
+          <td colspan="3" style="text-align:right;">
             <%= submit_tag "retrieve emails for checked groups" %>
           </td>
         </tr>
@@ -50,13 +54,6 @@
   <a href="">Use this email link</a> or copy from the box below and paste into your email program:
   <textarea cols="3" rows="60" style="width: 100%; height: 200px;"></textarea>
 </div>
-
-<p>
-  <% if is_admin? %>
-  <%= link_to 'create a new contact group', new_contact_group_path %> |
-  <% end %>
-  <%= link_to 'full list of contacts', contacts_path %>
-</p>
 
 <script type="text/javascript">
   $(document).ready(function() {

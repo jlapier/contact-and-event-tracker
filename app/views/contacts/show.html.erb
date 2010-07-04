@@ -1,3 +1,9 @@
+<p>
+  <%= link_to "Contacts", contacts_path, :class => 'fake_button' %>
+<% if is_admin? or (current_user and @contact.user and current_user == @contact.user) %>
+<%= link_to "Edit Contact Details".strip, edit_contact_path(@contact), :class => 'fake_button' %>
+<% end %>
+</p>
 <h1><%= link_to "Contacts", contacts_path  %></h1>
 
 <h2><%= @contact.name %></h2>
@@ -53,7 +59,3 @@
     <li><strong>Attended events:</strong> <%= @contact.events.map(&:to_s).join(', ') %></li>
   <% end %>
 </ul>
-
-<% if is_admin? or (current_user and @contact.user and current_user == @contact.user) %>
-<p>[<%= link_to "edit this contact", edit_contact_path(@contact) %>]</p>
-<% end %>

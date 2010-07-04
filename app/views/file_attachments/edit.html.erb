@@ -1,7 +1,7 @@
 <% if @file_attachment.event_id.nil? %>
-<p><span class="fake_button"><%= link_to '< back', root_path %></span></p>
+<p><%= link_to '< back', root_path, :class => 'fake_button' %></p>
 <% else %>
-<p><span class="fake_button"><%= link_to '< back', event_path(@file_attachment.event.id) %></span></p>
+<p><%= link_to '< back', event_path(@file_attachment.event.id), :class => 'fake_button' %></p>
 <% end %>
 <% content_tag :div do %>
   <% semantic_form_for @file_attachment do |form| %>

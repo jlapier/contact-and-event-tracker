@@ -1,3 +1,11 @@
+<p>
+  <%= link_to 'Groups', contact_groups_path, :class => 'fake_button' %>
+  <% if is_admin? %>
+  <%= link_to 'Add Contacts', add_members_contact_group_path(@contact_group), :class => 'fake_button' %>
+  <%= link_to 'Edit Group Name', edit_contact_group_path(@contact_group), :class => 'fake_button' %>
+  <% end %>
+</p>
+
 <h1>Contact Group: <%= @contact_group.name %></h1>
 
 <% if @contact_group.contacts.empty? %>
@@ -34,7 +42,7 @@
         <td>
           <%= link_to "drop from group",
                 drop_contact_contact_group_path(@contact_group, :contact_id => contact.id),
-                :method => :post %>
+                :method => :post, :class => 'fake_button' %>
         </td>
         <td><%= check_box_tag "contact_ids[]", contact.id %></td>
         <% end %>
@@ -50,11 +58,3 @@
     </table>
   <% end %>
 <% end %>
-  
-<p>
-  <% if is_admin? %>
-  <%= link_to 'add contacts to this group', add_members_contact_group_path(@contact_group) %> |
-  <%= link_to 'edit group name', edit_contact_group_path(@contact_group) %> |
-  <% end %>
-  <%= link_to 'list of contact groups', contact_groups_path %>
-</p>

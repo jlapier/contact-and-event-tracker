@@ -1,3 +1,20 @@
+<div style="float: right; width: 33%; margin-right: 15px;">
+<% if is_admin? %>
+  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @event.file_attachments, :event => @event} %>
+<% else %>
+  <h4>Files</h4>
+  <%= render :partial => 'file_attachments/file_attachments', :object => @event.file_attachments %>
+<% end %>  
+</div>
+
+<p>
+<%= link_to 'Events', events_path, :class => 'fake_button' %>
+<% if is_admin? %>
+<%= link_to 'Add Attendees', add_attendees_event_path(@event), :class => 'fake_button' %>
+<%= link_to 'Edit Event Details', edit_event_path(@event), :class => 'fake_button' %>
+<% end %>
+</p>
+
 <h1>Event</h1>
 
 <%= render :partial => 'event_details', :locals => { :event => @event } %>
@@ -37,7 +54,7 @@
         <td>
           <%= link_to "drop from event",
                 drop_contact_event_path(@event, :contact_id => contact.id),
-                :method => :post %>
+                :method => :post, :class => 'fake_button' %>
         </td>
         <td><%= check_box_tag "contact_ids[]", contact.id %></td>
         <% end %>
@@ -53,23 +70,6 @@
     </table>
   <% end %>
 <% end %>
-
-<% if is_admin? %>
-  <br/>
-  <p>
-  [<%= link_to 'Add attendees to this event', add_attendees_event_path(@event) %> &nbsp; | &nbsp;
-  <%= link_to 'Edit this event', edit_event_path(@event) %> &nbsp; | &nbsp;
-  <%= link_to 'List of Events', events_path %>]
-  </p>
-  <br/>
-  <%= render :partial => 'file_attachments/plupload_with_listing', :locals => {:file_attachments => @event.file_attachments, :event => @event} %>
-<% else %>
-<div>
-  <h4>Files</h4>
-  <%= render :partial => 'file_attachments/file_attachments', :object => @event.file_attachments %>
-</div>
-<% end %>
-
 
 <% content_for :sidebar do %>
   <h4>Revisions</h4>

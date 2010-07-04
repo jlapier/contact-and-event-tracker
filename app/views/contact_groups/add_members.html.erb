@@ -1,3 +1,8 @@
+<p class="admin_links">
+  <%= link_to 'Group Contacts', @contact_group, :class => 'fake_button' %>
+  <%= link_to 'Edit Group Name', edit_contact_group_path(@contact_group), :class => 'fake_button' %>
+</p>
+
 <h1>Adding Contacts to Group: <%= @contact_group.name %></h1>
 
 <% if params[:q] %>
@@ -39,14 +44,6 @@
     </tr>
   </table>
 <% end %>
-
-
-<p class="admin_links">
-  <%= link_to 'edit group name', edit_contact_group_path(@contact_group) %> |
-  <%= link_to 'list contacts in this group', @contact_group %> |
-  <%= link_to 'list of contact groups', contact_groups_path %>
-</p>
-
 
 <script type="text/javascript">
 $(document).ready(function() {
