@@ -1,0 +1,15 @@
+<% if @file_attachment.event_id.nil? %>
+<p><span class="fake_button"><%= link_to '< back', root_path %></span></p>
+<% else %>
+<p><span class="fake_button"><%= link_to '< back', event_path(@file_attachment.event.id) %></span></p>
+<% end %>
+<% content_tag :div do %>
+  <% semantic_form_for @file_attachment do |form| %>
+    <% form.inputs do %>
+      <%= form.input :name, :hint => 'something memorable' %>
+      <%= form.input :event, :hint => 'does this file belong somewhere else?' %>
+      <%= form.input :description, :hint => "of file contents, purpose, etc" %>
+    <% end %>
+    <%= form.buttons %>
+  <% end %>
+<% end %>

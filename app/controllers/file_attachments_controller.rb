@@ -10,6 +10,17 @@ class FileAttachmentsController < ApplicationController
       flash[:warning] = "The physical file could not be located so your request could not be completed."
       redirect_back_or_default(root_path)
     end
+    def redirect_to_index_or_event(params={})
+      if defined?(@file_attachment)
+        unless @file_attachment.event_id.blank?
+          redirect_to(event_path(@file_attachment.event_id, params))
+        else
+          redirect_to(file_attachments_path(params))
+        end
+      else
+        redirect_back_or_default(root_path(params))
+      end
+    end
   protected
   public
 
@@ -40,14 +51,24 @@ class FileAttachmentsController < ApplicationController
         flash[:warning] = "Unable to save file attachment: #{@file_attachment.errors.full_messages.join('; ')}"
       end
       unless params[:file] # request.xhr? # html5 based multiple uploads are not xhr ?
-        # {:std => 1} - make sure the std html form displays
-        if @file_attachment.event
-          redirect_to event_path(@file_attachment.event.id, :std => 1)
-        else
-          redirect_to file_attachments_path(:std => 1)
-        end
+        redirect_to_index_or_event(:std => 1) # {:std => 1} - make sure the std html form displays
       else
         render :partial => 'file_attachments/file_attachment', :object => @file_attachment
+      end
+    end
+    
+    def edit
+      @file_attachment = FileAttachment.find(params[:id])
+    end
+    
+    def update
+      @file_attachment = FileAttachment.find(params[:id])
+      if @file_attachment.update_attributes(params[:file_attachment])
+        flash[:notice] = "Updated File: #{@file_attachment.name}"
+        redirect_to_index_or_event
+      else
+        flash[:warning] = "The description could not be saved, please try again."
+        render :edit
       end
     end
     
@@ -55,6 +76,6 @@ class FileAttachmentsController < ApplicationController
       @file_attachment = FileAttachment.find(params[:id])
       @file_attachment.destroy
       flash[:notice] = "Deleted File: #{@file_attachment.name}"
-      redirect_back_or_default(root_path)
+      redirect_to_index_or_event
     end
 end

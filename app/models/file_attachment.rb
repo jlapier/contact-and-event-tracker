@@ -21,6 +21,8 @@ class FileAttachment < ActiveRecord::Base
   # before_validation_on_update :autofill_blank_name, :if => :file_uploaded?
   # before_validation_on_update :save_to_folder_path, :if => :file_uploaded?
   before_destroy :move_file_to_trash_folder!
+  
+  acts_as_stripped :description, :name
 
   attr_accessor :uploaded_file
   

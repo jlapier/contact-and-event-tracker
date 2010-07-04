@@ -57,14 +57,14 @@
   
 <% end %>
 
-<h3>Downloadable Resources</h3>
+<h3>Downloadable Resources<hr /></h3>
 
 <%= render :partial => 'file_attachments/file_attachments', :object => defined?(file_attachments) ? file_attachments : [] %>
 
-<h4>Upload Files</h4>
+<h3>Upload Files<hr /></h3>
 
-<p>
-[<%= link_to_unless params[:std], "One at a time", url_for(:controller => controller_name, :action => action_name, :std => 1) %> | <%= link_to_if params[:std], "Several at once", url_for(:controller => controller_name, :action => action_name) %>]
+<p style="font-size: 11px;">
+<%= link_to_unless params[:std], "One at a time", url_for(:controller => controller_name, :action => action_name, :std => 1), :class => 'fake_button' %> <%= link_to_if params[:std], "Several at once", url_for(:controller => controller_name, :action => action_name), :class => 'fake_button' %>
 </p>
 
 <% if params[:std] %>
@@ -74,6 +74,6 @@
 </div>
 <% else %>
 <div id="multiple_uploads">
-  You browser doesn't support native upload. Try Firefox 3 or Safari 4.
+  Sorry but it looks like your browser doesn't support this upload technology. Try <a href="http://firefox.com/">Firefox 3</a> or <a href="http://www.apple.com/safari/">Safari 4</a>.
 </div>
 <% end %>
