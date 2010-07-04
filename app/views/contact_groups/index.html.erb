@@ -1,8 +1,3 @@
-<% if is_admin? %>
-<p>
-  <%= link_to 'New Contact Group', new_contact_group_path, :class => 'fake_button' %>
-</p>
-<% end %>
 <h1>Contact groups</h1>
 
 <% if @contact_groups.empty? %>
@@ -54,6 +49,13 @@
   <a href="">Use this email link</a> or copy from the box below and paste into your email program:
   <textarea cols="3" rows="60" style="width: 100%; height: 200px;"></textarea>
 </div>
+
+<% if is_admin? %>
+  <% content_for :sidebar do %>
+    <h4>Contact Group Management</h4>
+    <p><%= link_to 'New Contact Group', new_contact_group_path, :class => 'fake_button' %></p>
+  <% end %>
+<% end %>
 
 <script type="text/javascript">
   $(document).ready(function() {

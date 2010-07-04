@@ -1,6 +1,3 @@
-<% if is_admin? %>
-<p><%= link_to "New Contact", new_contact_path, :class => 'fake_button' %></p>
-<% end %>
 <h1>Contacts</h1>
 
 <% if params[:q] %>
@@ -51,6 +48,13 @@
 </table>
 
 <%= will_paginate %>
+
+<% if is_admin? %>
+  <% content_for :sidebar do %>
+    <h4>Contact Management</h4>
+    <p><%= link_to "New Contact", new_contact_path, :class => 'fake_button' %></p>
+  <% end %>
+<% end %>
 
 <script type="text/javascript">
 $(document).ready(function()

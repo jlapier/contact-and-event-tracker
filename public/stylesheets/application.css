@@ -24,6 +24,8 @@ input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 
 
 .error, .notice, .success { margin: 10px; }
 
+.caps { font-size: 1em; font-variant: normal; letter-spacing: 0; padding: 0; text-transform: none; }
+
 /* elements and classes likely to be customized/overridden */
 .base_content {
   background: #fff;
@@ -64,7 +66,7 @@ input[type="checkbox"], input[type="radio"], input.checkbox, input.radio { top: 
   -moz-border-radius: 8px; -webkit-border-radius: 8px; margin: 10px;
 }
 
-.sidebar { padding: 3px 6px; font-size: 11px; margin-top: 20px; }
+.sidebar { padding: 3px 6px; font-size: 11px; margin-top: 40px; }
 .sidebar h4 { color: #666; }
 
 /* end customizable elements and classes */
@@ -127,5 +129,5 @@ div.select_popper_box ul li:hover { background: #EEE; }
 #event_quick_description { clear: both; border: 1px solid #999; background: #FFC; padding: 12px; margin-top: 15px; }
 .fc-grid table { margin-bottom: 0 }
 .fc table { margin-bottom: 0; }
-
-
+#calendar_front_page { font-size: 12px; }
+#calendar_front_page h2 { font-size: 1.3em }

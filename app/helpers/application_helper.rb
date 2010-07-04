@@ -18,7 +18,7 @@ module ApplicationHelper
   end
   
   def page_title
-    if controller.controller_name == "user_sessions"
+    if controller.controller_name == "user_sessions" or controller.action_name == "homepage"
       pt = ''
     else
       pt = "#{controller.controller_name.humanize}"
