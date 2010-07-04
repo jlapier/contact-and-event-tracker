@@ -91,10 +91,10 @@ class EventsController < ApplicationController
 
   def drop_contact
     @event = Event.find(params[:id])
-    if @event.drop_contacts(params[:contact_ids] || params[:contact_id])
-      flash[:notice] = "Contact(s) dropped from #{@event.name}."
+    if @event.drop_attendees(params[:contact_ids] || params[:contact_id])
+      flash[:notice] = "Contact(s) removed from #{@event.name} roster."
     else
-      flash[:warning] = "Failed to drop contact(s) from #{@event.name}. (#{@event.errors.full_messages.join('; ')}"
+      flash[:warning] = "Failed to remove contact(s) from #{@event.name} roster. (#{@event.errors.full_messages.join('; ')}"
     end
     redirect_to @event
   end
@@ -107,14 +107,10 @@ class EventsController < ApplicationController
 
   def add_contacts
     @event = Event.find(params[:id])
-    #@event.contacts += Contact.find(params[:contact_ids])
-    @event.changeset! do
-      @event.attendees += Contact.find(params[:contact_ids]).collect{|c| Attendee.new(:contact => c)}
-      if @event.save
-        flash[:notice] = "Contacts(s) added to #{@event.name}."
-      else
-        flash[:warning] = "Failed to add contact(s) to #{@event.name}. (#{@event.errors.full_messages.join('; ')}"
-      end
+    if @event.add_attendees(params[:contact_ids])
+      flash[:notice] = "Contacts(s) added to #{@event.name}."
+    else
+      flash[:warning] = "Failed to add contact(s) to #{@event.name}. (#{@event.errors.full_messages.join('; ')}"
     end
     redirect_to @event
   end

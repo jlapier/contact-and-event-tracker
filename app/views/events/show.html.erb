@@ -74,13 +74,15 @@
 </div>
 
 <% content_for :sidebar do %>
-  <h4>Revisions</h4>
-
-  <p>
-    Current version: <%= @event.revisable_number %> modified by 
-    <%= @event.modified_by_user ? @event.modified_by_user.id : '<em>unknown</em>' %>
-      on <%= @event.updated_at.strftime "%m/%d/%Y" %>
-  </p>
+  <div>
+    <h4>Revisions<hr /></h4>
+    <p style="font-weight: bold;">Current version (<%= @event.revisable_number %>)</p>
+    <p>
+      modified by 
+      <%= @event.modified_by_user ? @event.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
+      on <%= @event.updated_at.strftime "%a, %b %d %Y (%I:%M%p %Z)" %>
+    </p>
+  </div>
 
   <% if @event.revisions.empty? %>
     <p><em>This is the first version of this event.</em></p>

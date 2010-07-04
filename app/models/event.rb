@@ -12,7 +12,7 @@ class Event < ActiveRecord::Base
   
   include ActionView::Helpers::TextHelper
   
-  has_many :attendees, :after_add => :update_roster, :after_remove => :update_roster
+  has_many :attendees
   has_many :contacts, :through => :attendees, :order => ["last_name, first_name"],
    :conditions => {:revisable_is_current => true}
   
@@ -34,10 +34,6 @@ class Event < ActiveRecord::Base
       end
     end
     
-    def update_roster(attendee)
-      self.attendee_roster = contact_ids.join(',')
-    end
-    
   protected
   public
 
@@ -46,13 +42,32 @@ class Event < ActiveRecord::Base
         find(:all, :select => 'DISTINCT event_type').map(&:event_type).reject { |ev| ev.blank? }.sort
       end
     end
-
-    def drop_contacts(drop_contact_ids)
-      drop_contact_ids = [*drop_contact_ids].compact.map(&:to_i)
-      self.contact_ids = contact_ids - drop_contact_ids
-      self.save
+    
+    def update_roster
+      self.attendee_roster = attendees.collect{|a| a.contact_id}.join(',')
     end
 
+    def drop_attendees(drop_contact_ids)
+      drop_contact_ids = [*drop_contact_ids].compact.map(&:to_i)
+      changeset! do |event|
+        event.attendees.find(:all, {
+          :select => 'id',
+          :conditions => ["contact_id IN (?)", drop_contact_ids]
+        }).each{|a| a.destroy && !a.destroyed?}
+        event.update_roster
+        event.save
+      end
+    end
+    
+    def add_attendees(from_contact_ids)
+      changeset! do |event|
+        from_contact_ids.each do |c_id|
+          event.attendees.build(:contact_id => c_id)
+        end
+        event.update_roster
+        event.save
+      end
+    end
 
     def to_s
       "#{name} (#{start_on} #{end_on ? ' - ' + end_on.to_s : ''})"

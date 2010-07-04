@@ -50,14 +50,16 @@ describe Event do
     
     before(:each) do
       @event = Event.create!(@valid_attributes)
-      @event.attendees << Attendee.new(:contact => Contact.create!(:first_name => 'John', :last_name => 'Doe'))
+      @contact = mock_model(Contact)
+      @event.add_attendees([@contact.id])
       @event.save
+      Contact.stub(:find).and_return([@contact])
     end
 
     context "adding an attendee" do
       
       it "should update attendee_roster" do
-        @event.attendee_roster.should == @event.attendee_ids.join(',')
+        @event.attendee_roster.should == @contact.id.to_s
       end
 
       it "should create a new version" do
@@ -66,8 +68,7 @@ describe Event do
 
       it "should have previous set of attendees available through the previous revision" do
         @event.find_revision(:previous).attendees.count.should == 0
-        @event.attendees << Attendee.new(:contact => Contact.create!(:first_name => 'Jane', :last_name => 'Reeses'))
-        @event.save
+        @event.add_attendees([@contact.id])
         @event.find_revision(:previous).attendees.count.should == 1
         @event.attendees.count.should == 2
       end
@@ -76,12 +77,12 @@ describe Event do
     context "removing an attendee" do
 
       before(:each) do
+        @event.attendees.count.should == 1
         @attendee = @event.attendees.first
-        @event.attendees.delete(@attendee)
-        @event.save
+        @event.drop_attendees(@attendee.contact_id)
       end
       
-      it "should not include the removed attendee in the collection" do
+      it "should not include the removed attendee in the current collection" do
         @event.attendees.count.should == 0
       end
       
@@ -90,7 +91,7 @@ describe Event do
       end
       
       it "should have previous set of attendees available through the previous revision" do
-        @event.find_revision(:previous).attendees.first.should == @attendee
+        @event.find_revision(:previous).attendees.should == @attendee.contact
       end
 
     end

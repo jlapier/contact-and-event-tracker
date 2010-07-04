@@ -1,14 +1,16 @@
-<h1>Event - Version: <%= @event_revision.revision_number %></h1>
-<h3>
-  Modified by <%= @event_revision.modified_by_user ? @event_revision.modified_by_user.id : '<em>unknown</em>' %>
-  on <%= @event_revision.revisable_current_at.strftime "%m/%d/%Y" %>
-</h3>
+<p>
+  <%= link_to "< Current Version", @event_revision.current_revision, :class => 'fake_button' %>
+</p>
+<h1>Event - Version: <%= @event_revision.revision_number %><hr /></h1>
 <%= render :partial => '/events/event_details', :locals => { :event => @event_revision } %>
+<div>
+  <h3>Attendee List<hr /></h3>
+  <%= render :partial => 'contacts/contact', :collection => @event_revision.attendees %>
+</div>
 
+<% content_for(:sidebar) do %>
 <p>
-  Attendee List: <%= @event_revision.attendees.map(&:contact).map(&:name).join('; ') %>
+  Modified by <%= @event_revision.modified_by_user ? @event_revision.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
+  on <%= @event_revision.revisable_current_at.strftime "%a, %b %d %Y (%I:%M%p %Z)" %>
 </p>
-
-<p>
-  [<%= link_to "back to current version", @event_revision.current_revision %>]
-</p>
+<% end %>
