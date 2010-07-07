@@ -1,0 +1,11 @@
+<h4>Manage Users</h4>
+
+<p>
+  <%= link_to 'Full list of Users', users_path %>
+</p>
+
+<% unless action_name == 'new' %>
+<p>
+  <%= link_to 'New User', new_user_path %>
+</p>
+<% end %>

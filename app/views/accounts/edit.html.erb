@@ -1,0 +1,10 @@
+<h1>Edit My Account</h1>
+ 
+<% semantic_form_for @account, account_url do |form| %>
+  <% form.inputs do %>
+    <%= render :partial => "form", :object => form %>
+  <% end %>
+  <%= form.submit "Update" %>
+<% end %>
+ 
+<br /><%= link_to "My Profile", account_path %>

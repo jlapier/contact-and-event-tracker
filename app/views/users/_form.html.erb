@@ -1,8 +1,4 @@
-<%= form.label :email, "E-mail Address" %><br />
-<%= form.text_field :email %><br />
-<br />
-<%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
-<%= form.password_field :password %><br />
-<br />
-<%= form.label :password_confirmation %><br />
-<%= form.password_field :password_confirmation %><br />
+<%= form.input :role, :as => :select, :collection => roles_for_select, :include_blank => false %>
+<%= form.input :email, :hint => 'you must be able to check mail for this address' %>
+<%= form.input :password, :hint => form.object.new_record? ? nil : "Change password" %>
+<%= form.input :password_confirmation %>

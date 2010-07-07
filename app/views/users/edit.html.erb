@@ -1,9 +1,14 @@
-<h1>Edit My Account</h1>
+<% div_for(@user) do %>
+  <h1>Edit User <%=h @user.name_or_contact_name %></h1>
  
-<% form_for @user, :url => account_path do |f| %>
-  <%= f.error_messages %>
-  <%= render :partial => "form", :object => f %>
-  <%= f.submit "Update" %>
+  <% semantic_form_for @user do |form| %>
+    <% form.inputs do %>
+      <%= render :partial => "form", :object => form %>
+    <% end %>
+    <%= form.submit "Update" %>
+  <% end %>
 <% end %>
- 
-<br /><%= link_to "My Profile", account_path %>
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'links' %>
+<% end %>

@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resource :account, :controller => "users"
+  map.resource :account
   map.resources :users
   map.resources :password_resets
   map.resources :contacts, :collection => { :search => :get }
