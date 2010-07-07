@@ -1,0 +1,16 @@
+<h4>Explore Events</h4>
+
+<p>
+  <%= link_to 'Full list of Events', events_path %>
+</p>
+
+
+Search Events
+<br/>
+  
+<% form_tag search_events_path, :method => :get do %>
+  <%= text_field_tag 'q', params[:q], :style => "width: 120px; font-size: 11px;" %>
+  <%= submit_tag 'go', :class => 'fake_button' %><br/>
+<% end %>
+
+<br/>

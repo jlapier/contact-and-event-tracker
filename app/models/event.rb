@@ -24,6 +24,8 @@ class Event < ActiveRecord::Base
 
   acts_as_stripped :name
   
+  searchable_by :name, :event_type, :location, :description
+  
   acts_as_revisable :revision_class_name => 'EventRevision', :on_destroy => :revise
 
   private

@@ -1,8 +1,3 @@
-<p class="admin_links">
-  <%= link_to 'Event Details', @event, :class => 'fake_button' %>
-  <%= link_to 'Edit Event Details', edit_event_path(@event), :class => 'fake_button' %>
-</p>
-
 <h1>Adding Attendees/Participants to Event: <%= @event.name %></h1>
 
 <% form_tag add_contacts_event_path(@event) do %>
@@ -26,4 +21,19 @@
       </td>
     </tr>
   </table>
+<% end %>
+
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'public_links' %>
+
+  <% if is_admin? %>
+    <h4>Event Management</h4>
+    
+    <p><%= link_to 'Back to Event Details', @event %></p>
+
+    <p><%= link_to 'Edit this Event\'s Details', edit_event_path(@event) %></p>
+
+    <p><%= link_to 'Create a New Event', new_event_path %></p>
+  <% end %>
 <% end %>

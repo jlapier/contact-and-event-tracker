@@ -13,6 +13,17 @@ class EventsController < ApplicationController
     end
   end
 
+  def search
+    # TODO render a search results page instead of a calendar
+    @events = Event.search(params[:q],
+      :narrow_fields => params[:fields] ? params[:fields].keys : nil).paginate :page => params[:page]
+          
+    respond_to do |format|
+      format.html { render :action => :index }
+      format.xml  { render :xml => @events }
+    end
+  end
+  
   # GET /events/1
   # GET /events/1.xml
   def show
