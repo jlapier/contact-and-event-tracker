@@ -31,6 +31,12 @@ class User < ActiveRecord::Base
     # ok to just confirm first in collection due to :order set in has_many
     password_resets.first.confirm(confirming_ip)
   end
+  
+  def name_or_contact_name
+    name || 
+    contact_id && contact.name != ', ' && "#{contact.first_name} #{contact.last_name}" || 
+    'unknown'
+  end
 
   private
     def create_contact
