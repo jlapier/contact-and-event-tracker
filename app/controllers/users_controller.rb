@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update]
+  before_filter :require_user, :only => [:show, :edit, :update, :index]
 
   def new
     @user = User.new
+  end
+  
+  def index
+    @users = User.all(:order => 'email')
   end
 
   def create
@@ -32,5 +36,12 @@ class UsersController < ApplicationController
     else
       render :action => :edit
     end
+  end
+  
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    flash[:notice] = "Deleted #{user.name_or_contact_name}'s account"
+    redirect_to users_url
   end
 end
