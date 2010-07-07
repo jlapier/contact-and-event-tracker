@@ -49,10 +49,11 @@
 
 <%= will_paginate %>
 
-<% if is_admin? %>
-  <% content_for :sidebar do %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'public_links' %>
+  <% if is_admin? %>
     <h4>Contact Management</h4>
-    <p><%= link_to "New Contact", new_contact_path, :class => 'fake_button' %></p>
+    <p><%= link_to "Create New Contact", new_contact_path %></p>
   <% end %>
 <% end %>
 

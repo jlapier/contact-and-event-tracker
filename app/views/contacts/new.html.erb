@@ -1,5 +1,6 @@
-<p>
-<%= link_to 'Contacts', contacts_path, :class => 'fake_button' %>
-</p>
-
 <%= render :partial => "form" %>
+  
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'public_links' %>
+<% end %>
