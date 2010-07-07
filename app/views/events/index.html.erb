@@ -9,11 +9,13 @@
 <div style="clear:both"></div>
 <div id="event_quick_description" style="display:none"></div>
 
-<% if is_admin? %>
-  <% content_for :sidebar do %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'public_links' %>
+
+  <% if is_admin? %>
     <h4>Event Management</h4>
     <p>
-      <%= link_to 'New Event', new_event_path, :class => 'fake_button' %>
+      <%= link_to 'New Event', new_event_path %>
     </p>
   <% end %>
 <% end %>

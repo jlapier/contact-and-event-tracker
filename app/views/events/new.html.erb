@@ -1,8 +1,15 @@
-<p>
-<%= link_to 'Events', events_path, :class => 'fake_button' %>
-</p>
-
-
 <h1>New Event</h1>
 
 <%= render :partial => "form" %>
+
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'public_links' %>
+
+  <% if is_admin? %>
+    <h4>Event Management</h4>
+    <p>
+      <%= link_to 'New Event', new_event_path %>
+    </p>
+  <% end %>
+<% end %>

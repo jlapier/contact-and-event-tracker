@@ -1,11 +1,3 @@
-<p>
-<%= link_to 'Events', events_path, :class => 'fake_button' %>
-<% if is_admin? %>
-<%= link_to 'Add Attendees', add_attendees_event_path(@event), :class => 'fake_button' %>
-<%= link_to 'Edit Event Details', edit_event_path(@event), :class => 'fake_button' %>
-<% end %>
-</p>
-
 <div class="span-10">
 <h1>Event</h1>
 
@@ -74,6 +66,18 @@
 </div>
 
 <% content_for :sidebar do %>
+  <%= render :partial => 'public_links' %>
+
+  <% if is_admin? %>
+    <h4>Event Management</h4>
+    
+    <p><%= link_to 'Add Attendees to this Event', add_attendees_event_path(@event) %></p>
+
+    <p><%= link_to 'Edit this Event\'s Details', edit_event_path(@event) %></p>
+
+    <p><%= link_to 'Create a New Event', new_event_path %></p>
+  <% end %>
+
   <div>
     <h4>Revisions<hr /></h4>
     <p style="font-weight: bold;">Current version (<%= @event.revisable_number %>)</p>
