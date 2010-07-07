@@ -1,7 +1,14 @@
-<h1>Register</h1>
- 
-<% form_for @user, :url => account_path do |f| %>
-  <%= f.error_messages %>
-  <%= render :partial => "form", :object => f %>
-  <%= f.submit "Register" %>
+<% div_for(@user) do %>
+  <h1>New User</h1>
+
+  <% semantic_form_for @user do |form| %>
+    <% form.inputs do %>
+      <%= render :partial => "form", :object => form %>
+    <% end %>
+    <%= form.submit "Create" %>
+  <% end %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'links' %>
 <% end %>

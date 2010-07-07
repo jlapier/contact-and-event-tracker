@@ -1,18 +1,18 @@
-<% div_for(user) do %>
-  <h4>
-    <%=h user.name_or_contact_name %>
-    <hr />
-  </h4>
+<% div_for(user, :class => 'span-4 border') do %>
+  <p>
+    <%= link_to user.name_or_contact_name, user_path(user.id) %>
+  </p>
   <p>
     <%= mail_to user.email %>
   </p>
+  <%= "<p>(this is you)</p>" if is_current_user?(user) %>
   <p>
     <%= link_to 'Contact Info', contact_path(user.contact_id), :class => 'fake_button' if user.contact_id %>
-    <%= link_to 'Edit', edit_account_path, :class => 'fake_button' %>
+    <%= link_to 'Edit', is_current_user?(user) ? edit_account_path : edit_user_path(user.id), :class => 'fake_button' %>
     <%= link_to 'Delete', user_path(user.id), {
           :method => :delete,
           :confirm => "Did you mean to Delete #{user.name_or_contact_name}'s account?",
           :class => 'fake_button'
-        } %>
+        } unless is_current_user?(user) %>
   </p>
 <% end %>

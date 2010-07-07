@@ -1,5 +1,9 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  
+  def is_current_user?(user)
+    current_user == user
+  end
 
   def site_title
     @site_title ||= SiteSetting.read_setting('site title') || "Contact and Event Tracker"

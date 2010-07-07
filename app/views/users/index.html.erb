@@ -1,4 +1,13 @@
-<h1>Users</h1>
 <div class="users">
-  <%= render :partial => 'user', :collection => @users %>
+  <h1>Users</h1>
+  <% @users.group_by(&:role).sort.each do |role, users| %>
+  <div class="span-5">
+    <h2><%=h role.capitalize %> users</h2>
+    <%= render :partial => 'user', :collection => users %>
+  </div>
+  <% end %>
 </div>
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'links' %>
+<% end %>

@@ -1,8 +1,14 @@
 class User < ActiveRecord::Base
+  
+  ROLES = ['admin','editor','general']
+  
   has_many :password_resets, :order => 'created_at DESC', :dependent => :destroy
   belongs_to :contact
   before_create :make_admin_if_first_user
   after_create :create_contact
+  
+  validates_presence_of :role
+  validates_format_of :role, :with => /(admin|editor|general)/i, :message => 'must be one of admin, editor or general'
 
   acts_as_authentic do |c|
     c.validate_email_field = false
@@ -13,6 +19,10 @@ class User < ActiveRecord::Base
     def find_by_openid_identifier(identifier)
       first(:conditions => { :openid_identifier => identifier }) ||
         new(:openid_identifier => identifier)
+    end
+    
+    def roles
+      ROLES
     end
   end
 
