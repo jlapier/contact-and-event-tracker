@@ -1,5 +1,4 @@
 <% div_for(file_attachment) do %>
-
   <% content_tag :p, :style => "max-width: 80%; float: right;" do %>
     <%= file_attachment.description %>
   <% end unless file_attachment.description.blank? %>
@@ -17,4 +16,4 @@
             }) %>
   <% end if is_admin? %>
 <% end %>  
-  <hr />
+<hr />
