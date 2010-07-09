@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ContactGroupsController do
 
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+    @mock_user ||= mock_model(User, stubs.merge({:role => 'admin'}))
   end
 
   def mock_contact(stubs={})
@@ -19,7 +19,9 @@ describe ContactGroupsController do
   end
 
   before do
-    controller.stub!(:current_user).and_return(mock_user)
+    controller.stub!(:current_user_session).and_return(mock_model(UserSession, {
+      :user => mock_user
+    }))
   end
 
   describe "GET index" do

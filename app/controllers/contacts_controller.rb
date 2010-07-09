@@ -1,6 +1,5 @@
 class ContactsController < ApplicationController
-  before_filter :require_user, :only => [:new, :edit, :update, :destroy]
-  before_filter :require_admin_user, :only => [:create, :destroy]
+  before_filter :load_and_authorize_current_user, :except => [:index, :show, :search]
 
   def index
     @contacts = Contact.paginate :all, :page => params[:page], :per_page => params[:per_page] || 30,
@@ -33,19 +32,15 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
-    if is_admin?
-      if params[:user_id]
-        @user = User.find params[:user_id]
-        @contact.user = @user
-      end
-    else
-      redirect_to(contacts_url)
+    if params[:user_id]
+      @user = User.find params[:user_id]
+      @contact.user = @user
     end
   end
 
   def edit
     @contact = Contact.find params[:id]
-    unless is_admin? or @contact.user == current_user
+    unless has_authorization?(:update, :contacts) or @contact.user == current_user
       redirect_to(contacts_url)
     end
   end
@@ -68,7 +63,7 @@ class ContactsController < ApplicationController
   def update
     @contact = Contact.find(params[:id])
 
-    if is_admin? or (@contact.user and @contact.user == current_user)
+    if is_authorized? || (@contact.user and @contact.user == current_user)
       respond_to do |format|
         if @contact.update_attributes(params[:contact])
           flash[:notice] = "Contact <em>#{@contact.name}</em> updated."

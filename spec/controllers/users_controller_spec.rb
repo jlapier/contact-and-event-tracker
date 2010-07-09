@@ -3,8 +3,7 @@ require 'spec_helper'
 describe UsersController do
 
   before(:each) do
-    controller.stub(:require_user).and_return(true)
-    controller.stub(:require_no_user).and_return(true)
+    controller.stub(:load_and_authorize_current_user).and_return(true)
   end
 
   context "GET" do

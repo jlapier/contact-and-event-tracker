@@ -1,6 +1,6 @@
 class FileAttachmentsController < ApplicationController
   
-  before_filter :require_admin_user, :except => [:index, :show]
+  before_filter :load_and_authorize_current_user, :except => [:index, :show, :download]
   
   rescue_from Errno::ENOENT, :with => :file_not_found
 

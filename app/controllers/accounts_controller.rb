@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :except => [:new, :create]
+  before_filter :load_and_authorize_current_user, :except => [:new, :create]
   
   def new
     @account = User.new

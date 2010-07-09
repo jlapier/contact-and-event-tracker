@@ -1,0 +1,57 @@
+<% content_for :sidebar do %>
+  <div>
+    <h4>Explore Events</h4>
+
+    <p>
+      <%= link_to 'Event Calendars', events_path %>
+    </p>
+
+    <div>
+      <h6>Search Events</h6>
+      
+      <div>
+        <% form_tag search_events_path, :method => :get do %>
+          <%= text_field_tag 'q', params[:q], :style => "width: 120px; font-size: 11px;" %>
+          <%= submit_tag 'go', :class => 'fake_button' %><br/>
+        <% end %>
+      </div>
+    </div>
+    
+    <% if action_name == 'show' %>
+      <%= render :partial => 'revision_menu' %>
+    <% end %>
+  </div>
+
+  <% if action_name != 'new' && has_authorization?(:write, :events) %>
+  
+  <hr class="space" />
+
+  <div>
+    <h4>Manage Events</h4>
+      <p>
+        <%= link_to 'New Event', new_event_path %>
+      </p>
+  
+    <% if action_name == 'show' && has_authorization?(:write, :events) %>
+      <p><%= link_to 'Add Attendees to this Event', add_attendees_event_path(@event) %></p>
+
+      <p><%= link_to 'Edit this Event\'s Details', edit_event_path(@event) %></p>
+    <% end %>
+    
+    <% if action_name =~ /(edit|add_attendees)/i %>
+      <p><%= link_to 'Back to Event Details', @event %></p>
+    <% end %>
+    
+    <% if action_name == 'edit' %>
+      <p><%= link_to 'Add Attendees to this Event', add_attendees_event_path(@event) %></p>
+    <% end %>
+    
+    <% if action_name == 'add_attendees' %>
+      <p><%= link_to 'Edit this Event\'s Details', edit_event_path(@event) %></p>
+    <% end %>
+    
+  </div>
+  
+  <% end %>
+
+<% end %>

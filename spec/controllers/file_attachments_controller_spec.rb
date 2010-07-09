@@ -6,11 +6,11 @@ describe FileAttachmentsController do
   end
 
   def mock_admin_user(stubs={})
-    @mock_admin_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+    @mock_admin_user ||= mock_model(User, stubs.merge({:role => 'admin'}))
   end
 
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => false}))
+    @mock_user ||= mock_model(User, stubs.merge({:role => 'general'}))
   end
 
   def mock_file_attachment
@@ -24,7 +24,11 @@ describe FileAttachmentsController do
 
   describe "when logged in as admin" do
     before do
-      controller.stub!(:current_user).and_return(mock_admin_user)
+      controller.stub(:current_user_session).and_return(
+        mock_model(UserSession, {
+          :user => mock_admin_user
+        })
+      )
       FileAttachment.stub(:new).and_return(mock_file_attachment)
       @params = { :description => "blah blah", :name => "agenda",
         :uploaded_file => some_file,
@@ -94,7 +98,11 @@ describe FileAttachmentsController do
     context "delete a file" do
       
       before(:each) do
-        controller.stub(:current_user).and_return(mock_admin_user)
+        controller.stub(:current_user_session).and_return(
+          mock_model(UserSession, {
+            :user => mock_admin_user
+          })
+        )
         FileAttachment.stub(:find).and_return(mock_file_attachment)
         mock_file_attachment.stub(:full_path).and_return(File.join(RAILS_ROOT, 'spec', 'fixtures', 'somefile.txt'))
         mock_file_attachment.stub(:destroy).and_return(mock_file_attachment)
@@ -124,7 +132,11 @@ describe FileAttachmentsController do
   describe "when Errno::ENOENT is raised" do
     
     before(:each) do
-      controller.stub(:current_user).and_return(mock_admin_user)
+      controller.stub(:current_user_session).and_return(
+        mock_model(UserSession, {
+          :user => mock_admin_user
+        })
+      )
       FileAttachment.stub(:find).and_return(mock_file_attachment)
       mock_file_attachment.stub(:destroy).and_raise(Errno::ENOENT.new("File not found"))
     end
@@ -144,7 +156,11 @@ describe FileAttachmentsController do
   describe ":edit, :id => integer" do
     
     before(:each) do
-      controller.stub(:current_user).and_return(mock_admin_user)
+      controller.stub(:current_user_session).and_return(
+        mock_model(UserSession, {
+          :user => mock_admin_user
+        })
+      )
       FileAttachment.stub(:find).and_return(mock_file_attachment)
     end
     
@@ -159,7 +175,11 @@ describe FileAttachmentsController do
   describe ":update, :id => integer, :file_attachment => {}" do
     
     before(:each) do
-      controller.stub(:current_user).and_return(mock_admin_user)
+      controller.stub(:current_user_session).and_return(
+        mock_model(UserSession, {
+          :user => mock_admin_user
+        })
+      )
       FileAttachment.stub(:find).and_return(mock_file_attachment)
       mock_file_attachment.stub(:update_attributes).and_return(nil)
     end

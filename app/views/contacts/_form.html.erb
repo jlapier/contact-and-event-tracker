@@ -20,7 +20,7 @@
     <%= form.input :comments, :required => false, :label => 'Comments' %>
     <%= form.input :descriptors, :required => false, :label => 'Descriptors' %>
     <%= form.input :home_address, :required => false, :label => 'Home address' %>
-    <% if is_admin? %>
+    <% if has_authorization?(:update, :contact_groups) && has_authorization?(:update, :events) %>
       <%= form.input :contact_groups, :as => :check_boxes, :required => false %>
       <%= form.input :events, :as => :check_boxes, :required => false %>
     <% end %>

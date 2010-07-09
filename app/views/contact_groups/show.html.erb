@@ -20,7 +20,7 @@
       <tr>
         <th>Full Name</th>
         <th>Email</th>
-        <% if is_admin? %>
+        <% if has_authorization?(:update, :contact_groups) %>
         <th></th>
         <th></th>
         <% end %>
@@ -30,7 +30,7 @@
       <tr>
         <td><%= link_to contact.name, contact %></td>
         <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
-        <% if is_admin? %>
+        <% if has_authorization?(:update, :contact_groups) %>
         <td>
           <%= link_to "drop from group",
                 drop_contact_contact_group_path(@contact_group, :contact_id => contact.id),
@@ -40,7 +40,7 @@
         <% end %>
       </tr>
     <% end %>
-      <% if is_admin? %>
+      <% if has_authorization?(:update, :contact_groups) %>
       <tr>
         <td colspan="4" style="text-align:right">
           <%= submit_tag "drop selected contacts from this group" %>
@@ -51,7 +51,7 @@
   <% end %>
 <% end %>
   
-<% if is_admin? %>
+<% if has_authorization?(:update, :contact_groups) && has_authorization?(:view, :contact_groups) %>
   <% content_for :sidebar do %>
     <h4>Contact Group Management</h4>
     <p><%= link_to 'Add Contacts', add_members_contact_group_path(@contact_group), :class => 'fake_button' %></p>

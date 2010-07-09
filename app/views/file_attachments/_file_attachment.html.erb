@@ -1,5 +1,5 @@
 <% div_for(file_attachment) do %>
-  <% content_tag :p, :style => "max-width: 80%; float: right;" do %>
+  <% content_tag :p, :style => "max-width: 70%; float: right;" do %>
     <%= file_attachment.description %>
   <% end unless file_attachment.description.blank? %>
   
@@ -8,12 +8,12 @@
   <% end %>
   
   <% content_tag :p, :style => "font-size: 11px;" do %>
-        <%= link_to('update', edit_file_attachment_path(file_attachment.id), :class => 'fake_button') %>
+        <%= link_to('update', edit_file_attachment_path(file_attachment.id), :class => 'fake_button') if has_authorization?(:update, :file_attachments) %>
         <%= link_to('delete', file_attachment_path(file_attachment.id), {
               :method => :delete,
               :confirm => "Did you mean to Delete #{file_attachment.name}?",
               :class => 'fake_button'
-            }) %>
-  <% end if is_admin? %>
+            }) if has_authorization?(:delete, :file_attachments) %>
+  <% end if has_authorization?(:update, :file_attachments) || has_authorization?(:delete, :file_attachments) %>
 <% end %>  
 <hr />

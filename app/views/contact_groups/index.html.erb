@@ -8,8 +8,10 @@
       <thead>
         <tr>
           <th>Group name</th>
-          <% if is_admin? %>
+          <% if has_authorization?(:delete, :contact_groups) || has_authorization?(:update, :contact_groups) %>
           <th></th>
+          <% end %>
+          <% if has_authorization?(:view_emails) %>
           <th></th>
           <% end %>
         </tr>
@@ -18,20 +20,26 @@
       <% @contact_groups.each do |contact_group| %>
         <tr>
           <td><%= link_to contact_group.name, contact_group %></td>          
-          <% if is_admin? %>
+          <% if has_authorization?(:delete, :contact_groups) || has_authorization?(:update, :contact_groups) %>
           <td style="text-align: left;">
-            <%= link_to 'edit', edit_contact_group_path(contact_group), :class => 'fake_button' %>
+            <% if has_authorization?(:update, :contact_groups) %>
+              <%= link_to 'edit', edit_contact_group_path(contact_group), :class => 'fake_button' %>
+            <% end %>
+            <% if has_authorization?(:delete, :contact_groups) %>
               <%= link_to 'delete', contact_group, :method => :delete,
                     :confirm => "Are you sure you want to delete the group called #{contact_group.name}?",
                     :class => 'fake_button' %>
+            <% end %>
           </td>
+          <% end %>
+          <% if has_authorization?(:view_emails) %>
           <td>
             <%= check_box_tag "contact_group_ids[]", contact_group.id %>
           </td>
           <% end %>
         </tr>
       <% end %>
-        <% if is_admin? %>
+        <% if has_authorization?(:view_emails) %>
         <tr>
           <td colspan="3" style="text-align:right;">
             <%= submit_tag "retrieve emails for checked groups" %>
@@ -50,7 +58,7 @@
   <textarea cols="3" rows="60" style="width: 100%; height: 200px;"></textarea>
 </div>
 
-<% if is_admin? %>
+<% if has_authorization?(:create, :contact_groups) %>
   <% content_for :sidebar do %>
     <h4>Contact Group Management</h4>
     <p><%= link_to 'New Contact Group', new_contact_group_path, :class => 'fake_button' %></p>
