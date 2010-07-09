@@ -9,17 +9,7 @@
 <div style="clear:both"></div>
 <div id="event_quick_description" style="display:none"></div>
 
-<% content_for :sidebar do %>
-  <%= render :partial => 'public_links' %>
-
-  <% if is_admin? %>
-    <h4>Event Management</h4>
-    <p>
-      <%= link_to 'New Event', new_event_path %>
-    </p>
-  <% end %>
-<% end %>
-
+<%= render :partial => 'sidebar' %>
 <% content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function()

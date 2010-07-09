@@ -1,5 +1,5 @@
 module UsersHelper
   def roles_for_select
-    User.roles.collect{|r| [r.capitalize, r]}
+    User.roles_as_array.collect{|r| [r.capitalize, r]}
   end
 end

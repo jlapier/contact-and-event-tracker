@@ -4,6 +4,7 @@ describe "/events/edit.html.erb" do
   include EventsHelper
 
   before(:each) do
+    template.stub(:has_authorization?).and_return(true)
     assigns[:event] = @event = stub_model(Event,
       :new_record? => false,
       :name => "value for name",

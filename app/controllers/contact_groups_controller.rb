@@ -1,5 +1,5 @@
 class ContactGroupsController < ApplicationController
-  before_filter :require_admin_user, :except => [:index, :show]
+  before_filter :load_and_authorize_current_user, :except => [:index, :show]
 
   # GET /contact_groups
   # GET /contact_groups.xml

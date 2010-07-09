@@ -4,11 +4,11 @@ describe AccountsController do
 
 
   def mock_admin_user(stubs={})
-    @mock_admin_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+    @mock_admin_user ||= mock_model(User, stubs.merge({:role => 'admin'}))
   end
 
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:is_admin? => false}))
+    @mock_user ||= mock_model(User, stubs.merge({:role => 'general'}))
   end
   
   context "anonymous users" do

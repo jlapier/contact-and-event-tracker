@@ -2,17 +2,4 @@
 
 <%= render :partial => "form" %>
 
-
-<% content_for :sidebar do %>
-  <%= render :partial => 'public_links' %>
-
-  <% if is_admin? %>
-    <h4>Event Management</h4>
-    
-    <p><%= link_to 'Back to Event Details', @event %></p>
-
-    <p><%= link_to 'Add Attendees to this Event', add_attendees_event_path(@event) %></p>
-
-    <p><%= link_to 'Create a New Event', new_event_path %></p>
-  <% end %>
-<% end %>
+<%= render :partial => 'sidebar' %>

@@ -4,7 +4,7 @@ describe "/events/index.html.erb" do
   include EventsHelper
 
   before(:each) do
-    template.stub(:is_admin?).and_return true
+    template.stub(:has_authorization?).and_return(true)
     assigns[:events] = [
       stub_model(Event,
         :name => "value for name",

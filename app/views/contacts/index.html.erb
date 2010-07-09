@@ -1,3 +1,5 @@
+<%= render :partial => 'sidebar' %>
+
 <h1>Contacts</h1>
 
 <% if params[:q] %>
@@ -22,8 +24,13 @@
       <th>State</th>
       <th>Email</th>
       <th>Grps</th>
-      <% if is_admin? %>
-        <th colspan="2" style="border: 1px #CCF dashed; text-align:center">Manage</th>
+      <% colspan = has_authorization?(:update, :contacts) && 
+                   has_authorization?(:delete, :contacts) ? 
+                    '2' : has_authorization?(:update, :contacts) ||
+                          has_authorization?(:delete, :contacts) ? 
+                          '1' : false %>
+      <% if colspan %>
+        <th <%= colspan == '1' ? 'colspan="2" ' : ' ' %>style="border: 1px #CCF dashed; text-align:center">Manage</th>
       <% end %>
     </tr>
   </thead>
@@ -35,8 +42,10 @@
       <td><%= contact.state %></td>
       <td><%= mail_to contact.email, contact.email, :encode => "javascript" %></td>
       <td></td>
-      <% if is_admin? %>
+      <% if has_authorization?(:update, :contacts) %>
         <td><%= link_to 'edit', edit_contact_path(contact), :class => 'fake_button' %></td>
+      <% end %>
+      <% if has_authorization?(:delete, :contacts) %>
         <td><%= link_to 'delete', contact_path(contact),
                     :confirm => 'Are you sure you want to permanently delete this contact?',
                     :method => "delete",
@@ -48,14 +57,6 @@
 </table>
 
 <%= will_paginate %>
-
-<% content_for :sidebar do %>
-  <%= render :partial => 'public_links' %>
-  <% if is_admin? %>
-    <h4>Contact Management</h4>
-    <p><%= link_to "Create New Contact", new_contact_path %></p>
-  <% end %>
-<% end %>
 
 <script type="text/javascript">
 $(document).ready(function()

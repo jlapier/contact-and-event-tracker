@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_user
+  before_filter :load_and_authorize_current_user
 
   def new
     @user = User.new

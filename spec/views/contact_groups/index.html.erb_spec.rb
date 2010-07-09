@@ -4,7 +4,7 @@ describe "/contact_groups/index.html.erb" do
   include ContactGroupsHelper
 
   before(:each) do
-    template.stub(:is_admin?).and_return true
+    template.stub(:has_authorization?).and_return(true)
     assigns[:contact_groups] = [
       stub_model(ContactGroup),
       stub_model(ContactGroup)

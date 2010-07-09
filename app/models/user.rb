@@ -1,7 +1,30 @@
 class User < ActiveRecord::Base
   
-  ROLES = ['admin','editor','general']
-  
+  # admin has all rights
+  # editor can only create/update events, contacts and contact groups
+  # general can only view email addresses
+  ROLES = {
+    :admin => {
+      :allowed => :all
+    },
+    :editor => {
+      :allowed => {
+        :write => [:events, :contacts, :contact_groups, :file_attachments],
+        :view => [:events, :contacts, :contact_groups, :file_attachments],
+        :destroy => :none,
+        :show_email => :all
+      }
+    },
+    :general => {
+      :allowed => {
+        :view => [:events, :contacts],
+        :write => :none,
+        :destroy => :none,
+        :show_email => :all
+      }
+    }
+  }
+
   has_many :password_resets, :order => 'created_at DESC', :dependent => :destroy
   belongs_to :contact
   before_create :make_admin_if_first_user
@@ -24,6 +47,14 @@ class User < ActiveRecord::Base
     def roles
       ROLES
     end
+    
+    def roles_as_array
+      ROLES.keys.collect{|k| k.to_s}
+    end
+  end
+  
+  def authorized?(controller, action)
+    AccessPolicy.allows?(role, controller, action)
   end
 
   def map_openid_registration(sreg)
@@ -47,6 +78,10 @@ class User < ActiveRecord::Base
     contact_id && contact.name != ', ' && "#{contact.first_name} #{contact.last_name}" || 
     'unknown'
   end
+  
+  def is_admin?
+    role.to_s.downcase == 'admin'
+  end
 
   private
     def create_contact
@@ -54,6 +89,6 @@ class User < ActiveRecord::Base
     end
   
     def make_admin_if_first_user
-      self.is_admin = true if User.count == 0
+      self.role = 'admin' if User.count == 0
     end
 end
