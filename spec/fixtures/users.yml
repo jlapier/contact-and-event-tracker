@@ -1,0 +1,21 @@
+editor_user:
+  name: Editor At-Large
+  email: editor.at-large@test.com
+  crypted_password: e6a06c211ef6d33564842ae9f228fe3a09cae5f991ec54e4904ed573a04e997903bafc494bd682044abb343938a9a4b9d22446966360f9779f1f1c85e39bae25
+  password_salt: mDuMAhkO8tELc6zQRhcu
+  persistence_token: b613099cca8c743932fe54d968dc8a32d45fa7cf80b0dcbf61de07bf3076998d00e6e25ec7159cb843420b35a865c08f32c609e23ea973987c1342cfe59205e5
+  single_access_token: GHutNgp4jAzg-kBuTHiB
+  perishable_token: T2jSG9S-nLCygZ9XohMR
+  contact_id: <%= Fixtures.identify(:editor_user_contact) %>
+  role: editor
+
+general_user:
+  name: General User
+  email: general.user@test.com
+  crypted_password: e6a06c211ef6d33564842ae9f228fe3a09cae5f991ec54e4904ed573a04e997903bafc494bd682044abb343938a9a4b9d22446966360f9779f1f1c85e39bae25
+  password_salt: mDuMAhkO8tELc6zQRhcu
+  persistence_token: b613099cca8c743932fe54d968dc8a32d45fa7cf80b0dcbf61de07bf3076998d00e6e25ec7159cb843420b35a865c08f32c609e23ea973987c1342cfe59205e5
+  single_access_token: GHutNgp4jAzg-kBuTHiB
+  perishable_token: T2jSG9S-nLCygZ9XohMR
+  contact_id: <%= Fixtures.identify(:general_user_contact) %>
+  role: general

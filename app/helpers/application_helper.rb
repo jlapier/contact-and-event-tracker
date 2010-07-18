@@ -45,7 +45,7 @@ module ApplicationHelper
     if public_address or logged_in?
       super(email_address, name, html_options)
     else
-      content_tag(:span, "#{link_to('log in', new_user_session_path)} to view emails", :style => "padding: 3px; background-color: gray; color: white;")
+      content_tag(:span, "#{link_to('login', new_user_session_path)} to view emails", :style => "padding: 3px; background-color: gray; color: white;")
     end
   end
 end

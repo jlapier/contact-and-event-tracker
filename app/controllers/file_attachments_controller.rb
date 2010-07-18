@@ -13,12 +13,12 @@ class FileAttachmentsController < ApplicationController
     def redirect_to_index_or_event(params={})
       if defined?(@file_attachment)
         unless @file_attachment.event_id.blank?
-          redirect_to(event_path(@file_attachment.event_id, params))
+          redirect_to(event_path(@file_attachment.event_id, params)) and return
         else
-          redirect_to(file_attachments_path(params))
+          redirect_to(root_path(params)) and return
         end
       else
-        redirect_back_or_default(root_path(params))
+        redirect_back_or_default(root_path(params)) and return
       end
     end
   protected
@@ -41,14 +41,18 @@ class FileAttachmentsController < ApplicationController
         }
         file_params.merge!({:event_id => params[:event_id]}) if params[:event_id]
         @file_attachment = FileAttachment.new file_params
-      else
+      elsif params[:file_attachment] && params[:file_attachment][:uploaded_file]
         @file_attachment = FileAttachment.new params[:file_attachment]
       end
-    
-      if @file_attachment.save
+      
+      if @file_attachment && @file_attachment.save
         flash[:notice] = "File uploaded."
       else
-        flash[:warning] = "Unable to save file attachment: #{@file_attachment.errors.full_messages.join('; ')}"
+        if @file_attachment
+          flash[:warning] = "Unable to save file attachment: #{@file_attachment.errors.full_messages.join('; ')}"
+        else
+          flash[:warning] = "No files were selected for upload."
+        end
       end
       unless params[:file] # request.xhr? # html5 based multiple uploads are not xhr ?
         redirect_to_index_or_event(:std => 1) # {:std => 1} - make sure the std html form displays

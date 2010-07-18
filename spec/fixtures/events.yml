@@ -1,12 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: MyString
+some_event:
+  name: Some Event
+  revisable_is_current: t
   event_type: Meeting
   start_on: 2010-03-26
   end_on: 2010-03-26
-  location: MyText
-  description: MyText
+  location: Some Place
+  description: Some really good stuff could happen here.
 
 two:
   name: MyString

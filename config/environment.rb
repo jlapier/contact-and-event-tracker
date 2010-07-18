@@ -20,10 +20,6 @@ Rails::Initializer.run do |config|
   config.gem "authlogic"
   config.gem "authlogic-oid", :lib => "authlogic_openid"
   config.gem "ruby-openid", :lib => "openid"
-  config.gem "rspec", :lib => false, :version => ">= 1.2.0"
-  config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0"
-  config.gem "cucumber", :lib => false
-  config.gem "cucumber-rails", :lib => false
   config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
   config.gem "factory_girl", :source => "http://gemcutter.org"
   config.gem 'formtastic'

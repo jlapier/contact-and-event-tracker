@@ -36,6 +36,16 @@ describe FileAttachmentsController do
     end
     
     context "http upload" do
+      context "no file is selected for upload" do
+        it "redirects to the home page if no file was uploaded" do
+          post :create, :file_attachment => {}
+          response.should redirect_to(root_path(:std => 1))
+        end
+        it "sets a flash[:warning]" do
+          post :create, :file_attachment => {}
+          flash[:warning].should_not be_nil
+        end
+      end
       it "should upload a new file attachment with an event" do
         FileAttachment.should_receive(:new).and_return(mock_file_attachment)
         post :create, :file_attachment => @params
@@ -63,7 +73,7 @@ describe FileAttachmentsController do
         FileAttachment.stub(:new).and_return(mock_file)
         @params.delete(:event_id)
         post :create, :file_attachment => @params
-        response.should redirect_to file_attachments_path(:std => 1)
+        response.should redirect_to root_path(:std => 1)
       end
     end
     
