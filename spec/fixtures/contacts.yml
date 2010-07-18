@@ -1,7 +1,52 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+somebody:
+  first_name: Some
+  last_name: Body
+  title: Manager
+  division: Multiplier
+  agency: CIA
+  city: Norfolk
+  state: Virginia
+  zip: 12345
+  agency_phone: 1234567890
+  direct_phone: 0987654321
+  alternate_phone: 1234509876
+  fax_phone: 5432167890
+  email: some.body@test.com
+  website: test.com
+  revisable_is_current: t
+  
+editor_user_contact:
+  first_name: Editor
+  last_name: At-Large
+  title: Trusted employee
+  division: Business Admin
+  agency: WRRC
+  city: Eugene
+  state: Oregon
+  zip: 12345
+  agency_phone: 1234567890
+  direct_phone: 0987654321
+  alternate_phone: 1234509876
+  fax_phone: 5432167890
+  email: editor.at-large@test.com
+  website: example.com
+  revisable_is_current: t
+  
+general_user_contact:
+  first_name: General
+  last_name: User
+  title: Trusted user
+  division: Secretary
+  agency: ERRC
+  city: Washington DC
+  state: Maryland
+  zip: 12345
+  agency_phone: 1234567890
+  direct_phone: 0987654321
+  alternate_phone: 1234509876
+  fax_phone: 5432167890
+  email: general.user@test.com
+  website: general.example.com
+  revisable_is_current: t
