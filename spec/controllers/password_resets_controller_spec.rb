@@ -12,7 +12,7 @@ def should_load_user(&block)
     :password_reset_confirmed => nil
   })
   User.should_receive(:find_using_perishable_token).with(
-    'UsersPerishableToken'
+    'UsersPerishableToken', 24.hours
   ).and_return(user)
   yield
   assigns[:user].should == user

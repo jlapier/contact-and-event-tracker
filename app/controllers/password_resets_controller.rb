@@ -8,7 +8,7 @@ class PasswordResetsController < ApplicationController
   
   private
     def load_user
-      @user = User.find_using_perishable_token(params[:id])
+      @user = User.find_using_perishable_token(params[:id], 24.hours)
     end
     def restart(msg='Please submit your email to reset your password.')
       session[:password_reset_submitted] = nil
