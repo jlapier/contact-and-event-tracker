@@ -30,7 +30,7 @@
                           has_authorization?(:delete, :contacts) ? 
                           '1' : false %>
       <% if colspan %>
-        <th <%= colspan == '1' ? 'colspan="2" ' : ' ' %>style="border: 1px #CCF dashed; text-align:center">Manage</th>
+        <th <%= colspan != '1' ? 'colspan="2" ' : ' ' %>style="border: 1px #CCF dashed; text-align:center">Manage</th>
       <% end %>
     </tr>
   </thead>
