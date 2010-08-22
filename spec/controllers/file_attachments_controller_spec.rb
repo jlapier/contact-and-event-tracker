@@ -254,16 +254,20 @@ describe FileAttachmentsController do
   describe "when visiting anonymously" do
     
     before(:each) do
-      controller.stub!(:current_user).and_return(mock_admin_user)
+      controller.stub!(:current_user).and_return(nil)
       FileAttachment.stub(:find).and_return(mock_file_attachment)
       mock_file_attachment.stub(:full_path).and_return(File.join(RAILS_ROOT, 'spec', 'fixtures', 'somefile.txt'))
     end
     
-    it "file attachments should be visible to anonymous users"
-    
-    it "sends files to clients" do
+    it "files can be downloaded" do
       controller.should_receive(:send_data)
       get :download, :id => mock_file_attachment.id
+    end
+    
+    it "files cannot be uploaded" do
+      FileAttachment.should_not_receive(:new)
+      post :create, :file_attachment => {}
+      response.should redirect_to new_user_session_path
     end
     
   end
