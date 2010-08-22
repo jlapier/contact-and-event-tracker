@@ -58,13 +58,19 @@ describe ContactsController do
     describe "POST create" do
       describe "with valid params" do
         it "assigns a newly created contact as @contact" do
-          Contact.stub!(:new).with({'these' => 'params'}).and_return(mock_contact(:save => true))
+          Contact.stub!(:new).with({'these' => 'params'}).and_return(mock_contact(:save => true, :modified_by_user= => nil))
           post :create, :contact => {:these => 'params'}
           assigns[:contact].should equal(mock_contact)
         end
+        
+        it "assigns the current_user to modified_by_user" do
+          Contact.stub(:new).with({'these' => 'params'}).and_return(mock_contact(:save => true))
+          mock_contact.should_receive(:modified_by_user=)
+          post :create, :contact => {:these => 'params'}
+        end
 
         it "redirects to the created contact" do
-          Contact.stub!(:new).and_return(mock_contact(:save => true))
+          Contact.stub!(:new).and_return(mock_contact(:save => true, :modified_by_user= => nil))
           post :create, :contact => {}
           response.should redirect_to(contact_url(mock_contact))
         end
@@ -103,9 +109,16 @@ describe ContactsController do
           put :update, :id => "1"
           assigns[:contact].should equal(mock_contact)
         end
+        
+        it "assigns the current_user to modified_by_user" do
+          mock_contact.stub(:update_attributes).and_return(true)
+          mock_contact.should_receive(:modified_by_user=)
+          put :update, :id => "1"
+        end
 
         it "redirects to the contact" do
           mock_contact.stub(:update_attributes).and_return(true)
+          mock_contact.stub(:modified_by_user=)
           put :update, :id => mock_contact.id
           response.should redirect_to(contact_url(mock_contact))
         end
@@ -219,6 +232,7 @@ describe ContactsController do
 
         it "redirects to the contact" do
           mock_contact.stub(:update_attributes => true)
+          mock_contact.stub(:modified_by_user=)
           Contact.stub(:find).and_return(mock_contact)
           put :update, :id => mock_contact.id
           response.should redirect_to(contact_url(mock_contact))

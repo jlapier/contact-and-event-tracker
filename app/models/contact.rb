@@ -4,6 +4,7 @@ class Contact < ActiveRecord::Base
   has_and_belongs_to_many :contact_groups, :order => 'name'
   has_many :registrations, :class_name => 'Attendee', :conditions => {:revisable_is_current => true}
   has_many :events, :through => :registrations, :order => ["start_on"], :conditions => {:revisable_is_current => true}
+  belongs_to :modified_by_user, :class_name => 'User'
 
   searchable_by :first_name, :last_name, :agency, :division, :state, :email
   
