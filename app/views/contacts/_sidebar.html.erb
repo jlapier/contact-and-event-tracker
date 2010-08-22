@@ -18,6 +18,9 @@
       </div>
     </div>
     
+    <% if action_name == 'show' %>
+      <%= render :partial => 'revision_menu' %>
+    <% end %>    
   </div>
   
   <% if action_name != 'new' && has_authorization?(:write, :contacts) %>

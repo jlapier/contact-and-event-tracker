@@ -10,28 +10,6 @@ describe Contact do
   it "should create a new instance given valid attributes" do
     Contact.create!(@valid_attributes)
   end
-
-  describe "distinct attribute finders" do
-    before(:each) do
-      Contact.create! :first_name => "blanky"
-      Contact.create! :state => "NY", :agency => "",                :division => "HR"
-      Contact.create! :state => "NY", :agency => "Dept of Ed",      :division => ""
-      Contact.create! :state => "OR", :agency => "Dept of Ed",      :division => "Spec Ed"
-      Contact.create! :state => "",   :agency => "Dept of Spec Ed", :division => "HR"
-    end
-
-    it "should find states" do
-      Contact.existing_states.should == ["NY", "OR"]
-    end
-
-    it "should find agencies" do
-      Contact.existing_agencies.should == ["Dept of Ed", "Dept of Spec Ed"]
-    end
-
-    it "should find divisions" do
-      Contact.existing_divisions.should == ["HR", "Spec Ed"]
-    end
-  end
   
   it "should create a new version when an attribute is updated" do
     contact = Contact.create!(@valid_attributes)

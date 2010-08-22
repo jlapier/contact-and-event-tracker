@@ -47,10 +47,10 @@ class ContactsController < ApplicationController
 
   def create
     @contact = Contact.new params[:contact]
+    @contact.modified_by_user = current_user
     
     respond_to do |format|
       if @contact.save
-        @contact.modified_by_user = current_user
         flash[:notice] = "Contact <em>#{@contact.name}</em> created."
         format.html { redirect_to(@contact) }
         format.xml  { render :xml => @contact, :status => :created, :location => @contact }
@@ -65,9 +65,9 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
 
     if is_authorized? || (@contact.user and @contact.user == current_user)
+      @contact.modified_by_user = current_user
       respond_to do |format|
         if @contact.update_attributes(params[:contact])
-          @contact.modified_by_user = current_user
           flash[:notice] = "Contact <em>#{@contact.name}</em> updated."
           format.html { redirect_to(@contact) }
           format.xml  { head :ok }
