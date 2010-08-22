@@ -40,4 +40,10 @@ describe Contact do
     contact.save
     contact.revision_number.should == 1
   end
+  
+  it "belongs to a user who has modified it" do
+    contact = Contact.new
+    contact.should respond_to(:modified_by_user)
+    contact.should respond_to(:build_modified_by_user)
+  end
 end
