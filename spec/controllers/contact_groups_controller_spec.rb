@@ -20,7 +20,13 @@ describe ContactGroupsController do
 
   before do
     controller.stub!(:current_user_session).and_return(mock_model(UserSession, {
-      :user => mock_user
+      :user => mock_user({
+        :contact => mock_model(Contact, {
+          :first_name => 'First',
+          :last_name => 'Last',
+          :email => 'test@test.com'
+      })
+    })
     }))
   end
 

@@ -3,11 +3,27 @@ require 'spec_helper'
 describe ContactsController do
 
   def mock_admin_user(stubs={})
-    @mock_admin_user ||= mock_model(User, stubs.merge({:role => 'admin', :name_or_contact_name => 'john'}))
+    @mock_admin_user ||= mock_model(User, stubs.merge({
+      :role => 'admin',
+      :name_or_contact_name => 'john',
+      :contact => mock_model(Contact, {
+        :first_name => 'First',
+        :last_name => 'Last',
+        :email => 'test@test.com'
+      })
+    }))
   end
 
   def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs.merge({:role => 'general', :name_or_contact_name => 'joe'}))
+    @mock_user ||= mock_model(User, stubs.merge({
+      :role => 'general',
+      :name_or_contact_name => 'joe',
+      :contact => mock_model(Contact, {
+        :first_name => 'First',
+        :last_name => 'Last',
+        :email => 'test@test.com'
+      })
+    }))
   end
 
   def mock_contact(stubs={})
@@ -67,6 +83,12 @@ describe ContactsController do
           post :create, :contact => {:these => 'params'}
           assigns[:contact].should equal(mock_contact)
         end
+        
+        it "assigns the current_user to modified_by_user" do
+          Contact.stub(:new).with({'these' => 'params'}).and_return(mock_contact(:save => true))
+          mock_contact.should_receive(:modified_by_user=)
+          post :create, :contact => {:these => 'params'}
+        end
 
         it "redirects to the created contact" do
           Contact.stub!(:new).and_return(mock_contact(:save => true, :modified_by_user= => nil))
@@ -113,6 +135,12 @@ describe ContactsController do
           Contact.stub!(:find).and_return(mock_contact(:update_attributes => true))
           put :update, :id => "1"
           assigns[:contact].should equal(mock_contact)
+        end
+        
+        it "assigns the current_user to modified_by_user" do
+          mock_contact.stub(:update_attributes).and_return(true)
+          mock_contact.should_receive(:modified_by_user=)
+          put :update, :id => "1"
         end
 
         it "redirects to the contact" do
@@ -161,7 +189,15 @@ describe ContactsController do
   
   describe "when logged in as regular user" do
     before do
-      @user = mock_model(User, {:role => 'asdf', :name_or_contact_name => 'general joe'})
+      @user = mock_model(User, {
+        :role => 'asdf',
+        :name_or_contact_name => 'general joe',
+        :contact => mock_model(Contact, {
+          :first_name => 'First',
+          :last_name => 'Last',
+          :email => 'test@test.com'
+        })
+      })
       controller.stub(:current_user).and_return(@user)
       controller.stub(:current_user_session).and_return(mock_model(UserSession, {
         :user => @user

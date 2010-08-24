@@ -3,7 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe SiteSettingsController do
 
   def mock_admin_user(stubs={})
-    @mock_admin_user ||= mock_model(User, stubs.merge({:is_admin? => true}))
+    @mock_admin_user ||= mock_model(User, stubs.merge({
+      :is_admin? => true,
+      :contact => mock_model(Contact, {
+        :first_name => 'First',
+        :last_name => 'Last',
+        :email => 'test@test.com'
+      })
+    }))
   end
 
   describe "when logged in as admin" do
