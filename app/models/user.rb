@@ -85,7 +85,9 @@ class User < ActiveRecord::Base
 
   private
     def create_contact
-      Contact.create! :user => self
+      contact_params = {:user => self}
+      contact_params.merge!({:email => email}) unless email.blank?
+      Contact.create!(contact_params)
     end
   
     def make_admin_if_first_user

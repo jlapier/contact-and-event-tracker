@@ -16,6 +16,11 @@ describe User do
     user.contact.should_not be_nil
   end
   
+  it "should copy the user email to the contact, if possible" do
+    user_with_email = User.create(@valid_attributes)
+    user_with_email.email.should eql user_with_email.contact.email
+  end
+  
   it "should know its name or its contact name or say unknown" do
     user = User.create(@valid_attributes)
     user.name_or_contact_name.should == 'unknown'
