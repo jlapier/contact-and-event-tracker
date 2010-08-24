@@ -19,7 +19,7 @@
 
   <p>
     current version modified by 
-    <%= @contact.modified_by_user ? @contact.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
+    <%= @contact.modified_by_user && !@contact.modified_by_user.email.blank? ? @contact.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
     on <%= @contact.updated_at %>
   </p>
 </div>

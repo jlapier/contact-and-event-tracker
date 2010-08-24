@@ -19,7 +19,7 @@
 
   <p>
     current version modified by 
-    <%= @event.modified_by_user ? @event.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
+    <%= @event.modified_by_user && !@contact.modified_by_user.email.blank? ? @event.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
     on <%= @event.updated_at.strftime "%a, %b %d %Y (%I:%M%p %Z)" %>
   </p>
 </div>
