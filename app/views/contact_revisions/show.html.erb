@@ -6,7 +6,7 @@
 
 <% content_for(:sidebar) do %>
 <p>
-  Modified by <%= @contact_revision.modified_by_user ? @contact_revision.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
+  Modified by <%= @contact_revision.modified_by_user && !@contact_revision.modified_by_user.email.blank? ? @contact_revision.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
   on <%= @contact_revision.revisable_current_at.strftime "%a, %b %d %Y (%I:%M%p %Z)" %>
 </p>
 <% end %>
