@@ -1,0 +1,25 @@
+<div>
+  <h6>Contact Revisions (<%= @contact.revisable_number %>)</h6>
+
+<% if @contact.revisions.empty? %>
+  <p><em>This is the first version of this contact.</em></p>
+<% else %>
+  <% form_tag contact_revisions_path, :method => :get do %>
+    <select name="id">
+      <% @contact.revisions.each do |evr| %>
+        <option value="<%= evr.id %>">
+          Version <%= evr.revisable_number %>
+          (<%= evr.revisable_current_at.strftime "%m/%d/%y" %>)
+        </option>
+      <% end %>
+    </select>
+  <%= submit_tag "go"  %>
+  <% end %>
+<% end %>
+
+  <p>
+    current version modified by 
+    <%= @contact.modified_by_user && !@contact.modified_by_user.email.blank? ? @contact.modified_by_user.email[0..-10] + '...' : '<em>unknown</em>' %>
+    on <%= @contact.updated_at %>
+  </p>
+</div>

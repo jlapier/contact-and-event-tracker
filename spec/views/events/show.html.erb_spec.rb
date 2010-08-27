@@ -3,8 +3,9 @@ require 'spec_helper'
 describe "/events/show.html.erb" do
   include EventsHelper
   before(:each) do
-    template.stub(:is_admin?).and_return true
-    template.stub(:logged_in?).and_return true
+    template.stub(:load_and_authorize_current_user?).and_return(true)
+    template.stub(:has_authorization?).and_return(true)
+    template.stub(:logged_in?).and_return(true)
     assigns[:event] = @event = stub_model(Event,
       :name => "value for name",
       :event_type => "value for event_type",

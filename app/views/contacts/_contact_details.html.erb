@@ -1,0 +1,55 @@
+<h2><%= contact.name %></h2>
+
+<ul class="contact_attributes">
+  <% Contact.string_attributes.each do |att| -%>
+    <% unless contact[att].blank? || (!current_user and att.to_s =~ /(city|zip)/i) -%>
+      <li>
+        <strong><%= att.to_s.humanize %>:</strong>
+        <%= contact[att] %>
+      </li>
+    <% end -%>
+  <% end -%>
+
+  <% Contact.link_attributes.each do |att| -%>
+    <% unless contact[att].blank? -%>
+      <li>
+        <strong><%= att.to_s.humanize %>:</strong>
+        <% if contact[att] =~ /@/ -%>
+          <%= mail_to contact[att], contact[att], :encode => "javascript" %>
+        <% else -%>
+          <%= link_to contact[att].urlify, contact[att].urlify, :target => "_blank" %>
+        <% end -%>
+      </li>
+    <% end -%>
+  <% end -%>
+
+  <% Contact.text_attributes.each do |att| -%>
+    <% unless contact[att].blank? -%>
+      <li style="clear:both;">
+        <strong style="float:left"><%= att.to_s.humanize %>:</strong>
+        <div style="float:left"><%= textilize_without_paragraph contact[att] %></div>
+      </li>
+    <% end -%>
+  <% end -%>
+
+  <% if is_admin? %>
+    <% Contact.datetime_attributes.each do |att| -%>
+      <% unless contact[att].blank? -%>
+        <li>
+          <strong><%= att.to_s.gsub(/(_at|_on)/, "").humanize %>:</strong>
+          <%= contact[att].strftime("%m/%d/%Y") %>
+        </li>
+      <% end -%>
+    <% end -%>
+  <% end %>
+
+  <% if controller_name == 'contacts' %>
+  <% unless contact.contact_groups.empty? %>
+    <li><strong>Groups:</strong> <%= contact.contact_groups.map(&:name).join(', ') %></li>
+  <% end %>
+
+  <% unless contact.events.empty? %>
+    <li><strong>Attended events:</strong> <%= contact.events.map(&:to_s).join(', ') %></li>
+  <% end %>
+  <% end %>
+</ul>

@@ -7,7 +7,14 @@ describe EventsController do
   end
 
   def mock_admin_user(stubs={})
-    @mock_admin_user ||= mock_model(User, stubs.merge({:role => 'admin'}))
+    @mock_admin_user ||= mock_model(User, stubs.merge({
+      :role => 'admin',
+      :contact => mock_model(Contact, {
+        :first_name => 'First',
+        :last_name => 'Last',
+        :email => 'test@test.com'
+      })
+    }))
   end
 
   def mock_user(stubs={})

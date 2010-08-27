@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :logged_in?, :is_admin?, :is_authorized?, :has_authorization?, :current_user_owns_contact?
 
   before_filter :get_layout
+  before_filter :require_current_user_contact_name_email
   after_filter :store_location, :except => [:destroy, :create, :update]
 
   private
@@ -61,6 +62,34 @@ class ApplicationController < ActionController::Base
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.user
+    end
+    
+    def require_current_user_contact_name_email
+      case controller_name
+      when 'user_sessions'
+        return true
+      when 'accounts'
+        unless action_name =~ /(new|create)/
+          check_current_user_contact_name_email
+        end
+      when 'contacts'
+        unless action_name =~ /(edit|update)/
+          check_current_user_contact_name_email
+        end
+      else
+        check_current_user_contact_name_email
+      end
+    end
+    
+    def check_current_user_contact_name_email
+      if logged_in? && (current_user.contact.nil? || 
+        current_user.contact.first_name.blank? ||
+        current_user.contact.last_name.blank? ||
+        current_user.contact.email.blank?)
+        flash[:notice] = "Please provide your First Name, Last Name and E-mail."
+        redirect_to(edit_contact_path(current_user.contact))
+        return false
+      end
     end
 
     def logged_in?
